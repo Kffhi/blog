@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2019/05/15/kujiale/" itemprop="url">20190515185051</a></h1>
+                <a class="post-title-link" href="/blog/2019/05/15/kujiale/" itemprop="url">酷家乐面试总结</a></h1>
         
 
         <div class="post-meta">
@@ -293,6 +293,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -323,7 +345,140 @@
       
         
           
-            
+            <h3 id="CSS定位方式"><a href="#CSS定位方式" class="headerlink" title="CSS定位方式"></a>CSS定位方式</h3><hr>
+<p>元素按照其在 HTML 中的位置顺序决定排布的过程。HTML的布局机制就是用文档流模型的，即块元素（block）独占一行，内联元素（inline），不独占一行。</p>
+<p>只要不是<strong>float和绝对定位方式布局</strong>的，都在文档流里面。</p>
+<p>一般使用margin是用来隔开元素与元素的间距；padding是用来隔开元素与内容的间隔。margin用于布局分开元素使元素与元素互不相干；padding用于元素与内容之间的间隔，让内容（文字）与（包裹）元素之间有一段“距离”。</p>
+<p>position属性</p>
+<ul>
+<li>static，默认值。位置设置为static的元素，它始终会处于文档流给予的位置。</li>
+<li>inherit，规定应该从父元素继承 position 属性的值。但是任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 “inherit”。</li>
+<li>fixed，不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置<br><strong>当元素祖先的 transform  属性非 none 时，容器由视口改为该祖先。</strong></li>
+<li>absolute，生成绝对定位的元素，<strong>相对于距该元素最近的已定位的祖先元素</strong>进行定位。此元素的位置可通过 “left”、”top”、”right” 以及 “bottom” 属性来规定。</li>
+<li>relative，生成相对定位的元素，<strong>相对于该元素在文档中的初始位置进行定位</strong>。通过 “left”、”top”、”right” 以及 “bottom” 属性来设置此元素相对于自身位置的偏移。</li>
+</ul>
+<p><strong>相对定位的参照物是它本身</strong></p>
+<p>绝对定位与相对定位的一大不同之处就是，当我们把一个元素设置成绝对定位，那么<strong>这个元素将会脱离文档流</strong>，其他元素就会认为这个元素不存在于文档流中而填充它原来的位置。绝对定位元素根据它的参照物移动自己的位置，而参照物则需要根据它祖先元素的定位设置来确定。</p>
+<h3 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h3><hr>
+<p>解析HTML生成<strong>DOM树</strong>。<br>解析CSS生成<strong>CSSOM规则树</strong>。<br>将DOM树与CSSOM规则树合并在一起生成<strong>渲染树</strong>。<br>遍历渲染树开始布局，计算每个节点的位置大小信息。<br>将渲染树每个节点绘制到屏幕。</p>
+<p>当浏览器遇到一个 script 标记时，DOM 构建将暂停，直至脚本完成执行，然后继续构建DOM。<strong>每次去执行JavaScript脚本都会严重地阻塞DOM树的构建</strong>，如果JavaScript脚本还操作了CSSOM，而正好这个CSSOM还没有下载和构建，浏览器甚至会延迟脚本执行和构建DOM，直至完成其CSSOM的下载和构建。</p>
+<p>所以，script 标签的位置很重要。实际使用时，可以遵循下面两个原则：</p>
+<p><strong>CSS 优先：引入顺序上，CSS 资源先于 JavaScript 资源。</strong><br><strong>JS置后：我们通常把JS代码放到页面底部，且JavaScript 应尽量少影响 DOM 的构建。</strong></p>
+<p><strong>渲染树构建完成后，每个节点都是可见节点并且都含有其内容和对应规则的样式。</strong>这也是渲染树与DOM树的最大区别所在。渲染树是用于显示，那些不可见的元素当然就不会在这棵树中出现了，譬如。除此之外，display等于none的也不会被显示在这棵树里头，但是visibility等于hidden的元素是会显示在这棵树里头的。</p>
+<p><strong>replaint</strong>：屏幕的一部分重画，不影响整体布局，比如某个CSS的背景色变了，但元素的几何尺寸和位置不变。</p>
+<p><strong>reflow</strong>：意味着元件的几何尺寸变了，我们需要重新验证并计算渲染树。是渲染树的一部分或全部发生了变化。这就是Reflow，或是Layout。</p>
+<p>display:none 会触发 reflow，visibility: hidden属性并不算是不可见属性，它的语义是隐藏元素，但元素仍然占据着布局空间，它会被渲染成一个空框，所以visibility:hidden 只会触发 repaint，因为没有发生位置变化。</p>
+<p>有些情况下，比如修改了元素的样式，浏览器并不会立刻 reflow 或 repaint 一次，而是会把这样的操作积攒一批，然后做一次 reflow，这又叫异步 reflow 或增量异步 reflow。<br>有些情况下，比如 resize 窗口，改变了页面默认的字体等。对于这些操作，浏览器会马上进行 reflow。</p>
+<h3 id="z-index层级"><a href="#z-index层级" class="headerlink" title="z-index层级"></a>z-index层级</h3><hr>
+<p>属性</p>
+<ul>
+<li>auto    元素添加定位属性(不包括static)后，z-index默认是auto，在层叠水平上相当于z-index为0，但是不会产生层叠上下文，但是会比普通元素没有z-index的层级要高。</li>
+<li>数值    支持正负值</li>
+<li>inherit    继承父元素的值</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5075296-1a793bccd52e6e95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/661/format/webp" alt></p>
+<h3 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h3><hr>
+<p>盒模型分为IE盒模型和W3C盒模型</p>
+<p>当对一个文档进行布局（lay out）的时候，浏览器的渲染引擎会根据标准之一的 <strong>CSS 基础框盒模型</strong>（<strong>CSS basic box model</strong>），将所有元素表示为一个个矩形的盒子（box）。CSS 决定这些盒子的大小、位置以及属性（例如颜色、背景、边框尺寸…）</p>
+<p>W3C 标准盒模型：属性width,height只包含内容content，不包含border和padding</p>
+<p>IE盒模型：属性width,height包含border和padding，指的是content+padding+border</p>
+<p>css的盒模型由content(内容)、padding(内边距)、border(边框)、margin(外边距)组成。但盒子的大小由content+padding+border这几部分决定，<strong>把margin算进去的那是盒子占据的位置，而不是盒子的大小</strong></p>
+<h3 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h3><hr>
+<p><strong>部分新选择器</strong>：</p>
+<ul>
+<li>E:first-of-type: 选择属于其父元素的首个E元素的每个E元素。</li>
+<li>E:last-of-type: 选择属于其父元素的最后E元素的每个E元素。</li>
+<li>E:only-of-type: 选择属于其父元素唯一的E元素的每个E元素。</li>
+<li>E:only-child: 选择属于其父元素的唯一子元素的每个E元素。</li>
+<li>E:nth-child(n): 选择属于其父元素的第n个子元素的每个E元素。</li>
+</ul>
+<p><strong>Transtion属性</strong></p>
+<p>在当元素从一种样式变换为另一种样式时为元素添加效果，而不用使用Flash动画或JavaScript</p>
+<ol>
+<li>transition-property: 规定应用过渡的CSS属性的名称。</li>
+<li>transition-duration: 规定完成过渡效果需要多长时间。</li>
+<li>transition-delay: 规定过渡效果何时开始，默认是0。</li>
+<li>transition-timing-function: 规定过渡效果的时间曲线，默认是”ease”，还有linear、ease-in、ease-out、ease-in-out和cubic-bezier等过渡类型。</li>
+<li>transition: 简写属性，用于在一个属性中设置四个过渡属性。</li>
+</ol>
+<p><strong>Transform</strong></p>
+<p>用来向元素应用各种2D和3D转换，该属性允许我们对元素进行旋转、缩放、移动或倾斜等操作</p>
+<p><strong>Animation</strong></p>
+<p><strong>边框</strong>（border-radius、box-shadow和border-image）<strong>背景</strong>（background-clip、background-origin、background-size和background-break）<strong>文字效果</strong>（word-wrap、text-overflow、text-shadow和text-decoration）<strong>渐变</strong>（linear-gradient(线性渐变)和radial-gradient(径向渐变)）</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><hr>
+<p>每个构造函数(constructor)都有一个原型对象(prototype),原型对象都包含一个指向构造函数的指针,而实例(instance)都包含一个指向原型对象的内部指针.</p>
+<p>如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后才在该对象的原型(instance.prototype)里去找这个属性.</p>
+<blockquote>
+<p>constructor1.prototype = instance2</p>
+</blockquote>
+<p>如果试图引用constructor1构造的实例instance1的某个属性p1:</p>
+<p>1).首先会在instance1内部属性中找一遍;</p>
+<p>2).接着会在instance1.<strong>proto</strong>(constructor1.prototype)中找一遍,而constructor1.prototype 实际上是instance2, 也就是说在instance2中寻找该属性p1;</p>
+<p>3).如果instance2中还是没有,此时程序不会灰心,它会继续在instance2.<strong>proto</strong>(constructor2.prototype)中寻找…直至Object的原型对象</p>
+<blockquote>
+<p>搜索轨迹: instance1–&gt; instance2 –&gt; constructor2.prototype…–&gt;Object.prototype</p>
+</blockquote>
+<p>这种搜索的轨迹,形似一条长链, 又因prototype在这个游戏规则中充当链接的作用,于是我们把这种实例与原型的链条称作 <strong>原型链</strong> .</p>
+<p><strong>问题一:</strong> 当原型链中包含引用类型值的原型时,该引用类型值会被所有实例共享;</p>
+<p><strong>问题二:</strong> 在创建子类型(例如创建Son的实例)时,不能向超类型(例如Father)的构造函数中传递参数.</p>
+<p>为解决原型链中上述两个问题, 我们开始使用一种叫做<strong>借用构造函数</strong>(constructor stealing)的技术(也叫经典继承).</p>
+<blockquote>
+<p>基本思想:即在子类型构造函数的内部调用超类型构造函数.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Father.call(<span class="keyword">this</span>);<span class="comment">//继承了Father,且向父类型传递参数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> Son();</span><br><span class="line">instance1.colors.push(<span class="string">"black"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(instance1.colors);<span class="comment">//"red,blue,green,black"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> Son();</span><br><span class="line"><span class="built_in">console</span>.log(instance2.colors);<span class="comment">//"red,blue,green" 可见引用类型值是独立的</span></span><br></pre></td></tr></table></figure>
+<p>太难咯<a href="https://juejin.im/post/58f94c9bb123db411953691b#heading-10" target="_blank" rel="noopener">这里有链接</a></p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><hr>
+<p>变量的作用域无非就是两种：全局变量和局部变量。</p>
+<p>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。另一方面，在函数外部自然无法读取函数内的局部变量。</p>
+<p><strong>注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</strong></p>
+<p>出于种种原因，我们有时候需要得到函数内的局部变量。但是，前面已经说过了，正常情况下，这是办不到的，只有通过变通方法才能实现。<strong>那就是在函数的内部，再定义一个函数。</strong></p>
+<p><strong>闭包就是能够读取其他函数内部变量的函数。</strong>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”<strong>定义在一个函数内部的函数</strong>“。所以，在本质上，<strong>闭包就是将函数内部和函数外部连接起来的一座桥梁。</strong></p>
+<p>最大用处有两个，<strong>一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</strong></p>
+<p>注意点：</p>
+<p>1）由于闭包会使得函数中的变量都被保存在内存中，<strong>内存消耗很大</strong>，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p>
+<p>2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p>
+<h3 id="apply（）和call（）"><a href="#apply（）和call（）" class="headerlink" title="apply（）和call（）"></a>apply（）和call（）</h3><hr>
+<p><strong>apply( )</strong></p>
+<p>apply 方法传入两个参数：一个是作为函数上下文的对象，另外一个是作为函数参数所组成的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name : <span class="string">'linxin'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">firstName, lastName</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(firstName + <span class="string">' '</span> + <span class="keyword">this</span>.name + <span class="string">' '</span> + lastName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.apply(obj, [<span class="string">'A'</span>, <span class="string">'B'</span>]);    <span class="comment">// A linxin B</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，obj 是作为函数上下文的对象，函数 func 中 this 指向了 obj 这个对象。参数 A 和 B 是放在数组中传入 func 函数，分别对应 func 参数的列表元素。</p>
+<h3 id="call"><a href="#call" class="headerlink" title="call( )"></a><strong>call( )</strong></h3><p>call 方法第一个参数也是作为函数上下文的对象，但是后面传入的是一个参数列表，而不是单个数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'linxin'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">firstName, lastName</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(firstName + <span class="string">' '</span> + <span class="keyword">this</span>.name + <span class="string">' '</span> + lastName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.call(obj, <span class="string">'C'</span>, <span class="string">'D'</span>);       <span class="comment">// C linxin D</span></span><br></pre></td></tr></table></figure>
+<p>对比 apply 我们可以看到区别，C 和 D 是作为单独的参数传给 func 函数，而不是放到数组中。</p>
+<p>对于什么时候该用什么方法，其实不用纠结。如果你的参数本来就存在一个数组中，那自然就用 apply，如果参数比较散乱相互之间没什么关联，就用 call。</p>
+<p><strong>apply（）和call（）的用法</strong></p>
+<ul>
+<li><p>改变this指向</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'linxin'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.call(obj);       <span class="comment">// linxin</span></span><br></pre></td></tr></table></figure>
+<p>我们知道，call 方法的第一个参数是作为函数上下文的对象，这里把 obj 作为参数传给了 func，此时函数里的 this 便指向了 obj 对象。此处 func 函数里其实相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function func() &#123;</span><br><span class="line">    console.log(obj.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>借鉴别的对象的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var Person1  = function () &#123;</span><br><span class="line">    this.name = &apos;linxin&apos;;</span><br><span class="line">&#125;</span><br><span class="line">var Person2 = function () &#123;</span><br><span class="line">    this.getname = function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">    Person1.call(this);</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person2();</span><br><span class="line">person.getname();       // linxin</span><br></pre></td></tr></table></figure>
+<p>从上面我们看到，Person2 实例化出来的对象 person 通过 getname 方法拿到了 Person1 中的 name。因为在 Person2 中，Person1.call(this) 的作用就是使用 Person1 对象代替 this 对象，那么 Person2 就有了 Person1 中的所有属性和方法了，相当于 Person2 继承了 Person1 的属性和方法。</p>
+</li>
+<li><p>调用函数</p>
+<p>apply、call 方法都会使函数立即执行，因此它们也可以用来调用函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'linxin'</span>);</span><br><span class="line">&#125;</span><br><span class="line">func.call();            <span class="comment">// linxin</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="从输入URL到页面加载"><a href="#从输入URL到页面加载" class="headerlink" title="从输入URL到页面加载"></a>从输入URL到页面加载</h3><hr>
+<ol>
+<li>DNS解析</li>
+<li>TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束</li>
+</ol>
+<p><a href="http://blog.jobbole.com/84870/" target="_blank" rel="noopener">从回车键电流回路闭合讲起</a></p>
+<h3 id="Vue一些难点"><a href="#Vue一些难点" class="headerlink" title="Vue一些难点"></a>Vue一些难点</h3><hr>
+<p><a href="https://segmentfault.com/a/1190000006599500#articleHeader5" target="_blank" rel="noopener">双向绑定</a></p>
+<p><a href="chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=vue%20%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%20-%20%E5%89%8D%E7%AB%AF%20-%20%E6%8E%98%E9%87%91&amp;pos=500&amp;uri=https://juejin.im/entry/59116fa6a0bb9f0058aaaa4c" target="_blank" rel="noopener">这个也是</a></p>
+<p><a href="chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html#ttl=Vue%E6%BA%90%E7%A0%81%E8%AF%A6%E8%A7%A3%E4%B9%8Bv-for%20%E4%B8%8E%20Vuex%20%C2%B7%20Issue%20%237%20%C2%B7%20Ma63d%2Fvue-analysis&amp;pos=100&amp;uri=https://github.com/Ma63d/vue-analysis/issues/7" target="_blank" rel="noopener">以及v-for的原理</a></p>
+<p><a href="https://segmentfault.com/a/1190000008291645#articleHeader4" target="_blank" rel="noopener">v-dom</a></p>
+<p><a href="https://juejin.im/post/5ad6182df265da23906c8627" target="_blank" rel="noopener">diff算法</a></p>
+
           
         
       
@@ -729,7 +884,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/blog/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -740,7 +895,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
