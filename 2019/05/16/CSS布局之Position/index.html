@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="CSS布局（二）——Position">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-16T14:20:01.970Z">
+<meta property="og:updated_time" content="2019-05-16T14:25:55.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS布局之Position">
 <meta name="twitter:description" content="CSS布局（二）——Position">
@@ -355,13 +355,13 @@
       
         <p>CSS布局（二）——Position</p>
 <a id="more"></a>
-<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>默认值。位置设置为<code>static</code>的元素，它始终会处于文档流给予的位置</p>
-<h4 id="inherit"><a href="#inherit" class="headerlink" title="inherit"></a>inherit</h4><p>规定应该从父元素继承 <code>position</code> 属性的值。但是任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 “<code>inherit</code>”</p>
-<h4 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h4><p>不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置<br>当元素祖先的 <code>transform</code>  属性非 <code>none</code> 时，容器由视口改为该祖先。</p>
-<h4 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h4><p>生成绝对定位的元素，相对于<strong>距该元素最近的已定位的祖先元素进行定位</strong>。此元素的位置可通过 “<code>left</code>”、”<code>top</code>”、”<code>right</code>” 以及 “<code>bottom</code>” 属性来规定</p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>默认值。位置设置为<code>static</code>的元素，它始终会处于文档流给予的位置</p>
+<h3 id="inherit"><a href="#inherit" class="headerlink" title="inherit"></a>inherit</h3><p>规定应该从父元素继承 <code>position</code> 属性的值。但是任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 “<code>inherit</code>”</p>
+<h3 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h3><p>不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置<br>当元素祖先的 <code>transform</code>  属性非 <code>none</code> 时，容器由视口改为该祖先。</p>
+<h3 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h3><p>生成绝对定位的元素，相对于<strong>距该元素最近的已定位的祖先元素进行定位</strong>。此元素的位置可通过 “<code>left</code>”、”<code>top</code>”、”<code>right</code>” 以及 “<code>bottom</code>” 属性来规定</p>
 <p>绝对定位与相对定位的一大不同之处就是，当我们把一个元素设置成绝对定位，那么<strong>这个元素将会脱离文档流</strong>，其他元素就会认为这个元素不存在于文档流中而填充它原来的位置。绝对定位元素根据它的参照物移动自己的位置，而参照物则需要根据它祖先元素的定位设置来确定</p>
-<h4 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h4><p>生成相对定位的元素，<strong>相对于该元素在文档中的初始位置进行定位</strong>。通过 “<code>left</code>”、”<code>top</code>”、”<code>right</code>” 以及 “<code>bottom</code>” 属性来设置此元素相对于自身位置的偏移。相对定位的参照物是它本身</p>
-<h4 id="stickily"><a href="#stickily" class="headerlink" title="stickily"></a>stickily</h4><p>粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位。例如：</p>
+<h3 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h3><p>生成相对定位的元素，<strong>相对于该元素在文档中的初始位置进行定位</strong>。通过 “<code>left</code>”、”<code>top</code>”、”<code>right</code>” 以及 “<code>bottom</code>” 属性来设置此元素相对于自身位置的偏移。相对定位的参照物是它本身</p>
+<h3 id="stickily"><a href="#stickily" class="headerlink" title="stickily"></a>stickily</h3><p>粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位。例如：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#one</span> &#123; <span class="attribute">position</span>: sticky; <span class="attribute">top</span>: <span class="number">10px</span>; &#125;</span><br></pre></td></tr></table></figure>
 <p>在 viewport 视口滚动到元素 <code>top</code> 距离小于 <code>10px</code> 之前，元素为相对定位。之后，元素将固定在与顶部距离 <code>10px</code> 的位置，直到 <code>viewport</code> 视口回滚到阈值以下</p>
 <p>粘性定位常用于定位字母列表的头部元素。标示 B 部分开始的头部元素在滚动 A 部分时，始终处于 A 的下方。而在开始滚动 B 部分时，B 的头部会固定在屏幕顶部，直到所有 B 的项均完成滚动后，才被 C 的头部替代</p>
@@ -547,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#static"><span class="nav-number">1.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inherit"><span class="nav-number">2.</span> <span class="nav-text">inherit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fixed"><span class="nav-number">3.</span> <span class="nav-text">fixed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#absolute"><span class="nav-number">4.</span> <span class="nav-text">absolute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#relative"><span class="nav-number">5.</span> <span class="nav-text">relative</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stickily"><span class="nav-number">6.</span> <span class="nav-text">stickily</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number"></span> <span class="nav-text">参考文章</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#static"><span class="nav-number">1.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inherit"><span class="nav-number">2.</span> <span class="nav-text">inherit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fixed"><span class="nav-number">3.</span> <span class="nav-text">fixed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#absolute"><span class="nav-number">4.</span> <span class="nav-text">absolute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relative"><span class="nav-number">5.</span> <span class="nav-text">relative</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stickily"><span class="nav-number">6.</span> <span class="nav-text">stickily</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">7.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>
