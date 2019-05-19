@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端,CSS,定位,布局,浮动,层叠,">
+  <meta name="keywords" content="前端,CSS,布局,浮动,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="CSS布局（四）——浮动">
-<meta name="keywords" content="前端,CSS,定位,布局,浮动,层叠">
+<meta name="keywords" content="前端,CSS,布局,浮动">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS布局之浮动">
 <meta property="og:url" content="https://www.asgardusk.com/blog/2019/05/16/CSS布局之浮动/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="CSS布局（四）——浮动">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-18T15:18:02.147Z">
+<meta property="og:updated_time" content="2019-05-19T08:01:43.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS布局之浮动">
 <meta name="twitter:description" content="CSS布局（四）——浮动">
@@ -364,10 +364,38 @@
 <p>在CSS，所有的高度都是由两个模型产生的：</p>
 <ul>
 <li>box盒模型    对应CSS为<code>height</code>+<code>padding</code>+<code>margin</code>，受<code>height</code>及<code>img</code>的<code>height</code>的值控制</li>
-<li>line box    对应样式为<code>line-height</code>，而f<code>loat</code>而之所以能实现浮动环绕，就是因为它破坏了元素的inline boxes，元素已经没有了高度</li>
+<li>line box    对应样式为<code>line-height</code>，而f<code>loat</code>而之所以能实现浮动环绕，就是因为它破坏了元素的inline boxes，元素已经没有了高度（<strong>高度塌陷</strong>）</li>
 </ul>
 <h5 id="关于文档流"><a href="#关于文档流" class="headerlink" title="关于文档流"></a>关于文档流</h5><p>常说的绝对完全脱离文档流，浮动不完全脱离文档流，而这造成的差异就是：同处于文档流的元素实体不会与浮动元素重叠，而会与绝对定位重叠。这就是文字围绕的重要原因之一：虽然浮动元素高度为零，但是因为宽度实体存在（包裹性），同样是content area 实体的文字不会与之重叠（外部的容器盒子containing box会重叠）</p>
-<h3 id="关于利用浮动布局"><a href="#关于利用浮动布局" class="headerlink" title="关于利用浮动布局"></a>关于利用浮动布局</h3><h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><h3 id="display：inline-block"><a href="#display：inline-block" class="headerlink" title="display：inline-block"></a>display：inline-block</h3><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/CSS/float" target="_blank" rel="noopener">MDN float</a></p>
+<h3 id="关于利用浮动布局"><a href="#关于利用浮动布局" class="headerlink" title="关于利用浮动布局"></a>关于利用浮动布局</h3><h4 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><p><code>left</code>    左侧</p>
+<p><code>right</code>    右侧</p>
+<p><code>none</code>    不进行浮动</p>
+<p><code>inline-start</code>    元素必须浮动在其所在块容器的开始一侧</p>
+<p><code>inline-end</code>    元素必须浮动在其所在块容器的结束一侧</p>
+<h4 id="如何定位"><a href="#如何定位" class="headerlink" title="如何定位"></a>如何定位</h4><p>当一个元素浮动之后，它会被移出正常的文档流，然后向左或者向右平移，一直平移直到碰到了所处的容器的边框，或者碰到<strong>另外一个浮动的元素</strong>。</p>
+<h4 id="关于JS"><a href="#关于JS" class="headerlink" title="关于JS"></a>关于JS</h4><p><code>float</code>是JS的保留关键字，所以想用JS改变<code>float</code>属性不能<code>obj.style.float=&quot;left&quot;;</code></p>
+<p>IE浏览器：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.style.styleFloat = "left";</span><br></pre></td></tr></table></figure>
+<p>其他浏览器：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.style.cssFloat = "left";</span><br></pre></td></tr></table></figure>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>解决高度塌陷</p>
+<blockquote>
+<p>为什么会高度塌陷？什么时候会高度塌陷？塌陷原因是：元素含有浮动属性 – 破坏inline box – 破坏line box高度 – 没有高度 – 塌陷。什么时候会塌陷：当标签里面的元素只要样子没有实际高度时会塌陷。所以呢，并不是只要有浮动元素就会坍塌，就要清除的，CSS水平高低衡量的标准之一就是改用什么样式就用什么样式，不多用也不少用。</p>
+</blockquote>
+<h4 id="clear-both"><a href="#clear-both" class="headerlink" title="clear:both"></a>clear:both</h4><p>直接一个<code>&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</code>放到当作最后一个子标签放到父标签那儿，兼容性强，但是产生了一个空标签，而且不小心多打了一个空格键就会产生高度，所以，不推荐</p>
+<h4 id="overflow-zoom方法"><a href="#overflow-zoom方法" class="headerlink" title="overflow+zoom方法"></a>overflow+zoom方法</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.over-flow&#123; overflow:auto; zoom:1;  &#125;//zoom:1;是在处理兼容性问题</span><br></pre></td></tr></table></figure>
+<p>代码简洁涵盖几乎所有浏览器，但是，显然并不适合当里面的元素需要负值定位的时候</p>
+<h4 id="after-zoom"><a href="#after-zoom" class="headerlink" title="after+zoom"></a>after+zoom</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fix</span>&#123;<span class="attribute">zoom</span>:<span class="number">1</span>;&#125;</span><br><span class="line"><span class="selector-class">.fix</span><span class="selector-pseudo">:after</span> &#123; </span><br><span class="line">	<span class="attribute">clear</span>:both;</span><br><span class="line">	<span class="attribute">content</span>:<span class="string">''</span>;</span><br><span class="line">	<span class="attribute">display</span>:block;</span><br><span class="line">	<span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">	<span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最推荐，不会影响任何其他样式，通用性强，覆盖面广</p>
+<h3 id="display：inline-block"><a href="#display：inline-block" class="headerlink" title="display：inline-block"></a>display：inline-block</h3><h4 id="float的局限性"><a href="#float的局限性" class="headerlink" title="float的局限性"></a>float的局限性</h4><p>每个列表元素的高度必须要一致，否则就会像是俄罗斯方块一样，“锯齿相错”，即如果第一行有一个列表高度高于其他列表，那就在第二行，第一个元素会沿着最高元素的右侧对齐，因为f<code>loat</code>破坏了inline box</p>
+<h4 id="inline-block"><a href="#inline-block" class="headerlink" title="inline-block"></a>inline-block</h4><p>简单而言，就是既有block元素能设置宽高的属性，右像inline一样不换行</p>
+<h4 id="间隙"><a href="#间隙" class="headerlink" title="间隙"></a>间隙</h4><p>使用<code>display:inline-block</code>会经常出现换行/空格符间隙</p>
+<p>最基础的<code>font-size:0</code>字体大小为0</p>
+<p>或者<code>letter-spacing:-4px</code>改变文字水平间距，但是受浏览器及字体影响较大，IE7一下更是emm</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/CSS/float" target="_blank" rel="noopener">MDN float</a></p>
+<p><a href="https://www.zhangxinxu.com/wordpress/2010/01/css-float%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6%E3%80%81%E8%AF%A6%E8%A7%A3%E5%8F%8A%E6%8B%93%E5%B1%95%E4%B8%80/" target="_blank" rel="noopener">CSS float浮动的深入研究、详解及拓展</a></p>
+<p><a href="http://www.iyunlu.com/view/css-xhtml/55.html" target="_blank" rel="noopener">那些年我们一起清除过的浮动</a></p>
+<p><a href="https://www.zhangxinxu.com/wordpress/2010/11/%E6%8B%9C%E6%8B%9C%E4%BA%86%E6%B5%AE%E5%8A%A8%E5%B8%83%E5%B1%80-%E5%9F%BA%E4%BA%8Edisplayinline-block%E7%9A%84%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" target="_blank" rel="noopener">拜拜了,浮动布局-基于display:inline-block的列表布局</a></p>
 
       
     </div>
@@ -389,13 +417,9 @@
           
             <a href="/blog/tags/CSS/" rel="tag"># CSS</a>
           
-            <a href="/blog/tags/定位/" rel="tag"># 定位</a>
-          
             <a href="/blog/tags/布局/" rel="tag"># 布局</a>
           
             <a href="/blog/tags/浮动/" rel="tag"># 浮动</a>
-          
-            <a href="/blog/tags/层叠/" rel="tag"># 层叠</a>
           
         </div>
       
@@ -552,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些概念"><span class="nav-number">1.</span> <span class="nav-text">一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">1.2.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#包裹性"><span class="nav-number">1.2.1.</span> <span class="nav-text">包裹性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#破坏性"><span class="nav-number">1.2.2.</span> <span class="nav-text">破坏性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于文档流"><span class="nav-number">1.2.3.</span> <span class="nav-text">关于文档流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于利用浮动布局"><span class="nav-number">2.</span> <span class="nav-text">关于利用浮动布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除浮动"><span class="nav-number">3.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#display：inline-block"><span class="nav-number">4.</span> <span class="nav-text">display：inline-block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些概念"><span class="nav-number">1.</span> <span class="nav-text">一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">1.2.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#包裹性"><span class="nav-number">1.2.1.</span> <span class="nav-text">包裹性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#破坏性"><span class="nav-number">1.2.2.</span> <span class="nav-text">破坏性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于文档流"><span class="nav-number">1.2.3.</span> <span class="nav-text">关于文档流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于利用浮动布局"><span class="nav-number">2.</span> <span class="nav-text">关于利用浮动布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性值"><span class="nav-number">2.1.</span> <span class="nav-text">属性值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何定位"><span class="nav-number">2.2.</span> <span class="nav-text">如何定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于JS"><span class="nav-number">2.3.</span> <span class="nav-text">关于JS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除浮动"><span class="nav-number">3.</span> <span class="nav-text">清除浮动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目的"><span class="nav-number">3.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clear-both"><span class="nav-number">3.2.</span> <span class="nav-text">clear:both</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overflow-zoom方法"><span class="nav-number">3.3.</span> <span class="nav-text">overflow+zoom方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#after-zoom"><span class="nav-number">3.4.</span> <span class="nav-text">after+zoom</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#display：inline-block"><span class="nav-number">4.</span> <span class="nav-text">display：inline-block</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#float的局限性"><span class="nav-number">4.1.</span> <span class="nav-text">float的局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline-block"><span class="nav-number">4.2.</span> <span class="nav-text">inline-block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#间隙"><span class="nav-number">4.3.</span> <span class="nav-text">间隙</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>
