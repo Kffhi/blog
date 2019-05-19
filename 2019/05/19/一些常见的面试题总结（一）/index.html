@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS,JS,Vue,HTML,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="H5+CSSDoctype作用？标准模式和兼容模式区别。声明在HTML文档第一行，告诉浏览器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。 标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。 行内元素有哪些？块级元素有哪些？每个元素都有一个diaplay属性">
+<meta name="keywords" content="CSS,JS,Vue,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些常见的面试题总结（一）">
+<meta property="og:url" content="https://www.asgardusk.com/blog/2019/05/19/一些常见的面试题总结（一）/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="H5+CSSDoctype作用？标准模式和兼容模式区别。声明在HTML文档第一行，告诉浏览器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。 标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。 行内元素有哪些？块级元素有哪些？每个元素都有一个diaplay属性">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cn.vuejs.org/images/lifecycle.png">
+<meta property="og:updated_time" content="2019-05-19T15:58:23.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一些常见的面试题总结（一）">
+<meta name="twitter:description" content="H5+CSSDoctype作用？标准模式和兼容模式区别。声明在HTML文档第一行，告诉浏览器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。 标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。 行内元素有哪些？块级元素有哪些？每个元素都有一个diaplay属性">
+<meta name="twitter:image" content="https://cn.vuejs.org/images/lifecycle.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.asgardusk.com/blog/2019/05/19/一些常见的面试题总结（一）/">
+
+
+
+
+
+  <title>一些常见的面试题总结（一） | Kffhi的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.asgardusk.com/blog/blog/2019/05/19/一些常见的面试题总结（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一些常见的面试题总结（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T23:48:42+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/杂项/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h3 id="H5-CSS"><a href="#H5-CSS" class="headerlink" title="H5+CSS"></a>H5+CSS</h3><h4 id="Doctype作用？标准模式和兼容模式区别。"><a href="#Doctype作用？标准模式和兼容模式区别。" class="headerlink" title="Doctype作用？标准模式和兼容模式区别。"></a>Doctype作用？标准模式和兼容模式区别。</h4><p>声明在HTML文档第一行，告诉浏览器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。</p>
+<p>标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。</p>
+<h4 id="行内元素有哪些？块级元素有哪些？"><a href="#行内元素有哪些？块级元素有哪些？" class="headerlink" title="行内元素有哪些？块级元素有哪些？"></a>行内元素有哪些？块级元素有哪些？</h4><p>每个元素都有一个diaplay属性，确定该元素的类型，比如块级元素默认值就是block,行内元素就是none</p>
+<p>行内元素：span a u i b img input slect…</p>
+<p>块级元素：div p ul li ol h1 h2…</p>
+<h4 id="引入样式link和import区别"><a href="#引入样式link和import区别" class="headerlink" title="引入样式link和import区别"></a>引入样式link和import区别</h4><p>link属于html直接是在html中引入，import在css中引入只能引入css</p>
+<p>link在直接引入页面的时候就就已经引入了，import需要在引入css的时候才引入，性能比较低</p>
+<p>import是CSS2.1 提出的，只在IE5以上才能被识别，而link是html标签，无兼容问题</p>
+<h4 id="HTML5有哪些新特性？如何区分html和html5"><a href="#HTML5有哪些新特性？如何区分html和html5" class="headerlink" title="HTML5有哪些新特性？如何区分html和html5"></a>HTML5有哪些新特性？如何区分html和html5</h4><p>html5新增了好多东西比如：</p>
+<p>一些语义化标签 nav header footer</p>
+<p>绘图用到的canvas</p>
+<p>用于媒体的video 和 audio 元素</p>
+<p>本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失，sessionStorage 的数据在浏览器关闭后自动删除;</p>
+<p>表单控件，calendar、date、time、email、url、search</p>
+<p>区分html5和html：</p>
+<p>可以按上文说的doctype区分也可以使用标签区分</p>
+<h4 id="两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行"><a href="#两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行" class="headerlink" title="两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行"></a>两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;width: 100px;height: 100px;background:red;float: right;&quot;&gt;&lt;/div&gt;    </span><br><span class="line">&lt;div style=&quot;width: 100px;height: 100px;background:blue;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="css垂直和水平居中方法"><a href="#css垂直和水平居中方法" class="headerlink" title="css垂直和水平居中方法"></a>css垂直和水平居中方法</h4><p>使用position定位：好处不用管盒子大小，就是不固定宽高</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -50%;</span><br><span class="line">    margin-top: -50%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用calc计算出需要定位的值，需要知道宽高</p>
+<p>还可以使用transform: translate(-50%, -50%); 不需要知道宽高</p>
+<p>固定宽高的话也可以使用定位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用flex</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者使用最新的grid，父元素必须加grid属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    align-self: center;</span><br><span class="line">    justify-self: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有一种使用table居中缺点也是父盒子宽高为100%必须加display:table;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    text-align: center;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><p>清除浮动最好的方法就是使用:after</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:after &#123; </span><br><span class="line">	clear:both;</span><br><span class="line">	content:&apos;&apos;;</span><br><span class="line">	display:block;</span><br><span class="line">	width:0;</span><br><span class="line">	height:0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以先新建一个空元素来清除浮动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.clear&#123; </span><br><span class="line">	clear:both; </span><br><span class="line">	height:0; </span><br><span class="line">	line-height:0; </span><br><span class="line">	font-size:0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以给父元素增加overflow属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.over-flow&#123; overflow:auto; zoom:1;  &#125;//zoom:1;是在处理兼容性问题</span><br></pre></td></tr></table></figure>
+<h4 id="介绍一下盒模型"><a href="#介绍一下盒模型" class="headerlink" title="介绍一下盒模型"></a>介绍一下盒模型</h4><p>分为两种：ie盒模型和w3c盒模型</p>
+<p>盒模型：内容(content)、填充(padding)、边界(margin)、 边框(border)</p>
+<p>区别：IE的content部分把 border 和 padding计算了进去</p>
+<h4 id="position有几个值"><a href="#position有几个值" class="headerlink" title="position有几个值"></a>position有几个值</h4><p>absolute 生成绝对定位的元素，相对于值不为 static的第一个父元素进行定位。</p>
+<p>fixed 绝对定位，相对于浏览器窗口定位</p>
+<p>reactive 相对定位，对于正常元素定位</p>
+<p>static 默认值，没有定位</p>
+<p>inherit 从父元素继承position属性</p>
+<h4 id="CSS创建三角形"><a href="#CSS创建三角形" class="headerlink" title="CSS创建三角形"></a>CSS创建三角形</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  width: 0;</span><br><span class="line">  height: 0;</span><br><span class="line">  border-width: 20px;</span><br><span class="line">  border-style: solid;</span><br><span class="line">  border-color: transparent transparent red transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="为什么要初始化CSS样式"><a href="#为什么要初始化CSS样式" class="headerlink" title="为什么要初始化CSS样式"></a>为什么要初始化CSS样式</h4><p>因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异</p>
+<p>最简单的初始化方法： * {padding: 0; margin: 0;} （强烈不建议，会把所有的标签都初始化一遍，这样就大大的加强了网站运行的负载，会使网站加载的时候需要很长一段时间）</p>
+<p>淘宝官网初始化</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>, <span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span>, <span class="selector-tag">hr</span>, <span class="selector-tag">p</span>, <span class="selector-tag">blockquote</span>, <span class="selector-tag">dl</span>, <span class="selector-tag">dt</span>, <span class="selector-tag">dd</span>, <span class="selector-tag">ul</span>, <span class="selector-tag">ol</span>, <span class="selector-tag">li</span>, <span class="selector-tag">pre</span>, <span class="selector-tag">form</span>, <span class="selector-tag">fieldset</span>, <span class="selector-tag">legend</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">textarea</span>, <span class="selector-tag">th</span>, <span class="selector-tag">td</span> &#123; <span class="attribute">margin</span>:<span class="number">0</span>; <span class="attribute">padding</span>:<span class="number">0</span>; &#125; </span><br><span class="line"><span class="selector-tag">body</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123; <span class="attribute">font</span>:<span class="number">12px</span>/<span class="number">1.5</span>tahoma, arial, \<span class="number">5</span>b8b\<span class="number">4</span>f53; &#125; </span><br><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span>&#123; <span class="attribute">font-size</span>:<span class="number">100%</span>; &#125; </span><br><span class="line"><span class="selector-tag">address</span>, <span class="selector-tag">cite</span>, <span class="selector-tag">dfn</span>, <span class="selector-tag">em</span>, <span class="selector-tag">var</span> &#123; <span class="attribute">font-style</span>:normal; &#125; </span><br><span class="line"><span class="selector-tag">code</span>, <span class="selector-tag">kbd</span>, <span class="selector-tag">pre</span>, <span class="selector-tag">samp</span> &#123; <span class="attribute">font-family</span>:couriernew, courier, monospace; &#125; </span><br><span class="line"><span class="selector-tag">small</span>&#123; <span class="attribute">font-size</span>:<span class="number">12px</span>; &#125; </span><br><span class="line"><span class="selector-tag">ul</span>, <span class="selector-tag">ol</span> &#123; <span class="attribute">list-style</span>:none; &#125; </span><br><span class="line"><span class="selector-tag">a</span> &#123; <span class="attribute">text-decoration</span>:none; &#125; </span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123; <span class="attribute">text-decoration</span>:underline; &#125; </span><br><span class="line"><span class="selector-tag">sup</span> &#123; <span class="attribute">vertical-align</span>:text-top; &#125; </span><br><span class="line"><span class="selector-tag">sub</span>&#123; <span class="attribute">vertical-align</span>:text-bottom; &#125; </span><br><span class="line"><span class="selector-tag">legend</span> &#123; <span class="attribute">color</span>:<span class="number">#000</span>; &#125; </span><br><span class="line"><span class="selector-tag">fieldset</span>, <span class="selector-tag">img</span> &#123; <span class="attribute">border</span>:<span class="number">0</span>; &#125; </span><br><span class="line"><span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123; <span class="attribute">font-size</span>:<span class="number">100%</span>; &#125; </span><br><span class="line"><span class="selector-tag">table</span> &#123; <span class="attribute">border-collapse</span>:collapse; <span class="attribute">border-spacing</span>:<span class="number">0</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>admin1000.com提供的html模板</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span> <span class="attr">lang</span>=<span class="string">"zh-cn"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    　　<span class="tag">&lt;<span class="name">title</span>&gt;</span>网站标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Language"</span> <span class="attr">content</span>=<span class="string">"zh-CN"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"Author"</span> <span class="attr">content</span>=<span class="string">"网页作者"</span> /&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"Copyright"</span> <span class="attr">content</span>=<span class="string">"网站版权"</span> /&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"keywords"</span> <span class="attr">content</span>=<span class="string">"网站关键字"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"网站描述"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"Shortcut Icon"</span> <span class="attr">href</span>=<span class="string">"网站.ico图标路径"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"CSS文件路径"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"JS文件路径"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="CSS3新增伪类元素"><a href="#CSS3新增伪类元素" class="headerlink" title="CSS3新增伪类元素"></a>CSS3新增伪类元素</h4><p>:nth-child :after :befor :checked :disable</p>
+<h4 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h4><p>transform ：translate scale skew rotate； transtion ；animation ；shadow ；border-radius</p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><h4 id="JS基本类型"><a href="#JS基本类型" class="headerlink" title="JS基本类型"></a>JS基本类型</h4><p>js有五种基本类型：boolean string number null undefined 一种特殊类型：object</p>
+<p>新增了Symbol(创建后独一无二且不可变的数据类型 )</p>
+<h4 id="JS基本规范"><a href="#JS基本规范" class="headerlink" title="JS基本规范"></a>JS基本规范</h4><p>不在同一行声明多个变量</p>
+<p>不用全局函数 </p>
+<p>switch必须有default</p>
+<h4 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h4><p>函数声明 function name（）{}</p>
+<p>函数表达式 var name = function（）{}</p>
+<p>new实例化（不常用）</p>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>简单来说就是每个对象对会在内部初始化一个属性 prototype 如果这个对象不存在这个属性 会在prototype上找 这个prototype又会自己往上找 prototype</p>
+<h4 id="JS继承"><a href="#JS继承" class="headerlink" title="JS继承"></a>JS继承</h4><p>构造函数</p>
+<p>优点：实现多个继承，实现子类可以向父类传递参数</p>
+<p>缺点：无法实现复用影响性能，只能继承父类方法 不能继承原型上的</p>
+<p>原型链继承</p>
+<p>优点：实现简单，父类新增原型方法子类可访问</p>
+<p>缺点：无法实现多个继承 创造子类实例时无法向父类构造函数传参</p>
+<p>拷贝继承</p>
+<p>优点：支持多继承</p>
+<p>缺点：效率低 内存占用高</p>
+<p>实例继承</p>
+<p>优点：不限制调用方式</p>
+<p>缺点：不支持多继承</p>
+<p>组合继承</p>
+<p>优点：可传参，可复用，可以继承原型链上的东西 既是子类实例又是父类实例</p>
+<p>缺点：调用了两次父类构造函数 多耗费了一点内存</p>
+<p>寄生式组合继承</p>
+<p>优点：完美</p>
+<p>缺点：实现复杂</p>
+<h4 id="JS作用域链"><a href="#JS作用域链" class="headerlink" title="JS作用域链"></a>JS作用域链</h4><p>作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到window对象即被终止，作用域链向下访问变量是不被允许的</p>
+<h4 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h4><p>this指向直接调用者</p>
+<p>this指向new出来的对象</p>
+<p>在事件中this指向这个事件的对象 IE中的attachEvent的this指向全局window</p>
+<p>this指的当前对象</p>
+<h4 id="null与undefined"><a href="#null与undefined" class="headerlink" title="null与undefined"></a>null与undefined</h4><p>null 表示一个对象被定义了，值为“空值”；</p>
+<p>undefined 表示不存在这个值。</p>
+<p><code>null==undefined true</code></p>
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><p>解析字符串，应该避免使用eval，不安全，非常耗性能（2次，一次解析成JS语句，一次执行），也可以把JSON字符串转换为JSON对象</p>
+<h4 id="window对象和document对象"><a href="#window对象和document对象" class="headerlink" title="window对象和document对象"></a>window对象和document对象</h4><p>window对象是指浏览器打开的窗口。</p>
+<p>document对象是document对象（HTML 文档对象）的一个只读引用，window对象的一个属性</p>
+<h4 id="闭包及闭包特性"><a href="#闭包及闭包特性" class="headerlink" title="闭包及闭包特性"></a>闭包及闭包特性</h4><p>闭包是指有权访问另一个函数作用域中变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数，通过另一个函数访问这个函数的局部变量,利用闭包可以突破作用链域，将函数内部的变量和方法传递到外部。</p>
+<p>特性：</p>
+<p>函数内再嵌套函数</p>
+<p>内部函数可以引用外层的参数和变量</p>
+<p>参数和变量不会被垃圾回收机制回收</p>
+<h4 id="JS严格模式"><a href="#JS严格模式" class="headerlink" title="JS严格模式"></a>JS严格模式</h4><p>严格模式就是在JS代码前加 use strict 让 Javascript 在更严格的条件下运行,使JS编码更加规范化的模式,消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为。</p>
+<h4 id="创建Ajax"><a href="#创建Ajax" class="headerlink" title="创建Ajax"></a>创建Ajax</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 封装ajax函数</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125;opt.type http连接的方式，包括POST和GET两种方式</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125;opt.url 发送请求的url</span></span><br><span class="line"><span class="comment"> * @param &#123;boolean&#125;opt.async 是否为异步请求，true为异步的，false为同步的</span></span><br><span class="line"><span class="comment"> * @param &#123;object&#125;opt.data 发送的参数，格式为对象类型</span></span><br><span class="line"><span class="comment"> * @param &#123;function&#125;opt.success ajax发送并接收成功调用的回调函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">opt</span>) </span>&#123;</span><br><span class="line">        opt = opt || &#123;&#125;;</span><br><span class="line">        opt.method = opt.method.toUpperCase() || <span class="string">'POST'</span>;</span><br><span class="line">        opt.url = opt.url || <span class="string">''</span>;</span><br><span class="line">        opt.async = opt.async || <span class="literal">true</span>;</span><br><span class="line">        opt.data = opt.data || <span class="literal">null</span>;</span><br><span class="line">        opt.success = opt.success || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">        <span class="keyword">var</span> xmlHttp = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (XMLHttpRequest) &#123;</span><br><span class="line">            xmlHttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            xmlHttp = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>);</span><br><span class="line">        &#125;<span class="keyword">var</span> params = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> opt.data)&#123;</span><br><span class="line">            params.push(key + <span class="string">'='</span> + opt.data[key]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> postData = params.join(<span class="string">'&amp;'</span>);</span><br><span class="line">        <span class="keyword">if</span> (opt.method.toUpperCase() === <span class="string">'POST'</span>) &#123;</span><br><span class="line">            xmlHttp.open(opt.method, opt.url, opt.async);</span><br><span class="line">            xmlHttp.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded;charset=utf-8'</span>);</span><br><span class="line">            xmlHttp.send(postData);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (opt.method.toUpperCase() === <span class="string">'GET'</span>) &#123;</span><br><span class="line">            xmlHttp.open(opt.method, opt.url + <span class="string">'?'</span> + postData, opt.async);</span><br><span class="line">            xmlHttp.send(<span class="literal">null</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        xmlHttp.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (xmlHttp.readyState == <span class="number">4</span> &amp;&amp; xmlHttp.status == <span class="number">200</span>) &#123;</span><br><span class="line">                opt.success(xmlHttp.responseText);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="同步和异步的区别"><a href="#同步和异步的区别" class="headerlink" title="同步和异步的区别"></a>同步和异步的区别</h4><p>同步：浏览器访问服务器请求，用户看得到页面刷新，重新发请求,等请求完，页面刷新，新内容出现，用户看到新内容,进行下一步操作</p>
+<p>异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。等请求完，页面不刷新，新内容也会出现，用户看到新内容</p>
+<h4 id="操作DOM节点"><a href="#操作DOM节点" class="headerlink" title="操作DOM节点"></a>操作DOM节点</h4><p>creatElement（）具体元素</p>
+<p>creatTextNode（）创建文本节点</p>
+<p>appendChild（）添加</p>
+<p>removeChild（）删除</p>
+<p>replaceChild（）替换</p>
+<p>insertChild（）插入</p>
+<h4 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h4><p>push（）pop（）unshift（）shift（）splice（）indexOf（）sort（）concat（）join（）slice（）reverse（） includes（）</p>
+<h4 id="更改this指向"><a href="#更改this指向" class="headerlink" title="更改this指向"></a>更改this指向</h4><p>.call() .apply() .bind()</p>
+<h4 id="jquery-extend与jquery-fn-extend的区别"><a href="#jquery-extend与jquery-fn-extend的区别" class="headerlink" title="jquery.extend与jquery.fn.extend的区别"></a>jquery.extend与jquery.fn.extend的区别</h4><p>jquery.extend 为jquery类添加类方法，可以理解为添加静态方法</p>
+<p>jquery.fn.extend:源码中jquery.fn = jquery.prototype，所以对jquery.fn的扩展，就是为jquery类添加成员函数 使用：</p>
+<p>jquery.extend扩展，需要通过jquery类来调用，而jquery.fn.extend扩展，所有jquery实例都可以直接调用</p>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>作用域 每个方法都是作用域最大的是window</p>
+<p>作用域的方法和属性只能在当前作用域使用</p>
+<p>查找作用域 是从当前查找 再去上一级查找</p>
+<h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h4><p>同域名</p>
+<p>同端口</p>
+<p>同协议</p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>100 Continue 继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息</p>
+<p>200 OK 正常返回信息</p>
+<p>201 Created 请求成功并且服务器创建了新的资源</p>
+<p>202 Accepted 服务器已接受请求，但尚未处理</p>
+<p>301 Moved Permanently 请求的网页已永久移动到新位置。</p>
+<p>302 Found 临时性重定向。</p>
+<p>303 See Other 临时性重定向，且总是使用 GET 请求新的 URI。</p>
+<p>304 Not Modified 自从上次请求后，请求的网页未修改过。</p>
+<p>400 Bad Request 服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。</p>
+<p>401 Unauthorized 请求未授权。</p>
+<p>403 Forbidden 禁止访问。</p>
+<p>404 Not Found 找不到如何与 URI 相匹配的资源。</p>
+<p>500 Internal Server Error 最常见的服务器端错误。</p>
+<p>503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）</p>
+<h4 id="一个页面从输入url到页面加载完成，这个过程发生了什么"><a href="#一个页面从输入url到页面加载完成，这个过程发生了什么" class="headerlink" title="一个页面从输入url到页面加载完成，这个过程发生了什么"></a>一个页面从输入url到页面加载完成，这个过程发生了什么</h4><p>1、浏览器会开启一个线程来处理这个请求，对 URL 分析判断如果是 http 协议就按照 Web 方式来处理;</p>
+<p>2、调用浏览器内核中的对应方法，比如 WebView 中的 loadUrl 方法;</p>
+<p>3、通过DNS解析获取网址的IP地址，设置 UA 等信息发出第二个GET请求;</p>
+<p>4、进行HTTP协议会话，客户端发送报头(请求报头);</p>
+<p>5、进入到web服务器上的 Web Server，如 Apache、Tomcat、Node.JS 等服务器;</p>
+<p>6、进入部署好的后端应用，如 PHP、Java、JavaScript、Python 等，找到对应的请求处理;</p>
+<p>7、处理结束回馈报头，此处如果浏览器访问过，缓存上有对应资源，会与服务器最后修改时间对比，一致则返回304;</p>
+<p>8、浏览器开始下载html文档(响应报头，状态码200)，同时使用缓存;</p>
+<p>9、文档树建立，根据标记请求所需指定MIME类型的文件（比如css、js）,同时设置了cookie;</p>
+<p>10、页面开始渲染DOM，JS根据DOM API操作DOM,执行事件绑定等，页面显示完成。</p>
+<h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><h4 id="对于mvvm的理解"><a href="#对于mvvm的理解" class="headerlink" title="对于mvvm的理解"></a>对于mvvm的理解</h4><p>MVVM 是 Model-View-ViewModel 的缩写。<br>Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。<br>View 代表UI 组件，它负责将数据模型转化成UI 展现出来。<br>ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。<br>在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。<br>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
+<h4 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h4><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt></p>
+<h4 id="组件间参数传递"><a href="#组件间参数传递" class="headerlink" title="组件间参数传递"></a>组件间参数传递</h4><p>1.父组件与子组件传值<br>父组件传给子组件：子组件通过props方法接受数据;<br>子组件传给父组件：$emit方法传递参数<br>2.非父子组件间的数据传递，兄弟组件传值<br>eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。项目比较小时，用这个比较合适。</p>
+<p>或者使用vuex</p>
+<h4 id="hash模式与history模式"><a href="#hash模式与history模式" class="headerlink" title="hash模式与history模式"></a>hash模式与history模式</h4><p>hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；<br>特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面。</p>
+<p>history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更</p>
+<h4 id="vue路由的钩子函数"><a href="#vue路由的钩子函数" class="headerlink" title="vue路由的钩子函数"></a>vue路由的钩子函数</h4><p>首页可以控制导航跳转，beforeEach，afterEach等，一般用于页面title的修改。一些需要登录才能调整页面的重定向功能。</p>
+<p>beforeEach主要有3个参数to，from，next：</p>
+<p>to：route即将进入的目标路由对象，</p>
+<p>from：route当前导航正要离开的路由</p>
+<p>next：function一定要调用该方法resolve这个钩子。执行效果依赖next方法的调用参数。可以控制网页的跳转</p>
+<h4 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h4><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式</p>
+<p>这个状态自管理应用包含以下几个部分：</p>
+<ul>
+<li><strong>state</strong>，驱动应用的数据源；</li>
+<li><strong>view</strong>，以声明方式将 <strong>state</strong> 映射到视图；</li>
+<li><strong>actions</strong>，响应在 <strong>view</strong> 上的用户输入导致的状态变化。</li>
+</ul>
+<p>场景有：单页应用中，组件之间的状态、音乐播放、登录状态、加入购物车</p>
+<p>state<br>Vuex 使用单一状态树,即每个应用将仅仅包含一个store 实例，但单一状态树和模块化并不冲突。存放的数据状态，不可以直接修改里面的数据。<br>mutations<br>mutations定义的方法动态修改Vuex 的 store 中的状态或数据。<br>getters<br>类似vue的计算属性，主要用来过滤一些数据。<br>action<br>actions可以理解为通过将mutations里面处里数据的方法变成可异步的处理数据的方法，简单的说就是异步操作数据。view 层通过 store.dispath 来分发 action</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/blog/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/blog/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/05/19/一些关于Vue的常见问题/" rel="next" title="一些关于Vue的常见问题">
+                <i class="fa fa-chevron-left"></i> 一些关于Vue的常见问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#H5-CSS"><span class="nav-number">1.</span> <span class="nav-text">H5+CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Doctype作用？标准模式和兼容模式区别。"><span class="nav-number">1.1.</span> <span class="nav-text">Doctype作用？标准模式和兼容模式区别。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行内元素有哪些？块级元素有哪些？"><span class="nav-number">1.2.</span> <span class="nav-text">行内元素有哪些？块级元素有哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入样式link和import区别"><span class="nav-number">1.3.</span> <span class="nav-text">引入样式link和import区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML5有哪些新特性？如何区分html和html5"><span class="nav-number">1.4.</span> <span class="nav-text">HTML5有哪些新特性？如何区分html和html5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行"><span class="nav-number">1.5.</span> <span class="nav-text">两个盒子用一个css属性实现让一个盒子在左边一个盒子在右边并且在一行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css垂直和水平居中方法"><span class="nav-number">1.6.</span> <span class="nav-text">css垂直和水平居中方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除浮动"><span class="nav-number">1.7.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍一下盒模型"><span class="nav-number">1.8.</span> <span class="nav-text">介绍一下盒模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position有几个值"><span class="nav-number">1.9.</span> <span class="nav-text">position有几个值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS创建三角形"><span class="nav-number">1.10.</span> <span class="nav-text">CSS创建三角形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要初始化CSS样式"><span class="nav-number">1.11.</span> <span class="nav-text">为什么要初始化CSS样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS3新增伪类元素"><span class="nav-number">1.12.</span> <span class="nav-text">CSS3新增伪类元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS3新特性"><span class="nav-number">1.13.</span> <span class="nav-text">CSS3新特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">2.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JS基本类型"><span class="nav-number">2.1.</span> <span class="nav-text">JS基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS基本规范"><span class="nav-number">2.2.</span> <span class="nav-text">JS基本规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义函数"><span class="nav-number">2.3.</span> <span class="nav-text">定义函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number">2.4.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS继承"><span class="nav-number">2.5.</span> <span class="nav-text">JS继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS作用域链"><span class="nav-number">2.6.</span> <span class="nav-text">JS作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#this指向"><span class="nav-number">2.7.</span> <span class="nav-text">this指向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null与undefined"><span class="nav-number">2.8.</span> <span class="nav-text">null与undefined</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-number">3.</span> <span class="nav-text">eval</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#window对象和document对象"><span class="nav-number">3.1.</span> <span class="nav-text">window对象和document对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包及闭包特性"><span class="nav-number">3.2.</span> <span class="nav-text">闭包及闭包特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS严格模式"><span class="nav-number">3.3.</span> <span class="nav-text">JS严格模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Ajax"><span class="nav-number">3.4.</span> <span class="nav-text">创建Ajax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步和异步的区别"><span class="nav-number">3.5.</span> <span class="nav-text">同步和异步的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作DOM节点"><span class="nav-number">3.6.</span> <span class="nav-text">操作DOM节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组操作"><span class="nav-number">3.7.</span> <span class="nav-text">数组操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更改this指向"><span class="nav-number">3.8.</span> <span class="nav-text">更改this指向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jquery-extend与jquery-fn-extend的区别"><span class="nav-number">3.9.</span> <span class="nav-text">jquery.extend与jquery.fn.extend的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域"><span class="nav-number">3.10.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同源策略"><span class="nav-number">3.11.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见状态码"><span class="nav-number">3.12.</span> <span class="nav-text">常见状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个页面从输入url到页面加载完成，这个过程发生了什么"><span class="nav-number">3.13.</span> <span class="nav-text">一个页面从输入url到页面加载完成，这个过程发生了什么</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue"><span class="nav-number">4.</span> <span class="nav-text">Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于mvvm的理解"><span class="nav-number">4.1.</span> <span class="nav-text">对于mvvm的理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">4.2.</span> <span class="nav-text">Vue生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件间参数传递"><span class="nav-number">4.3.</span> <span class="nav-text">组件间参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hash模式与history模式"><span class="nav-number">4.4.</span> <span class="nav-text">hash模式与history模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue路由的钩子函数"><span class="nav-number">4.5.</span> <span class="nav-text">vue路由的钩子函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vuex"><span class="nav-number">4.6.</span> <span class="nav-text">Vuex</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
