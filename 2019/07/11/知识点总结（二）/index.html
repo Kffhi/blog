@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="CSS,JS,HTML,Vue,">
+  <meta name="keywords" content="CSS,JS,Vue,HTML,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="知识点总结（二）">
-<meta name="keywords" content="CSS,JS,HTML,Vue">
+<meta name="description" content="知识点总结（二）——http及浏览器部分">
+<meta name="keywords" content="CSS,JS,Vue,HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="知识点总结（二）">
 <meta property="og:url" content="https://www.kffhi.com/blog/2019/07/11/知识点总结（二）/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="知识点总结（二）">
+<meta property="og:description" content="知识点总结（二）——http及浏览器部分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-21T14:51:50.559Z">
+<meta property="og:updated_time" content="2019-07-25T11:36:54.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点总结（二）">
-<meta name="twitter:description" content="知识点总结（二）">
+<meta name="twitter:description" content="知识点总结（二）——http及浏览器部分">
 
 
 
@@ -353,7 +353,7 @@
       
 
       
-        <p>知识点总结（二）<br><a id="more"></a></p>
+        <p>知识点总结（二）——http及浏览器部分<br><a id="more"></a></p>
 <h4 id="http和https"><a href="#http和https" class="headerlink" title="http和https"></a>http和https</h4><p><strong>http</strong>：超文本传输协议，是一个客户端和服务器请求应答的标准（TCP），用于从服务器传输超文本到本地浏览器的传输协议</p>
 <p><strong>https</strong>：以安全为目标的http通道，在http下加入SSL层，确保数组传输，保证网站真实性</p>
 <h5 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h5><p>http为明文传输，https用SSL协议进行了信息加密</p>
@@ -395,6 +395,74 @@
 </ul>
 <h5 id="基本请求"><a href="#基本请求" class="headerlink" title="基本请求"></a>基本请求</h5><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span>: x3JJHMbDL1EzLkh9GBhXDw==</span><br><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span>: chat, superchat</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span>: 13</span><br><span class="line"><span class="attribute">Origin</span>: http://example.com</span><br></pre></td></tr></table></figure>
 <h5 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">"wss://echo.websocket.org"</span>);</span><br><span class="line"></span><br><span class="line">ws.onopen = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connection open ..."</span>); </span><br><span class="line">  ws.send(<span class="string">"Hello WebSockets!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">"Received Message: "</span> + evt.data);</span><br><span class="line">  ws.close();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onclose = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connection closed."</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h4><p>提升访问速度（可以对于，请求资源所需时间更少，访问速度更快，相比http1.0）</p>
+<p>允许多路复用：多路复用允许同时通过单一的HTTP/2连接发送多重请求-响应信息。改善了：在http1.1中，浏览器客户端在同一时间，针对同一域名下的请求有一定数量限制（连接数量），超过限制会被阻塞。</p>
+<p>二进制分帧：HTTP2.0会将所有的传输信息分割为更小的信息或者帧，并对他们进行二进制编码</p>
+<p>首部压缩：在服务器和客户端各维护一个“首部表”，表中用索引代表首部名，或者首部键-值对，上一次发送两端都会记住已发送过哪些首部，下一次发送只需要传输差异的数据，相同的数据直接用索引表示即可，另外还可以选择地对首部值压缩后再传输。按照这样的设计，两次轮询请求的首部基本是一样的，那之后的请求基本只需要发送几个索引就可以了</p>
+<p>服务器端推送：指还没有收到浏览器的请求，服务器就把各种资源推送给浏览器。比如，浏览器只请求了index.html，但是服务器把index.html、style.css、example.png全部发送给浏览器。这样的话，只需要一轮 HTTP 通信，浏览器就得到了全部资源，提高了性能。是唯一一个需要开发者自己配置的功能。</p>
+<h4 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h4><h5 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h5><p>GET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应当用于会产生副作用的非幂等的操作中</p>
+<p>GET会方法请求指定的页面信息，并返回响应主体，GET被认为是不安全的方法，因为GET方法会被网络蜘蛛等任意的访问</p>
+<h5 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h5><p>HEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分，即：响应主体。这样，我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HEAD方法常被用于客户端查看服务器的性能。</p>
+<h5 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h5><p>POST请求会 向指定资源提交数据，请求服务器进行处理，如：表单数据提交、文件上传等，请求数据会被包含在请求体中。POST方法是非幂等的方法，因为这个请求可能会创建新的资源或/和修改现有资源。</p>
+<h5 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h5><p>PUT请求会身向指定资源位置上传其最新内容，PUT方法是幂等方法。通过该方法客户端可以将指定资源的最新数据传送给服务器取代指定的资源的内容。</p>
+<h5 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h5><p>DELETE请求用于请求服务器删除所请求URI（统一资源标识符，Uniform Resource Identifier）所标识的资源。DELETE请求后指定资源会被删除，DELETE方法也是幂等的。</p>
+<h5 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h5><p>CONNECT方法是HTTP/1.1协议预留的，能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接与非加密的HTTP代理服务器的通信。</p>
+<p>OPTIONS</p>
+<p>OPTIONS请求与HEAD类似，一般也是用于客户端查看服务器的性能。 这个方法会请求服务器返回该资源所支持的所有HTTP请求方法，该方法会用’*’来代替资源名称，向服务器发送OPTIONS请求，可以测试服务器功能是否正常。JavaScript的XMLHttpRequest对象进行CORS跨域资源共享时，就是使用OPTIONS方法发送嗅探请求，以判断是否有对指定资源的访问权限。 允许</p>
+<h5 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h5><p>TRACE请求服务器回显其收到的请求信息，该方法主要用于HTTP请求的测试或诊断。</p>
+<h5 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h5><p>PATCH方法出现的较晚，它在2010年的RFC 5789标准中被定义。PATCH请求与PUT请求类似，同样用于资源的更新。二者有以下两点不同：</p>
+<ul>
+<li>但PATCH一般用于资源的部分更新，而PUT一般用于资源的整体更新。</li>
+<li>当资源不存在时，PATCH会创建一个新的资源，而PUT只会对已在资源进行更新。</li>
+</ul>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><p>100    Continue    继续。客户端应继续其请求</p>
+<p>101    Switching Protocols    切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议</p>
+<p>200    OK    请求成功。一般用于GET与POST请求</p>
+<p>201    Created    已创建。成功请求并创建了新的资源</p>
+<p>202    Accepted    已接受。已经接受请求，但未处理完成</p>
+<p>203    Non-Authoritative Information    非授权信息。请求成功。但返回的meta信息不在原始的服务器，而是一个副本</p>
+<p>204    No Content    无内容。服务器成功处理，但未返回内容。在未更新网页的情况下，可确保浏览器继续显示当前文档</p>
+<p>205    Reset Content    重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。可通过此返回码清除浏览器的表单域</p>
+<p>206    Partial Content    部分内容。服务器成功处理了部分GET请求</p>
+<p>300    Multiple Choices    多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择</p>
+<p>301    Moved Permanently    永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</p>
+<p>302    Found    临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</p>
+<p>303    See Other    查看其它地址。与301类似。使用GET和POST请求查看</p>
+<p>304    Not Modified    未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源</p>
+<p>305    Use Proxy    使用代理。所请求的资源必须通过代理访问</p>
+<p>306    Unused    已经被废弃的HTTP状态码</p>
+<p>307    Temporary Redirect    临时重定向。与302类似。使用GET请求重定向</p>
+<p>400    Bad Request    客户端请求的语法错误，服务器无法理解</p>
+<p>401    Unauthorized    请求要求用户的身份认证</p>
+<p>402    Payment Required    保留，将来使用</p>
+<p>403    Forbidden    服务器理解请求客户端的请求，但是拒绝执行此请求</p>
+<p>404    Not Found    服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置”您所请求的资源无法找到”的个性页面</p>
+<p>405    Method Not Allowed    客户端请求中的方法被禁止</p>
+<p>406    Not Acceptable    服务器无法根据客户端请求的内容特性完成请求</p>
+<p>407    Proxy Authentication Required    请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权</p>
+<p>408    Request Time-out    服务器等待客户端发送的请求时间过长，超时</p>
+<p>409    Conflict    服务器完成客户端的PUT请求是可能返回此代码，服务器处理请求时发生了冲突</p>
+<p>410    Gone    客户端请求的资源已经不存在。410不同于404，如果资源以前有现在被永久删除了可使用410代码，网站设计人员可通过301代码指定资源的新位置</p>
+<p>411    Length Required    服务器无法处理客户端发送的不带Content-Length的请求信息</p>
+<p>412    Precondition Failed    客户端请求信息的先决条件错误</p>
+<p>413    Request Entity Too Large    由于请求的实体过大，服务器无法处理，因此拒绝请求。为防止客户端的连续请求，服务器可能会关闭连接。如果只是服务器暂时无法处理，则会包含一个Retry-After的响应信息</p>
+<p>414    Request-URI Too Large    请求的URI过长（URI通常为网址），服务器无法处理</p>
+<p>415    Unsupported Media Type    服务器无法处理请求附带的媒体格式</p>
+<p>416    Requested range not satisfiable    客户端请求的范围无效</p>
+<p>417    Expectation Failed    服务器无法满足Expect的请求头信息</p>
+<p>500    Internal Server Error    服务器内部错误，无法完成请求</p>
+<p>501    Not Implemented    服务器不支持请求的功能，无法完成请求</p>
+<p>502    Bad Gateway    作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</p>
+<p>503    Service Unavailable    由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中</p>
+<p>504    Gateway Time-out    充当网关或代理的服务器，未及时从远端服务器获取请求</p>
+<p>505    HTTP Version not supported    服务器不支持请求的HTTP协议的版本，无法完成处理</p>
+<h4 id="Cookie、sessionStorage、localStorage的区别"><a href="#Cookie、sessionStorage、localStorage的区别" class="headerlink" title="Cookie、sessionStorage、localStorage的区别"></a>Cookie、sessionStorage、localStorage的区别</h4><h5 id="共同点："><a href="#共同点：" class="headerlink" title="共同点："></a>共同点：</h5><p>都是保存在浏览器端，并且是同源的</p>
+<h5 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h5><p>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递。而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下,存储的大小很小只有4K左右。 （key：可以在浏览器和服务器端来回传递，存储容量小，只有大约4K左右）</p>
+<h5 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h5><p>仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持，localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。（key：本身就是一个回话过程，关闭浏览器后消失，session为一个回话，当页面不同即使是同一页面打开两次，也被视为同一次回话）</p>
+<h5 id="localStorage："><a href="#localStorage：" class="headerlink" title="localStorage："></a>localStorage：</h5><p>localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。（key：同源窗口都会共享，并且不会失效，不管窗口或者浏览器关闭与否都会始终生效）</p>
+<h5 id="补充cookie的作用："><a href="#补充cookie的作用：" class="headerlink" title="补充cookie的作用："></a>补充cookie的作用：</h5><p>保存用户登录状态。例如将用户id存储于一个cookie内，这样当用户下次访问该页面时就不需要重新登录了，现在很多论坛和社区都提供这样的功能。 cookie还可以设置过期时间，当超过时间期限后，cookie就会自动消失。因此，系统往往可以提示用户保持登录状态的时间：常见选项有一个月、三个 月、一年等。</p>
+<p>跟踪用户行为。例如一个天气预报网站，能够根据用户选择的地区显示当地的天气情况。如果每次都需要选择所在地是烦琐的，当利用了cookie后就会显得很人性化了，系统能够记住上一次访问的地区，当下次再打开该页面时，它就会自动显示上次用户所在地区的天气情况。因为一切都是在后 台完成，所以这样的页面就像为某个用户所定制的一样，使用起来非常方便定制页面。如果网站提供了换肤或更换布局的功能，那么可以使用cookie来记录用户的选项，例如：背景色、分辨率等。当用户下次访问时，仍然可以保存上一次访问的界面风格</p>
+
       
     </div>
     
@@ -415,9 +483,9 @@
           
             <a href="/blog/tags/JS/" rel="tag"># JS</a>
           
-            <a href="/blog/tags/HTML/" rel="tag"># HTML</a>
-          
             <a href="/blog/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/blog/tags/HTML/" rel="tag"># HTML</a>
           
         </div>
       
@@ -574,7 +642,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#http和https"><span class="nav-number">1.</span> <span class="nav-text">http和https</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区别："><span class="nav-number">1.1.</span> <span class="nav-text">区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">https协议工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的优点"><span class="nav-number">1.3.</span> <span class="nav-text">https协议的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的缺点"><span class="nav-number">1.4.</span> <span class="nav-text">https协议的缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手"><span class="nav-number">2.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP和UDP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket"><span class="nav-number">4.</span> <span class="nav-text">WebSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">4.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本请求"><span class="nav-number">4.3.</span> <span class="nav-text">基本请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#简单示例"><span class="nav-number">4.4.</span> <span class="nav-text">简单示例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#http和https"><span class="nav-number">1.</span> <span class="nav-text">http和https</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区别："><span class="nav-number">1.1.</span> <span class="nav-text">区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">https协议工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的优点"><span class="nav-number">1.3.</span> <span class="nav-text">https协议的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的缺点"><span class="nav-number">1.4.</span> <span class="nav-text">https协议的缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手"><span class="nav-number">2.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP和UDP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket"><span class="nav-number">4.</span> <span class="nav-text">WebSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">4.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本请求"><span class="nav-number">4.3.</span> <span class="nav-text">基本请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#简单示例"><span class="nav-number">4.4.</span> <span class="nav-text">简单示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http2-0"><span class="nav-number">5.</span> <span class="nav-text">http2.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">6.</span> <span class="nav-text">请求方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET"><span class="nav-number">6.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HEAD"><span class="nav-number">6.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST"><span class="nav-number">6.3.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PUT"><span class="nav-number">6.4.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DELETE"><span class="nav-number">6.5.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONNECT"><span class="nav-number">6.6.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TRACE"><span class="nav-number">6.7.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PATCH"><span class="nav-number">6.8.</span> <span class="nav-text">PATCH</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码"><span class="nav-number">7.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie、sessionStorage、localStorage的区别"><span class="nav-number">8.</span> <span class="nav-text">Cookie、sessionStorage、localStorage的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共同点："><span class="nav-number">8.1.</span> <span class="nav-text">共同点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie"><span class="nav-number">8.2.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sessionStorage"><span class="nav-number">8.3.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#localStorage："><span class="nav-number">8.4.</span> <span class="nav-text">localStorage：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#补充cookie的作用："><span class="nav-number">8.5.</span> <span class="nav-text">补充cookie的作用：</span></a></li></ol></li></ol></div>
             
 
           </div>
