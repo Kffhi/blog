@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="知识点总结（三）——HTML及CSS部分">
+<meta name="description" content="知识点总结（三）——HTML及CSS部分，前面博客里面出现的内容就不收录了">
 <meta name="keywords" content="CSS,HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="知识点总结（三）">
 <meta property="og:url" content="https://www.kffhi.com/blog/2019/07/27/知识点总结（三）/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="知识点总结（三）——HTML及CSS部分">
+<meta property="og:description" content="知识点总结（三）——HTML及CSS部分，前面博客里面出现的内容就不收录了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-27T09:41:36.148Z">
+<meta property="og:updated_time" content="2019-07-28T10:48:35.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点总结（三）">
-<meta name="twitter:description" content="知识点总结（三）——HTML及CSS部分">
+<meta name="twitter:description" content="知识点总结（三）——HTML及CSS部分，前面博客里面出现的内容就不收录了">
 
 
 
@@ -353,7 +353,50 @@
       
 
       
-        <p>知识点总结（三）——HTML及CSS部分<br><a id="more"></a></p>
+        <p>知识点总结（三）——HTML及CSS部分，前面博客里面出现的内容就不收录了<br><a id="more"></a></p>
+<h4 id="Drag-api"><a href="#Drag-api" class="headerlink" title="Drag api"></a>Drag api</h4><p>拖放API作用到两个目标对象，分别是拖拽目标对象和放置目标对象</p>
+<p>一个设置<code>draggable</code>属性的值为<code>true</code>DOM元素或者一个选中状态的文本区块可以成为拖拽目标。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">draggable</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>dragstart：事件主体是被拖放元素，在开始拖放被拖放元素时触发</li>
+<li>darg：事件主体是被拖放元素，在正在拖放被拖放元素时触发</li>
+<li>dragenter：事件主体是目标元素，在被拖放元素进入某元素时触发</li>
+<li>dragover：事件主体是目标元素，在被拖放在某元素内移动时触发</li>
+<li>dragleave：事件主体是目标元素，在被拖放元素移出目标元素是触发</li>
+<li>drop：事件主体是目标元素，在目标元素完全接受被拖放元素时触发</li>
+<li>dragend：事件主体是被拖放元素，在整个拖放操作结束时触发</li>
+</ul>
+<h4 id="画三角形"><a href="#画三角形" class="headerlink" title="画三角形"></a>画三角形</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>:<span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">height</span>:<span class="number">0px</span>;</span><br><span class="line">	<span class="attribute">border-top</span>:<span class="number">10px</span> solid red;</span><br><span class="line">	<span class="attribute">border-right</span>:<span class="number">10px</span> solid transparent;</span><br><span class="line">	<span class="attribute">border-bottom</span>:<span class="number">10px</span> solid transparent;</span><br><span class="line">	<span class="attribute">border-left</span>:<span class="number">10px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="0-5px的线"><a href="#0-5px的线" class="headerlink" title="0.5px的线"></a>0.5px的线</h4><p>挺麻烦的因为各个浏览器不一样</p>
+<p>基本上就直接0.5px，1px然后scale0.5，linear-gradient，boxshadow，SVG之类的</p>
+<p>具体<a href="https://juejin.im/post/5ab65f40f265da2384408a95" target="_blank" rel="noopener">可以参考这篇</a></p>
+<h4 id="link和import的区别"><a href="#link和import的区别" class="headerlink" title="link和import的区别"></a>link和import的区别</h4><p>link属于html标签，而@import是css提供的</p>
+<p>页面被加载时，link会同时被加载，而@import引用的css会等到页面加载结束后加载</p>
+<p>link是html标签，因此没有兼容性，而@import只有IE5以上才能识别</p>
+<p>link方式样式的权重高于@import的</p>
+<h4 id="transition和animation"><a href="#transition和animation" class="headerlink" title="transition和animation"></a>transition和animation</h4><p>Animation和transition大部分属性是相同的，他们都是随时间改变元素的属性值</p>
+<p>transition需要触发一个事件才能改变属性，并且transition为2帧，从from …. to</p>
+<p>animation不需要触发任何事件的情况下才会随时间改变属性值，animation可以一帧一帧的</p>
+<h4 id="js动画和css动画的差异性"><a href="#js动画和css动画的差异性" class="headerlink" title="js动画和css动画的差异性"></a>js动画和css动画的差异性</h4><p>渲染线程分为main thread和compositor thread，如果css动画只改变transform和opacity，这时整个CSS动画得以在compositor trhead完成（而js动画则会在main thread执行，然后出发compositor thread进行下一步操作），特别注意的是如果改变transform和opacity是不会layout或者paint的</p>
+<p>区别：</p>
+<ul>
+<li>功能涵盖面，js比css大</li>
+<li>实现/重构难度不一，CSS3比js更加简单，性能跳优方向固定</li>
+<li>对帧速表现不好的低版本浏览器，css3可以做到自然降级</li>
+<li>css动画有天然事件支持</li>
+<li>css3有兼容性问题</li>
+</ul>
+<h4 id="多行元素文本省略"><a href="#多行元素文本省略" class="headerlink" title="多行元素文本省略"></a>多行元素文本省略</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span>: <span class="selector-tag">-webkit-box</span></span><br><span class="line"><span class="selector-tag">-webkit-box-orient</span><span class="selector-pseudo">:vertical</span></span><br><span class="line"><span class="selector-tag">-webkit-line-clamp</span><span class="selector-pseudo">:3</span></span><br><span class="line"><span class="selector-tag">overflow</span><span class="selector-pseudo">:hidden</span></span><br></pre></td></tr></table></figure>
+<h4 id="visibility-hidden-opacity-0，display-none"><a href="#visibility-hidden-opacity-0，display-none" class="headerlink" title="visibility=hidden, opacity=0，display:none"></a>visibility=hidden, opacity=0，display:none</h4><p>opacity=0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如click事件，那么点击该区域，也能触发点击事件</p>
+<p>visibility=hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件</p>
+<p>display=none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样</p>
+<h4 id="双边距重叠"><a href="#双边距重叠" class="headerlink" title="双边距重叠"></a>双边距重叠</h4><p>多个相邻（兄弟或者父子关系）普通流的块元素垂直方向marigin会重叠</p>
+<p>折叠的结果为：</p>
+<p>两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值<br>两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值<br>两个外边距一正一负时，折叠结果是两者的相加的和</p>
+<h4 id="display：table和本身的table"><a href="#display：table和本身的table" class="headerlink" title="display：table和本身的table"></a>display：table和本身的table</h4><p>Display:table和本身table是相对应的，区别在于，display：table的css声明能够让一个html元素和它的子节点像table元素一样，使用基于表格的css布局，是我们能够轻松定义一个单元格的边界，背景等样式，而不会产生因为使用了table那样的制表标签导致的语义化问题。</p>
+<p>之所以现在逐渐淘汰了table系表格元素，是因为用div+css编写出来的文件比用table边写出来的文件小，而且table必须在页面完全加载后才显示，div则是逐行显示，table的嵌套性太多，没有div简洁</p>
+<p><em>也没啥了后面CSS再整个整理一遍</em></p>
+<p>#### </p>
 
       
     </div>
@@ -446,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -507,6 +559,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Drag-api"><span class="nav-number">1.</span> <span class="nav-text">Drag api</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画三角形"><span class="nav-number">2.</span> <span class="nav-text">画三角形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-5px的线"><span class="nav-number">3.</span> <span class="nav-text">0.5px的线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#link和import的区别"><span class="nav-number">4.</span> <span class="nav-text">link和import的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transition和animation"><span class="nav-number">5.</span> <span class="nav-text">transition和animation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js动画和css动画的差异性"><span class="nav-number">6.</span> <span class="nav-text">js动画和css动画的差异性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多行元素文本省略"><span class="nav-number">7.</span> <span class="nav-text">多行元素文本省略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visibility-hidden-opacity-0，display-none"><span class="nav-number">8.</span> <span class="nav-text">visibility=hidden, opacity=0，display:none</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双边距重叠"><span class="nav-number">9.</span> <span class="nav-text">双边距重叠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#display：table和本身的table"><span class="nav-number">10.</span> <span class="nav-text">display：table和本身的table</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
