@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端,CSS,布局,">
+  <meta name="keywords" content="前端,JS,Cookie,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="CSS布局（八）——实例">
-<meta name="keywords" content="前端,CSS,布局">
+<meta name="description" content="ES6下Cookie的使用">
+<meta name="keywords" content="前端,JS,Cookie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS布局之实例">
-<meta property="og:url" content="https://www.kffhi.com/blog/2019/05/16/CSS布局之实例/index.html">
+<meta property="og:title" content="Cookie的使用">
+<meta property="og:url" content="https://www.kffhi.com/blog/2019/08/21/Cookie的使用/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="CSS布局（八）——实例">
+<meta property="og:description" content="ES6下Cookie的使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-03T01:26:46.410Z">
+<meta property="og:updated_time" content="2019-08-21T04:45:33.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS布局之实例">
-<meta name="twitter:description" content="CSS布局（八）——实例">
+<meta name="twitter:title" content="Cookie的使用">
+<meta name="twitter:description" content="ES6下Cookie的使用">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://www.kffhi.com/blog/2019/05/16/CSS布局之实例/">
+  <link rel="canonical" href="https://www.kffhi.com/blog/2019/08/21/Cookie的使用/">
 
 
 
 
 
-  <title>CSS布局之实例 | Kffhi的博客</title>
+  <title>Cookie的使用 | Kffhi的博客</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2019/05/16/CSS布局之实例/">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2019/08/21/Cookie的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kffhi">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSS布局之实例</h1>
+          <h1 class="post-title" itemprop="name headline">Cookie的使用</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T22:14:07+08:00">
-                2019-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T12:21:13+08:00">
+                2019-08-21
               </time>
             
 
@@ -316,8 +316,19 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/前端/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/blog/categories/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/前端/JS/Cookie/" itemprop="url" rel="index">
+                    <span itemprop="name">Cookie</span>
                   </a>
                 </span>
 
@@ -353,8 +364,15 @@
       
 
       
-        <p>CSS布局（八）——实例</p>
-<a id="more"></a>
+        <p>ES6下Cookie的使用<br><a id="more"></a></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install js-cookie -s</span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cookie <span class="keyword">from</span> <span class="string">'js-cookie'</span></span><br></pre></td></tr></table></figure>
+<h4 id="一般使用"><a href="#一般使用" class="headerlink" title="一般使用"></a>一般使用</h4><h5 id="存入cookie"><a href="#存入cookie" class="headerlink" title="存入cookie"></a>存入cookie</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置cookie，整个站点有效</span></span><br><span class="line">Cookie.set(<span class="string">'name'</span>, <span class="string">'value'</span>);</span><br><span class="line"><span class="comment">// 设置cookie，整个站点有效，7天后过期</span></span><br><span class="line">Cookie.set(<span class="string">'name'</span>, <span class="string">'value'</span>, &#123;<span class="attr">exprise</span>: <span class="number">7</span>&#125;);</span><br><span class="line"><span class="comment">//设置cookie，当前路径有效，7天后过期</span></span><br><span class="line">Cookie.set(<span class="string">'name'</span>, <span class="string">'value'</span>, &#123;<span class="attr">exprise</span>: <span class="number">7</span>,<span class="attr">path</span>: <span class="string">''</span>&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="取出cookie"><a href="#取出cookie" class="headerlink" title="取出cookie"></a>取出cookie</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取出cookie</span></span><br><span class="line">Cookie.get(<span class="string">'name'</span>); <span class="comment">// =&gt; 'value'</span></span><br><span class="line">Cookie.get(<span class="string">'nothing'</span>); <span class="comment">// =&gt; 'undefined'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 取出所有cookie</span></span><br><span class="line">Cookie.get(); <span class="comment">// =&gt; &#123;name: value&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="删除Cookie"><a href="#删除Cookie" class="headerlink" title="删除Cookie"></a>删除Cookie</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Cookie.remove(<span class="string">'name'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除对当前路径有效的Cookie</span></span><br><span class="line">Cookie.set(<span class="string">'name'</span>, <span class="string">'value'</span>, &#123;<span class="attr">path</span>: <span class="string">''</span>&#125;);</span><br><span class="line">Cookie.remove(<span class="string">'name'</span>); <span class="comment">// fail</span></span><br><span class="line">Cookie.remove(<span class="string">'name'</span>, &#123;<span class="attr">path</span>: <span class="string">''</span>&#125;); <span class="comment">// removed</span></span><br></pre></td></tr></table></figure>
+<h4 id="特殊使用（在Cookie中存对象）"><a href="#特殊使用（在Cookie中存对象）" class="headerlink" title="特殊使用（在Cookie中存对象）"></a>特殊使用（在Cookie中存对象）</h4><p>跟一般使用不同的是，从Cookie中取出的时候，要从字符串转为Json格式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">    name: <span class="string">'Tom'</span>,</span><br><span class="line">    age: <span class="string">'24'</span></span><br><span class="line">&#125;</span><br><span class="line">Cookie.set(<span class="string">'user'</span>, user)</span><br><span class="line"><span class="keyword">const</span> tomUser = <span class="built_in">JSON</span>.parse(Cookie.get(<span class="string">'name'</span>))</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -373,9 +391,9 @@
           
             <a href="/blog/tags/前端/" rel="tag"># 前端</a>
           
-            <a href="/blog/tags/CSS/" rel="tag"># CSS</a>
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
           
-            <a href="/blog/tags/布局/" rel="tag"># 布局</a>
+            <a href="/blog/tags/Cookie/" rel="tag"># Cookie</a>
           
         </div>
       
@@ -388,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/05/16/CSS布局之Grid/" rel="next" title="CSS布局之Grid">
-                <i class="fa fa-chevron-left"></i> CSS布局之Grid
+              <a href="/blog/2019/07/27/知识点总结（三）/" rel="next" title="知识点总结（三）">
+                <i class="fa fa-chevron-left"></i> 知识点总结（三）
               </a>
             
           </div>
@@ -397,10 +415,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/05/19/一些关于Vue的常见问题/" rel="prev" title="一些关于Vue的常见问题">
-                一些关于Vue的常见问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -452,8 +466,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -513,6 +536,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用"><span class="nav-number">2.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一般使用"><span class="nav-number">3.</span> <span class="nav-text">一般使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#存入cookie"><span class="nav-number">3.1.</span> <span class="nav-text">存入cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#取出cookie"><span class="nav-number">3.2.</span> <span class="nav-text">取出cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除Cookie"><span class="nav-number">3.3.</span> <span class="nav-text">删除Cookie</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊使用（在Cookie中存对象）"><span class="nav-number">4.</span> <span class="nav-text">特殊使用（在Cookie中存对象）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
