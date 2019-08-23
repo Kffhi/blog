@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="随手笔记，随缘扩展总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T14:26:46.556Z">
+<meta property="og:updated_time" content="2019-08-23T13:45:43.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随手笔记">
 <meta name="twitter:description" content="随手笔记，随缘扩展总结">
@@ -356,6 +356,7 @@
         <p>随手笔记，随缘扩展总结<br><a id="more"></a></p>
 <h5 id="font-size为0"><a href="#font-size为0" class="headerlink" title="font-size为0"></a>font-size为0</h5><p><code>display：inline-block</code>的元素之间会有一个字符的间隙，这个间隙导致了最后一个会掉下来。</p>
 <p>解决方法：<br>1、给父元素设置<code>font-size：0px</code>；<br>2、取消掉换行符，如这样：<code>&lt;span&gt;aaaa&lt;/span&gt;&lt;span&gt;aaaa&lt;/span&gt;&lt;span&gt;aaaa&lt;/span&gt;</code>连续</p>
+<h5 id="获取盒模型宽高的4种方法"><a href="#获取盒模型宽高的4种方法" class="headerlink" title="获取盒模型宽高的4种方法"></a>获取盒模型宽高的4种方法</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只能取出内联样式的宽高</span></span><br><span class="line">dom.style.width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以获取渲染后的宽高，但是只有IE支持</span></span><br><span class="line">dom.currentStyle.width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染后的，兼容firefox和chrome</span></span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(dom).width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染后的，用于计算相对于视窗的绝对位置，返回4个值，left/right/width/height</span></span><br><span class="line">dom.getBoundClientRect()/width/height</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -397,6 +398,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/08/23/Promise/" rel="prev" title="Promise对象">
+                Promise对象 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -473,7 +478,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -495,7 +500,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -528,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#font-size为0"><span class="nav-number">1.</span> <span class="nav-text">font-size为0</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#font-size为0"><span class="nav-number">1.</span> <span class="nav-text">font-size为0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取盒模型宽高的4种方法"><span class="nav-number">2.</span> <span class="nav-text">获取盒模型宽高的4种方法</span></a></li></ol></div>
             
 
           </div>
