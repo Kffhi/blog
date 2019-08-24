@@ -87,10 +87,18 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="关于原型链及面向对象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-24T08:02:59.876Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/3.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/1.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/4.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/5.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/2.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/6.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/7.png">
+<meta property="og:updated_time" content="2019-08-24T14:29:51.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型链和面向对象">
 <meta name="twitter:description" content="关于原型链及面向对象">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/20190824/3.png">
 
 
 
@@ -354,6 +362,25 @@
 
       
         <p>关于原型链及面向对象<br><a id="more"></a></p>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><h5 id="创建对象的方法"><a href="#创建对象的方法" class="headerlink" title="创建对象的方法"></a>创建对象的方法</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字面量</span></span><br><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">name</span>: <span class="string">'o1'</span> &#125;</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123; <span class="attr">name</span>: <span class="string">'o2'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line"><span class="keyword">var</span> M = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123; <span class="keyword">this</span>.name = name &#125;</span><br><span class="line"><span class="keyword">var</span> o3 = <span class="keyword">new</span> M(<span class="string">'o3'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.create</span></span><br><span class="line"><span class="keyword">var</span> p = &#123; <span class="attr">name</span>: <span class="string">'p'</span> &#125;</span><br><span class="line"><span class="keyword">var</span> o4 = <span class="built_in">Object</span>.create(p)</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/3.png" alt></p>
+<h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p>每个构造函数（constructor）都有一个原型对象（prototype），原型对象都包含一个指向构造函数的指针，而实例（instance）都包含一个指向原型对象的内部指针</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/1.png" alt></p>
+<p>构造函数通过<code>new</code>运算符生成一个实例，即任何函数都可以当作一个构造函数，而函数都有prototype属性，这个prototype指的就是原型对象。原型对象中会有一个构造器，这个构造器属性会指向默认声明的函数</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/4.png" alt></p>
+<p>如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后才在该对象的原型(instance.prototype)里去找这个属性</p>
+<p>任何一个实例对象，通过原型链找到它上面原型对象，那个上面的方法和属性都是被实例所共享的，这就是原型链的基本原理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> M = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123; <span class="keyword">this</span>.name = name &#125;</span><br><span class="line">   <span class="keyword">var</span> o3 = <span class="keyword">new</span> M(<span class="string">'o3'</span>)</span><br><span class="line">   M.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">"say hi"</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">var</span> o5 = <span class="keyword">new</span> M(<span class="string">'o5'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/5.png" alt></p>
+<h5 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h5><p><img src="https://www.kffhi.com/public/blog/images/20190824/2.png" alt></p>
+<p>instanceof的原理就是用来判断实例对象的<code>__proto__</code>属性和构造函数的<code>prototype</code>是不是同一个引用，如果是则返回true</p>
+<p>只要是在原型链上的构造函数，都会被<code>instanceof</code>看作实例的对象的构造函数</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/6.png" alt></p>
+<h5 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h5><p>一个新对象被创建，继承自<code>foo.prototype</code></p>
+<p>构造函数foo被执行。执行的时候，相应的传参会被传入，同时上下文（this）会被指定为这个新实例。<code>new foo</code>等同于<code>new foo（）</code>，只能用在不传递参数的情况</p>
+<p>如果构造函数返回了一个对象，那这个对象会取代整个new出来的结果。如果构造函数没有返回对象，那么new出来的结果为第一步被创建的对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> new2 = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> o = <span class="built_in">Object</span>.create(func.prototype)</span><br><span class="line">  <span class="keyword">var</span> k = func.call(o)</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> k === <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> k</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> o</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/7.png" alt></p>
 
       
     </div>
@@ -450,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -511,6 +547,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number">1.</span> <span class="nav-text">原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建对象的方法"><span class="nav-number">1.1.</span> <span class="nav-text">创建对象的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#instanceof"><span class="nav-number">1.3.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#new运算符"><span class="nav-number">1.4.</span> <span class="nav-text">new运算符</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
