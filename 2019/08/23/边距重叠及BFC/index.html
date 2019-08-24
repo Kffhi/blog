@@ -87,10 +87,15 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="边距重叠及BFC">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T13:52:17.823Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/8.webp">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/9.webp">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/10.webp">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/11.webp">
+<meta property="og:updated_time" content="2019-08-24T14:56:30.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="边距重叠及BFC">
 <meta name="twitter:description" content="边距重叠及BFC">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/20190824/8.webp">
 
 
 
@@ -354,6 +359,39 @@
 
       
         <p>边距重叠及BFC<br><a id="more"></a></p>
+<h4 id="边距重叠"><a href="#边距重叠" class="headerlink" title="边距重叠"></a>边距重叠</h4><p>边界重叠是指两个或多个盒子(可能相邻也可能嵌套)的相邻边界(其间没有任何非空内容、补白、边框)重合在一起而形成一个单一边界<br>两个或多个块级盒子的垂直相邻边界会重合，它们的边界宽度是相邻边界宽度中的最大值。注意水平边界是不会重合的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.parent</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#E7A1C5</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.parent</span> <span class="selector-class">.child</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#C8CDF5</span>;</span></span><br><span class="line"><span class="undefined">        height: 100px;</span></span><br><span class="line"><span class="undefined">        margin-top: 10px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>以为的效果</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/8.webp" alt></p>
+<p>实际的效果</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/9.webp" alt></p>
+<p><strong>原因：</strong></p>
+<p>如果块元素的 margin-top 与它的第一个子元素的margin-top 之间没有 border、padding、inline content、 clearance 来分隔，或者块元素的 margin-bottom 与它的最后一个子元素的margin-bottom 之间没有 border、padding、inline content、height、min-height、 max-height 分隔，那么外边距会塌陷，子元素多余的外边距会被父元素的外边距截断</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#margin</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#E7A1C5</span>;</span></span><br><span class="line"><span class="undefined">        overflow: hidden;</span></span><br><span class="line"><span class="undefined">        width: 300px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-id">#margin</span>&gt;<span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#C8CDF5</span>;</span></span><br><span class="line"><span class="undefined">        margin: 20px auto 30px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">"margin"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/10.webp" alt></p>
+<p>可以看到1和2,2和3之间的间距不是50px，发生了边距重叠是取了它们之间的最大值30px</p>
+<p>假设有一个空元素，它有外边距，但是没有边框或填充。在这种情况下，上外边距与下外边距就碰到了一起，它们会发生合并：</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190824/11.webp" alt></p>
+<h4 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h4><p>基本概念：块级格式化上下文</p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><ul>
+<li>BFC元素的垂直方向的边距会发生重叠</li>
+<li>BFC元素的区域不会与浮动元素的box重叠</li>
+<li>BFC在页面上是一个独立的容器，外面的元素和里面的元素互不影响</li>
+<li>计算BFC元素高度时，浮动元素的高度会参与计算</li>
+</ul>
+<h5 id="创建BFC"><a href="#创建BFC" class="headerlink" title="创建BFC"></a>创建BFC</h5><ul>
+<li>浮动（float的值不为none）</li>
+<li>绝对定位元素（position的值为absolute或fixed）</li>
+<li>行内块（display为inline-block）</li>
+<li>表格单元（display为table、table-cell、table-caption等HTML表格相关属性）</li>
+<li>弹性盒（display为flex或inline-flex）</li>
+<li>overflow不为visible</li>
+</ul>
+<h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ul>
+<li>防止垂直<code>margin</code>重叠</li>
+<li>清除内部浮动</li>
+<li>自适应两栏布局</li>
+</ul>
 
       
     </div>
@@ -454,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,6 +562,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#边距重叠"><span class="nav-number">1.</span> <span class="nav-text">边距重叠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BFC"><span class="nav-number">2.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原理"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建BFC"><span class="nav-number">2.2.</span> <span class="nav-text">创建BFC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用场景"><span class="nav-number">2.3.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
