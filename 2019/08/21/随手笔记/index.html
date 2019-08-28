@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="随手笔记，随缘扩展总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T13:45:43.187Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/1.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190824/2.png">
+<meta property="og:updated_time" content="2019-08-28T10:33:57.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随手笔记">
 <meta name="twitter:description" content="随手笔记，随缘扩展总结">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/20190824/1.png">
 
 
 
@@ -357,6 +360,310 @@
 <h5 id="font-size为0"><a href="#font-size为0" class="headerlink" title="font-size为0"></a>font-size为0</h5><p><code>display：inline-block</code>的元素之间会有一个字符的间隙，这个间隙导致了最后一个会掉下来。</p>
 <p>解决方法：<br>1、给父元素设置<code>font-size：0px</code>；<br>2、取消掉换行符，如这样：<code>&lt;span&gt;aaaa&lt;/span&gt;&lt;span&gt;aaaa&lt;/span&gt;&lt;span&gt;aaaa&lt;/span&gt;</code>连续</p>
 <h5 id="获取盒模型宽高的4种方法"><a href="#获取盒模型宽高的4种方法" class="headerlink" title="获取盒模型宽高的4种方法"></a>获取盒模型宽高的4种方法</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只能取出内联样式的宽高</span></span><br><span class="line">dom.style.width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以获取渲染后的宽高，但是只有IE支持</span></span><br><span class="line">dom.currentStyle.width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染后的，兼容firefox和chrome</span></span><br><span class="line"><span class="built_in">window</span>.getComputedStyle(dom).width/height</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染后的，用于计算相对于视窗的绝对位置，返回4个值，left/right/width/height</span></span><br><span class="line">dom.getBoundClientRect()/width/height</span><br></pre></td></tr></table></figure>
+<h4 id="画三角形"><a href="#画三角形" class="headerlink" title="画三角形"></a>画三角形</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.test</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">100px</span> red solid;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">100px</span> transparent solid;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">100px</span> transparent solid;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> transparent solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h4><p>原理：在数据集中选定一个数作为基准，所有小于基准的数移到左边，大于基准的数移到右边，对基准的左右两个子集不断重复上面的操做，直到所有的子集都只剩一个元素为止</p>
+<p>时间复杂度O(nlogn)，空间复杂度O(logn)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> quick = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) &#123; <span class="keyword">return</span> arr &#125;</span><br><span class="line">  <span class="keyword">let</span> pivotindex = <span class="built_in">Math</span>.floor(arr.length / <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">let</span> pivot = arr.splice(pivotindex, <span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">let</span> left = []</span><br><span class="line">  <span class="keyword">let</span> right = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i], pivot) &#123;</span><br><span class="line">      left.push(arr[i])</span><br><span class="line">    &#125; <span class="keyword">else</span> right.push(arr[i])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> quick(left).concat([pivot], quickSort(right))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><h5 id="怎么理解继承"><a href="#怎么理解继承" class="headerlink" title="怎么理解继承"></a>怎么理解继承</h5><p>子集通过构造函数或者原型链来复用父集的某些方法</p>
+<h5 id="借助构造函数"><a href="#借助构造函数" class="headerlink" title="借助构造函数"></a>借助构造函数</h5><p>在子集里直接调用父集的构造函数</p>
+<p>保证了原型链中引用类型值的独立,不再被所有实例共享，同时子类型创建时也能够向父类型传递参数</p>
+<p>但是，子类型只能继承父类构造函数里的方法，而无法继承原型对象上的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'parent1'</span></span><br><span class="line">&#125;</span><br><span class="line">Parent1.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent1.call(<span class="keyword">this</span>) <span class="comment">// apply(),改变this指向</span></span><br><span class="line">  <span class="keyword">this</span>.type = <span class="string">'child1'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="借助原型链"><a href="#借助原型链" class="headerlink" title="借助原型链"></a>借助原型链</h5><p>直接将子集的prototype等于父集的实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'parent'</span></span><br><span class="line">  <span class="keyword">this</span>.play = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.type = <span class="string">'child'</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent()</span><br><span class="line"><span class="keyword">var</span> s1 = <span class="keyword">new</span> Child2()</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="keyword">new</span> Child2()</span><br><span class="line">s1.play.push(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h5><p>使用原型链实现对原型属性和方法的继承,通过借用构造函数来实现对实例属性的继承</p>
+<p>但是父集的构造函数执行了两次</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'parent3'</span></span><br><span class="line">  <span class="keyword">this</span>.play = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent3.call(<span class="keyword">this</span>)</span><br><span class="line">  <span class="keyword">this</span>.type = <span class="string">'child3'</span></span><br><span class="line">&#125;</span><br><span class="line">Child3.prototype = <span class="keyword">new</span> Parent3</span><br><span class="line"><span class="keyword">var</span> s3 = <span class="keyword">new</span> Child3()</span><br><span class="line"><span class="keyword">var</span> s4 = <span class="keyword">new</span> Child3()</span><br><span class="line"><span class="built_in">console</span>.log(s3.play, s4.play)</span><br><span class="line">s3.play.push(<span class="number">4</span>)</span><br><span class="line"><span class="built_in">console</span>.log(s3.play, s4.play)</span><br></pre></td></tr></table></figure>
+<h5 id="两种优化"><a href="#两种优化" class="headerlink" title="两种优化"></a>两种优化</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent4</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.name = <span class="string">'parent4'</span></span><br><span class="line">     <span class="keyword">this</span>.play = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">Child4</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     Parent4.call(<span class="keyword">this</span>)</span><br><span class="line">     <span class="keyword">this</span>.type = <span class="string">'child4'</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接将子类的构造函数指向父类的构造函数</span></span><br><span class="line">   Child4.prototype = Parent4.prototype</span><br><span class="line">   <span class="keyword">var</span> s5 = <span class="keyword">new</span> Child4()</span><br><span class="line">   <span class="keyword">var</span> s6 = <span class="keyword">new</span> Child4()</span><br><span class="line">   s5.play.push(<span class="number">4</span>)</span><br><span class="line">   <span class="built_in">console</span>.log(s5.play, s6.play)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">Parent5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.name = <span class="string">'parent5'</span></span><br><span class="line">     <span class="keyword">this</span>.play = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">Child5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     Parent5.call(<span class="keyword">this</span>)</span><br><span class="line">     <span class="keyword">this</span>.type = <span class="string">'child5'</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建中间对象</span></span><br><span class="line">   Child5.prototype = <span class="built_in">Object</span>.create(Parent5.prototype)</span><br><span class="line">   Child5.prototype.constructor = Child5</span><br><span class="line">   <span class="keyword">var</span> s7 = <span class="keyword">new</span> Child5()</span><br><span class="line">   <span class="keyword">var</span> s8 = <span class="keyword">new</span> Child5()</span><br><span class="line">   s7.play.push(<span class="number">4</span>)</span><br><span class="line">   <span class="built_in">console</span>.log(s7.play, s8.play)</span><br></pre></td></tr></table></figure>
+<h4 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h4><p>1、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。</p>
+<p>2、属性和方法被加入到 this 引用的对象中。</p>
+<p>3、新创建的对象由 this 所引用，并且最后隐式的返回 this.</p>
+<p>一个新对象被创建，继承自<code>foo.prototype</code></p>
+<p>构造函数foo被执行。执行的时候，相应的传参会被传入，同时上下文（this）会被指定为这个新实例。<code>new foo</code>等同于<code>new foo（）</code>，只能用在不传递参数的情况</p>
+<p>如果构造函数返回了一个对象，那这个对象会取代整个new出来的结果。如果构造函数没有返回对象，那么new出来的结果为第一步被创建的对象</p>
+<h4 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h4><p>Virtual DOM 就是用一个原生的 JS 对象去描述一个 DOM 节点，所以它比创建一个 DOM 的代价要小很多。在 Vue.js 中，Virtual DOM 是用 VNode 这么一个 Class 去描述</p>
+<p>VNode 是对真实 DOM 的一种抽象描述，它的核心定义无非就几个关键属性，标签名、数据、子节点、键值等</p>
+<p>Virtual DOM 除了它的数据结构的定义，映射到真实的 DOM 实际上要经历 VNode 的 <strong>create、diff、patch</strong>等过程。那么在 Vue.js 中，VNode 的 create 是通过之前提到的 createElement 方法创建的</p>
+<h5 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h5><ol>
+<li>用JS表示DOM结构</li>
+<li>比较两个虚拟DOM树的差异</li>
+<li>对真实DOM进行最小量的修改</li>
+</ol>
+<h5 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h5><ol>
+<li>组件的高度抽象化，vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标</li>
+<li>可以更好的实现 SSR，同构渲染等</li>
+<li>框架跨平台</li>
+</ol>
+<h4 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h4><h5 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h5><ul>
+<li>实例化XMLHttpRequest对象</li>
+<li>连接服务器</li>
+<li>发送请求</li>
+<li>接收响应数据、</li>
+</ul>
+<h5 id="一个HTTP请求由4部分组成："><a href="#一个HTTP请求由4部分组成：" class="headerlink" title="一个HTTP请求由4部分组成："></a>一个HTTP请求由4部分组成：</h5><ul>
+<li>HTTP请求方法或动作（verb）</li>
+<li>正在请求的URL</li>
+<li>一个可选的请求头集合，其中可能包括身份验证信息</li>
+<li>一个可选的请求主体</li>
+</ul>
+<h5 id="服务器返回的HTTP响应包含3部分："><a href="#服务器返回的HTTP响应包含3部分：" class="headerlink" title="服务器返回的HTTP响应包含3部分："></a>服务器返回的HTTP响应包含3部分：</h5><ul>
+<li>一个数字和文字组成的状态码，用来显示请求的成功和失败</li>
+<li>一个响应头集合</li>
+<li>响应主体</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 封装ajax</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">     params = params || &#123;&#125;</span><br><span class="line">     params.data = params.data || &#123;&#125;</span><br><span class="line">     <span class="comment">// 判断是ajax请求还是jsonp请求</span></span><br><span class="line">     <span class="keyword">var</span> json = params.jsonp ? jsonp(params) : json(params)</span><br><span class="line">     <span class="comment">// ajax</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">json</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">       <span class="comment">// 请求方式，默认GET</span></span><br><span class="line">       params.type = (params.type || <span class="string">'GET'</span>).toUpperCase()</span><br><span class="line">       <span class="comment">// 避免特殊字符，格式化之后再传输数据</span></span><br><span class="line">       params.data = formatParams(params.data)</span><br><span class="line">       <span class="keyword">var</span> xhr = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 实例化XMLHttpRequest对象</span></span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">         xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="comment">// IE6及以下版本</span></span><br><span class="line">         xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>)</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//监听事件，只要readyState 的值变化，就会调用readystatechange 事件</span></span><br><span class="line">       xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="comment">// readyState属性表示请求/相应过程的当前活动阶段，4为完成，已经接收到全部相应数据</span></span><br><span class="line">         <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">           <span class="keyword">var</span> status = xhr.status</span><br><span class="line">           <span class="comment">// status: 相应的HTTP状态码</span></span><br><span class="line">           <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt;= <span class="number">300</span>) &#123;</span><br><span class="line">             <span class="keyword">var</span> response = <span class="string">''</span></span><br><span class="line">             <span class="comment">// 判断接收数据的内容类型</span></span><br><span class="line">             <span class="keyword">var</span> type = xhr.getResponseHeader(<span class="string">'Content-type'</span>)</span><br><span class="line">             <span class="keyword">if</span> (type.indexOf(<span class="string">'xml'</span>) !== <span class="number">-1</span> &amp;&amp; xhr.responseXML) &#123;</span><br><span class="line">               response = xhr.responseXML  <span class="comment">// Document对象响应</span></span><br><span class="line">             &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === <span class="string">'application/json'</span>) &#123;</span><br><span class="line">               response = <span class="built_in">JSON</span>.parse(xhr.responseText)  <span class="comment">// JSON响应</span></span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               xhr = xhr.responseText  <span class="comment">// 字符串响应</span></span><br><span class="line">             &#125;</span><br><span class="line">             <span class="comment">// 成功回调函数</span></span><br><span class="line">             params.success &amp;&amp; params.success(response)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             params.error &amp;&amp; params.error(status)</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 连接和传输数据</span></span><br><span class="line">       <span class="keyword">if</span> (params.type === <span class="string">'GET'</span>) &#123;</span><br><span class="line">         <span class="comment">// 三个参数：请求方式、请求地址（GET方式时，传输数据是加在地址后面的）、是否异步请求</span></span><br><span class="line">         xhr.open(params.type, params.url + <span class="string">'?'</span> + params.data, <span class="literal">true</span>)</span><br><span class="line">         xhr.send(<span class="literal">null</span>)</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         xhr.open(params.type, params.url, <span class="literal">true</span>)</span><br><span class="line">         <span class="comment">// 必须，设置提交时的内容类型</span></span><br><span class="line">         xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded; charset=UTF-8'</span>)</span><br><span class="line">         <span class="comment">// 传输数据</span></span><br><span class="line">         xhr.send(params.data)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 格式化参数</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">formatParams</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> arr = []</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> name <span class="keyword">in</span> data) &#123;</span><br><span class="line">         <span class="comment">// encodeURLComponent() : 用于对URL中的某一部分进行编吗</span></span><br><span class="line">         arr.push(<span class="built_in">encodeURIComponent</span>(name) + <span class="string">'='</span> + <span class="built_in">encodeURIComponent</span>(data[name]))</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 添加一个随机参数防止缓存</span></span><br><span class="line">       arr.push(<span class="string">'v='</span> + random())</span><br><span class="line">       <span class="keyword">return</span> arr.join(<span class="string">'&amp;'</span>)</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 获取随机数</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">random</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10000</span> + <span class="number">500</span>)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 调用</span></span><br><span class="line">   ajax(&#123;</span><br><span class="line">     url: <span class="string">'./test.json'</span>,  <span class="comment">// 请求地址</span></span><br><span class="line">     type: <span class="string">'GET'</span>,  <span class="comment">// 请求类型，默认"GET"，还可以是"POST"</span></span><br><span class="line">     <span class="comment">// data: &#123; 'b': '异步请求' &#125;,  // 传输数据</span></span><br><span class="line">     success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;  <span class="comment">// 请求成功的回调函数</span></span><br><span class="line">       <span class="built_in">console</span>.log(res)</span><br><span class="line">       <span class="keyword">let</span> aaa = <span class="string">''</span></span><br><span class="line">       <span class="keyword">for</span> (item <span class="keyword">of</span> res.pText) &#123;</span><br><span class="line">         aaa += <span class="string">'&lt;p&gt;'</span> + item.content + <span class="string">'&lt;/p&gt;'</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">let</span> test = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'test'</span>)[<span class="number">0</span>]</span><br><span class="line">       <span class="comment">// console.log(test)</span></span><br><span class="line">       <span class="comment">// console.log(aaa)</span></span><br><span class="line">       test.innerHTML = aaa</span><br><span class="line">     &#125;,</span><br><span class="line">     error: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123; &#125;  <span class="comment">// 请求失败的回调函数</span></span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="apply、call、bind"><a href="#apply、call、bind" class="headerlink" title="apply、call、bind"></a>apply、call、bind</h4><p>这仨作用就是：改变函数执行的上下文，具体指的就是改变this指向</p>
+<h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p>call、apply与bind的差别</p>
+<ul>
+<li>call和apply改变了函数的this上下文后便执行该函数,而bind则是返回改变了上下文后的一个函数。</li>
+</ul>
+<p>call、apply的区别</p>
+<ul>
+<li>他们俩之间的差别在于参数的区别，call和apply的第一个参数都是要改变上下文的对象，而call从第二个参数开始以参数列表的形式展现，apply则是把除了改变上下文对象的参数放在一个数组里面作为它的第二个参数。</li>
+</ul>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p>JS可以在函数内部读取全局变量，但是在函数外部无法读取函数内部的局部变量</p>
+<blockquote>
+<p>Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立</p>
+</blockquote>
+<p>通过闭包，即在函数f1内部在定义一个函数f2并把f2作为返回值，就可以在函数外部读取函数内部的变量</p>
+<h5 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h5><p>一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中</p>
+<h4 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h4><h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><p>基本数据类型，放在栈内存的：Undefined（已声明未赋值）、Null（不存在的对象的结果）、Boolean、Number、String  </p>
+<p>复杂数据类新，放在堆内存：Object</p>
+<p>深浅拷贝问题只针对复杂数据类型</p>
+<h5 id="区别-1"><a href="#区别-1" class="headerlink" title="区别"></a>区别</h5><p>浅拷贝（shallow copy）：只复制指向某个对象的指针，而不复制对象本身，新旧对象共享一块内存 </p>
+<p>深拷贝（deep copy）：复制并创建一个一模一样的对象，不共享内存，修改新对象，旧对象保持不变</p>
+<h5 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h5><p>直接可以使用<code>=</code>赋值运算符实现</p>
+<h5 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h5><p>数组：slice（）和concat（）方法（适用于对不包含引用对象的一维数组的深拷贝），ES6的<code>...</code>扩展运算符</p>
+<p>对象：</p>
+<ul>
+<li>原理：定义一个新对象，遍历原对象的属性，并赋值给新对象</li>
+<li>方法：递归、JSON.stringfy()和parse()</li>
+</ul>
+<h4 id="瀑布流"><a href="#瀑布流" class="headerlink" title="瀑布流"></a>瀑布流</h4><p>瀑布流是要求布置的元素等宽，然后在计算元素的宽度和浏览器宽度的比值，得到需要布置的列数 创建一个数组，数组的长度为布置的列数，初始化的时候数组内的元素都为0 把父元素定位设置为position: relative，计算每个元素应该摆放的位置</p>
+<p>CSS的话，<code>column-width</code>就好，加<code>-moz</code>和<code>-webkit</code></p>
+<h4 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h4><h5 id="重排"><a href="#重排" class="headerlink" title="重排"></a>重排</h5><p>部分渲染树（或者整个渲染树）需要重新分析并且节点尺寸需要重新计算。这被称为<strong>重排</strong>。注意这里至少会有一次重排-初始化页面布局</p>
+<h5 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h5><p>由于节点的几何属性发生改变或者由于样式发生改变，例如改变元素背景色时，屏幕上的部分内容需要更新。这样的更新被称为<strong>重绘</strong></p>
+<h4 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h4><p>新建JS文件并引入 Vue 并导出它的一个实例</p>
+<p>或者可以直接在项目中的 <code>main.js</code> 初始化 <code>EventBus</code> ：</p>
+<p>用<code>$on</code>进行事件监听</p>
+<h4 id="defineProperty"><a href="#defineProperty" class="headerlink" title="defineProperty"></a>defineProperty</h4><p>该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象</p>
+<h4 id="输入url到页面展示过程"><a href="#输入url到页面展示过程" class="headerlink" title="输入url到页面展示过程"></a>输入url到页面展示过程</h4><ol>
+<li>DNS解析</li>
+<li>TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束</li>
+</ol>
+<h4 id="meta标签"><a href="#meta标签" class="headerlink" title="meta标签"></a>meta标签</h4><p>meta常用于定义页面的说明，关键字，最后修改日期，和其它的元数据。这些元数据将服务于浏览器（如何布局或重载页面），搜索引擎和其它网络服务</p>
+<p>meta标签共有两个属性，分别是http-equiv属性和name属性</p>
+<p>name定义一些像viewport、description、keywords之类的属性</p>
+<p>http-equiv定义http参数像字符集content-Type、请求相应缓存机制cache-control等</p>
+<h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><p>超文本传输协议，是一个客户端和服务器请求应答的标准（TCP），用于从服务器传输超文本到本地浏览器的传输协议</p>
+<p><strong>无连接</strong>：每进行一次HTTP通信，都要断开一次TCP连接，HTTP1.1提出了持久连接的方法keep-alive</p>
+<p><strong>无状态</strong>：HTTP协议无法根据之前的状态进行本次的请求处理，可以减少服务器的CPU及内存资源的消耗，可以引入Cookie等</p>
+<p>Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态</p>
+<h4 id="强缓存和协商缓存"><a href="#强缓存和协商缓存" class="headerlink" title="强缓存和协商缓存"></a>强缓存和协商缓存</h4><p>http缓存机制主要在http响应头中设定，响应头中相关字段为Expires、Cache-Control、Last-Modified、Etag</p>
+<h5 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h5><p>浏览器不会像服务器发送任何请求，直接从本地缓存中读取文件并且返回Status Code为200 OK</p>
+<p>内存—硬盘—网络资源</p>
+<p>字段：Expires（过期时间）、Cache-Control（eg：max-age=300，则在5分钟内再次加载资源就会命中强缓存）</p>
+<h5 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h5><p>像服务器发送请求，服务器根据request header的参数来判断是否命中协商缓存，如果命中则返回304并带上response header通知浏览器从缓存中读取资源</p>
+<p>字段：Etag（缓存验证）、If-None-Match</p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><p>100 Continue 继续。客户端应继续其请求</p>
+<p>101 Switching Protocols 切换协议（更高级HTTP之类）</p>
+<p>200 OK 请求成功。一般用于GET与POST请求</p>
+<p>201 Created 已创建。成功请求并创建了新的资源</p>
+<p>202 Accepted 已接受。已经接受请求，但未处理完成</p>
+<p>300 Multiple Choices 多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择</p>
+<p>301 Moved Permanently 永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</p>
+<p>302 Found 临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</p>
+<p>303 See Other 查看其它地址。与301类似。使用GET和POST请求查看</p>
+<p>304 Not Modified 未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源</p>
+<p>307 Temporary Redirect 临时重定向。与302类似。使用GET请求重定向</p>
+<p>400 Bad Request 客户端请求的语法错误，服务器无法理解</p>
+<p>401 Unauthorized 请求要求用户的身份认证</p>
+<p>402 Payment Required 保留，将来使用</p>
+<p>403 Forbidden 服务器理解请求客户端的请求，但是拒绝执行此请求</p>
+<p>404 Not Found 服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置”您所请求的资源无法找到”的个性页面</p>
+<p>405 Method Not Allowed 客户端请求中的方法被禁止</p>
+<p>408 Request Time-out 服务器等待客户端发送的请求时间过长，超时</p>
+<p>500 Internal Server Error 服务器内部错误，无法完成请求</p>
+<p>501 Not Implemented 服务器不支持请求的功能，无法完成请求</p>
+<p>502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</p>
+<p>503 Service Unavailable 由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中</p>
+<p>504 Gateway Time-out 充当网关或代理的服务器，未及时从远端服务器获取请求</p>
+<p>505 HTTP Version not supported 服务器不支持请求的HTTP协议的版本，无法完成处理</p>
+<h4 id="边距重叠及BFC"><a href="#边距重叠及BFC" class="headerlink" title="边距重叠及BFC"></a>边距重叠及BFC</h4><p>边界重叠是指两个或多个盒子(可能相邻也可能嵌套)的相邻边界(其间没有任何非空内容、补白、边框)重合在一起而形成一个单一边界<br>两个或多个块级盒子的垂直相邻边界会重合，它们的边界宽度是相邻边界宽度中的最大值。注意水平边界是不会重合的</p>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><p><strong>BFC</strong>（块级格式化上下文）</p>
+<ul>
+<li>BFC元素的垂直方向的边距会发生重叠</li>
+<li>BFC元素的区域不会与浮动元素的box重叠</li>
+<li>BFC在页面上是一个独立的容器，外面的元素和里面的元素互不影响</li>
+<li>计算BFC元素高度时，浮动元素的高度会参与计算</li>
+</ul>
+<h5 id="创建BFC"><a href="#创建BFC" class="headerlink" title="创建BFC"></a>创建BFC</h5><ul>
+<li>浮动（float的值不为none）</li>
+<li>绝对定位元素（position的值为absolute或fixed）</li>
+<li>行内块（display为inline-block）</li>
+<li>表格单元（display为table、table-cell、table-caption等HTML表格相关属性）</li>
+<li>弹性盒（display为flex或inline-flex）</li>
+<li>overflow不为visible</li>
+</ul>
+<h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ul>
+<li>防止垂直<code>margin</code>重叠</li>
+<li>清除内部浮动</li>
+<li>自适应两栏布局</li>
+</ul>
+<h4 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h4><h5 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h5><p>Entry: 入口</p>
+<p>Module:模块，webpack中一切皆是模块</p>
+<p>Chunk:代码库，一个chunk由十多个模块组合而成，用于代码合并与分割</p>
+<p>Loader:模块转换器，用于把模块原内容按照需求转换成新内容</p>
+<p>Plugin:扩展插件，在webpack构建流程中的特定时机注入扩展逻辑来改变构建结果或做你想要做的事情</p>
+<p>Output: 输出结果</p>
+<h5 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h5><p>初始化npm</p>
+<p>安装webpack依赖</p>
+<p>配置 <code>webpack.config.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: path.resolve(__dirname, <span class="string">'src/index.js'</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        publicPath: <span class="string">'/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行webpack直接进行打包</p>
+<h5 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.txt$/</span>,</span><br><span class="line">        use: <span class="string">'raw-loader'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>样式：style-loader、css-loader、less-loader、sass-loader等</p>
+<p>文件：raw-loader、file-loader 、url-loader等</p>
+<p>编译：babel-loader、coffee-loader 、ts-loader等</p>
+<p>校验测试：mocha-loader、jshint-loader 、eslint-loader等</p>
+<h5 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h5><p>对代码进行压缩混淆，提供一些热更新css去重之类的功能</p>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>保证一个类仅有一个实例</p>
+<p>当我们点击登陆按钮时，页面中可能会出现一个弹框，而这个弹框是唯一的，无论点多少次登陆按钮，弹框只会被创建一次，那么这种情况下就适合用单例模式来创建弹框</p>
+<p><em>工厂模式、单例模式、模块模式代理模式之类</em></p>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><h5 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h5><p>跨站请求伪造，可以理解为攻击者盗用了用户的身份，以用户的名义发送了恶意请求，比如用户登录了一个网站后，立刻在另一个tab页面访问量攻击者用来制造攻击的网站，这个网站要求访问刚刚登陆的网站，并发送了一个恶意请求，这时候CSRF就产生了，比如这个制造攻击的网站使用一张图片，但是这种图片的链接却是可以修改数据库的，这时候攻击者就可以以用户的名义操作这个数据库</p>
+<p>防御方式：使用验证码，检查https头部的refer，使用token</p>
+<h5 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h5><p>跨站脚本攻击，是说攻击者通过注入恶意的脚本，在用户浏览网页的时候进行攻击，比如获取cookie，或者其他用户身份信息，可以分为存储型和反射型，存储型是攻击者输入一些数据并且存储到了数据库中，其他浏览者看到的时候进行攻击，反射型的话不存储在数据库中，往往表现为将攻击代码放在url地址的请求参数中</p>
+<p>防御方式：为cookie设置httpOnly属性，对用户的输入进行检查，进行特殊字符过滤</p>
+<h4 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h4><p>Promise是一种异步编程方案，简单而言就是一个容器，里面保存着未来才会结束的事件结果（通常是一个异步操作）。从语法而言，Promise是一个对象，从它可以获取异步操作的消息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Promise.all可以将多个Promise实例包装成一个新的Promise实例。同时，成功和失败的返回值是不同的，成功的时候返回的是一个结果数组，而失败的时候则返回最先被reject失败状态的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wake = <span class="function">(<span class="params">time</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      resolve(<span class="string">`<span class="subst">$&#123;time <span class="regexp">/ 1000&#125;秒后醒来`)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    &#125;, time)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">  &#125;)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">let p1 = wake(3000)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">let p2 = wake(2000)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">Promise.all([p1, p2]).then((result) =&gt; &#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">  console.log(result)       /</span><span class="regexp">/ [ '3秒后醒来', '2秒后醒来' ]</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;).catch((error) =&gt; &#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">  console.log(error)</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;)</span></span></span></span><br></pre></td></tr></table></figure>
+<h4 id="前端模块化"><a href="#前端模块化" class="headerlink" title="前端模块化"></a>前端模块化</h4><h5 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h5><p>CommonJS（node.js为主要实践者）、AMD（异步加载）、CMD（AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行）以及ES6的模块系统（<code>export</code>和<code>import</code>）</p>
+<h4 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h4><p>当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型，将所有元素表示为一个个矩形的盒子</p>
+<p>每个盒子由四个部分（或称<em>区域</em>）组成，其效用由它们各自的边界（Edge）所定义（原文：defined by their respective edges，可能意指容纳、包含、限制等）</p>
+<ul>
+<li><p>W3C标准盒模型</p>
+<p>属性<code>width</code>、<code>height</code>只包含<code>content</code>，不包含<code>border</code>和<code>padding</code></p>
+</li>
+<li><p>IE盒模型</p>
+<p>属性<code>width</code>、<code>height</code>包含<code>border</code>和<code>padding</code>，指的是<code>content</code>+<code>padding</code>+<code>border</code></p>
+</li>
+</ul>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>每个构造函数（constructor）都有一个原型对象（prototype），原型对象都包含一个指向构造函数的指针，而实例（instance）都包含一个指向原型对象的内部指针</p>
+<p><a href="https://www.kffhi.com/public/blog/images/20190824/1.png"><img src="https://www.kffhi.com/public/blog/images/20190824/1.png" alt="img"></a></p>
+<p>构造函数通过<code>new</code>运算符生成一个实例，即任何函数都可以当作一个构造函数，而函数都有prototype属性，这个prototype指的就是原型对象。原型对象中会有一个构造器，这个构造器属性会指向默认声明的函数</p>
+<p>如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后才在该对象的原型(instance.prototype)里去找这个属性</p>
+<p>任何一个实例对象，通过原型链找到它上面原型对象，那个上面的方法和属性都是被实例所共享的，这就是原型链的基本原理</p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>当原型链中包含引用类型值的原型时,该引用类型值会被所有实例共享</p>
+<p>在创建子类型(例如创建Child的实例)时,不能向父类型(例如Parent)的构造函数中传递参数</p>
+<h5 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h5><p><a href="https://www.kffhi.com/public/blog/images/20190824/2.png"><img src="https://www.kffhi.com/public/blog/images/20190824/2.png" alt="img"></a></p>
+<p>instanceof的原理就是用来判断实例对象的<code>__proto__</code>属性和构造函数的<code>prototype</code>是不是同一个引用，如果是则返回true，或者说，用来判断原型和实例间的关系</p>
+<p>只要是在原型链上的构造函数，都会被<code>instanceof</code>看作实例的对象的构造函数</p>
+<h4 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h4><table>
+<thead>
+<tr>
+<th>生命周期钩子</th>
+<th>组件状态</th>
+<th>最佳实践</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beforeCreate</td>
+<td>实例初始化之后，this指向创建的实例，不能访问到data、computed、watch、methods上的方法和数据</td>
+<td>常用于初始化非响应式变量</td>
+</tr>
+<tr>
+<td>created</td>
+<td>实例创建完成，可访问data、computed、watch、methods上的方法和数据，未挂载到DOM，不能访问到$el属性，$ref属性内容为空数组</td>
+<td>常用于简单的ajax请求，页面的初始化</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>在挂载开始之前被调用，beforeMount之前，会找到对应的template，并编译成render函数</td>
+<td></td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>实例挂载到DOM上，此时可以通过DOM API获取到DOM节点，$ref属性可以访问</td>
+<td>常用于获取VNode信息和操作，ajax请求</td>
+</tr>
+<tr>
+<td>beforeupdate</td>
+<td>响应式数据更新时调用，发生在虚拟DOM打补丁之前</td>
+<td>适合在更新之前访问现有的DOM，比如手动移除已添加的事件监听器</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>虚拟 DOM 重新渲染和打补丁之后调用，组件DOM已经更新，可执行依赖于DOM的操作</td>
+<td>避免在这个钩子函数中操作数据，可能陷入死循环</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>实例销毁之前调用。这一步，实例仍然完全可用，this仍能获取到实例</td>
+<td>常用于销毁定时器、解绑全局事件、销毁插件对象等操作</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>实例销毁后调用，调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h4><ul>
+<li>用JavaScript对象模拟DOM</li>
+<li>把此虚拟DOM转成真实DOM并插入页面中</li>
+<li>如果有事件发生修改了虚拟DOM</li>
+<li>比较两棵虚拟DOM树的差异，得到差异对象</li>
+<li>把差异对象应用到真正的DOM树上</li>
+</ul>
+<p>比较两棵DOM树的差异是Virtual DOM算法最核心的部分.简单的说就是新旧虚拟dom 的比较，如果有差异就以新的为准，然后再插入的真实的dom中，重新渲染</p>
+<p><strong>比较只会在同层级进行, 不会跨层级比较。</strong><br>比较后会出现四种情况：<br>1、此节点是否被移除 -&gt; 添加新的节点<br>2、属性是否被改变 -&gt; 旧属性改为新属性<br>3、文本内容被改变-&gt; 旧内容改为新内容<br>4、节点要被整个替换 -&gt; 结构完全不相同 移除整个替换</p>
+<h4 id="前端优化"><a href="#前端优化" class="headerlink" title="前端优化"></a>前端优化</h4><ul>
+<li>减少http请求</li>
+<li>内容发布网络（CDN）</li>
+<li>Expries请求头，利用缓存</li>
+<li>压缩组件</li>
+<li>样式表放在顶部</li>
+<li>JS放在底部（JS会阻塞页面渲染及下载）</li>
+<li>减少回流重绘</li>
+<li>减少CSS表达式</li>
+<li>使用外部CSS及JS</li>
+<li>减少DNS查找</li>
+<li>减少重定向</li>
+<li>实体标签（ETag）</li>
+<li>Ajax可缓存</li>
+</ul>
+<h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><p>同源：端口域名协议</p>
+<h5 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h5><p>跨域资源共享，在服务器配置<code>Access-Control-Allow-Origin</code></p>
+<h5 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h5><p>通过script标签引入一个js文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。所以jsonp是需要服务器端的页面进行相应的配合的。（即用<a href="https://link.juejin.im?target=http%3A%2F%2Flib.csdn.net%2Fbase%2Fjavascript" target="_blank" rel="noopener">javascript</a>动态加载一个script文件，同时定义一个callback函数给script执行而已）</p>
+<p>只支持GET请求而不支持POST等其它类型的HTTP请求</p>
+<h5 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage"></a>window.postMessage</h5><p>html5新引进的特性，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源</p>
+<p>调用postMessage方法的window对象是指要接收消息的那一个window对象，该方法的第一个参数message为要发送的消息，类型只能为字符串；第二个参数targetOrigin用来限定接收消息的那个window对象所在的域，如果不想限定域，可以使用通配符 *  。</p>
+<p>需要接收消息的window对象，可是通过监听自身的message事件来获取传过来的消息，消息内容储存在该事件对象的data属性中</p>
+<p>其实就是iframe</p>
+<h5 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h5><p>在JS创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为webSocket协议</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSockt(<span class="string">'ws://www.baidu.com'</span>);<span class="comment">//http-&gt;ws; https-&gt;wss</span></span><br><span class="line">socket.send(<span class="string">'hello WebSockt'</span>);</span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = event.data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Vue双向绑定"><a href="#Vue双向绑定" class="headerlink" title="Vue双向绑定"></a>Vue双向绑定</h4><p>通过数据劫持结合发布者-订阅者模式的方式来实现的</p>
+<p>Object.defineProperty( )是用来做什么的？它可以来控制一个对象属性的一些特有操作，比如读写权、是否可以枚举，get就是在读取name属性这个值触发的函数，set就是在设置name属性这个值触发的函数</p>
+<p>通过Object.defineProperty( )对属性设置一个set函数，当数据改变了就会来触发这个函数，所以我们只要将一些需要更新的方法放在这里面就可以实现data更新view了</p>
+<h4 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty"></a>hasOwnProperty</h4><h5 id="in"><a href="#in" class="headerlink" title="in"></a>in</h5><p>用来检查对象中是否存在某个属性(不区分实例属性和原型属性)</p>
+<h5 id="hasOwnProperty"><a href="#hasOwnProperty" class="headerlink" title="hasOwnProperty"></a>hasOwnProperty</h5><p>hasOwnProperty方法用来检查对象中是否存在指定的属性(只检查实例属性)</p>
+<h4 id="post和get"><a href="#post和get" class="headerlink" title="post和get"></a>post和get</h4><ul>
+<li>get在url中，post在Request body中</li>
+<li>get在回退时无害，post会再次提交</li>
+<li>get会被浏览器主动缓存，post不会</li>
+<li>get参数会留在浏览记录</li>
+<li>get有长度限制（2kb），post没有</li>
+</ul>
+<h4 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h4><p>Javascript 会找出不再使用的变量，不再使用意味着这个变量生命周期的结束。Javascript 中存在两种变量——全局变量和局部变量，全部变量的声明周期会一直持续，直到页面卸载</p>
+<p>而局部变量声明在函数中，它的声明周期从执行函数开始，直到函数执行结束。在这个过程中，局部变量会在堆或栈上被分配相应的空间以存储它们的值，函数执行结束，这些局部变量也不再被使用，它们所占用的空间也就被释放</p>
+<h4 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h4><h5 id="for"><a href="#for" class="headerlink" title="for"></a>for</h5><h5 id="forEach-语句"><a href="#forEach-语句" class="headerlink" title="forEach 语句"></a><strong>forEach</strong> 语句</h5><p>方法对数组的每个元素执行一次提供的CALLBACK函数,forEach是一个数组方法，可以用来把一个函数套用在一个数组中的每个元素上，forEach为每个数组元素执行callback函数只可用于数组.遍历一个数组让数组每个元素做一件事情.那些已删除（使用delete方法等情况）或者未初始化的项将被跳过（但不包括那些值为 undefined 的项）（例如在稀疏数组上)；不像map() 或者reduce() ，它总是返回 undefined值，并且不可链式调用</p>
+<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p>方法会给原数组中的每个元素都按顺序调用一次  callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。 callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。让数组通过某种计算产生一个新数组,影射成一个新的数组</p>
 
       
     </div>
@@ -533,7 +840,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#font-size为0"><span class="nav-number">1.</span> <span class="nav-text">font-size为0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取盒模型宽高的4种方法"><span class="nav-number">2.</span> <span class="nav-text">获取盒模型宽高的4种方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#font-size为0"><span class="nav-number">1.</span> <span class="nav-text">font-size为0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取盒模型宽高的4种方法"><span class="nav-number">2.</span> <span class="nav-text">获取盒模型宽高的4种方法</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#画三角形"><span class="nav-number"></span> <span class="nav-text">画三角形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快排"><span class="nav-number"></span> <span class="nav-text">快排</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number"></span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#怎么理解继承"><span class="nav-number">1.</span> <span class="nav-text">怎么理解继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#借助构造函数"><span class="nav-number">2.</span> <span class="nav-text">借助构造函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#借助原型链"><span class="nav-number">3.</span> <span class="nav-text">借助原型链</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#组合继承"><span class="nav-number">4.</span> <span class="nav-text">组合继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两种优化"><span class="nav-number">5.</span> <span class="nav-text">两种优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#new运算符"><span class="nav-number"></span> <span class="nav-text">new运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟DOM"><span class="nav-number"></span> <span class="nav-text">虚拟DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#实现过程"><span class="nav-number">1.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#好处"><span class="nav-number">2.</span> <span class="nav-text">好处</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ajax"><span class="nav-number"></span> <span class="nav-text">ajax</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#过程"><span class="nav-number">1.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个HTTP请求由4部分组成："><span class="nav-number">2.</span> <span class="nav-text">一个HTTP请求由4部分组成：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务器返回的HTTP响应包含3部分："><span class="nav-number">3.</span> <span class="nav-text">服务器返回的HTTP响应包含3部分：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#apply、call、bind"><span class="nav-number"></span> <span class="nav-text">apply、call、bind</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区别"><span class="nav-number">1.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number"></span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#作用："><span class="nav-number">1.</span> <span class="nav-text">作用：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深浅拷贝"><span class="nav-number"></span> <span class="nav-text">深浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据类型"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区别-1"><span class="nav-number">2.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅拷贝"><span class="nav-number">3.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#深拷贝"><span class="nav-number">4.</span> <span class="nav-text">深拷贝</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#瀑布流"><span class="nav-number"></span> <span class="nav-text">瀑布流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重排重绘"><span class="nav-number"></span> <span class="nav-text">重排重绘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重排"><span class="nav-number">1.</span> <span class="nav-text">重排</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重绘"><span class="nav-number">2.</span> <span class="nav-text">重绘</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EventBus"><span class="nav-number"></span> <span class="nav-text">EventBus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#defineProperty"><span class="nav-number"></span> <span class="nav-text">defineProperty</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入url到页面展示过程"><span class="nav-number"></span> <span class="nav-text">输入url到页面展示过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#meta标签"><span class="nav-number"></span> <span class="nav-text">meta标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http"><span class="nav-number"></span> <span class="nav-text">http</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强缓存和协商缓存"><span class="nav-number"></span> <span class="nav-text">强缓存和协商缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#强缓存"><span class="nav-number">1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协商缓存"><span class="nav-number">2.</span> <span class="nav-text">协商缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码"><span class="nav-number"></span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#边距重叠及BFC"><span class="nav-number"></span> <span class="nav-text">边距重叠及BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-number">1.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建BFC"><span class="nav-number">2.</span> <span class="nav-text">创建BFC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用场景"><span class="nav-number">3.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack配置"><span class="nav-number"></span> <span class="nav-text">webpack配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心"><span class="nav-number">1.</span> <span class="nav-text">核心</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流程"><span class="nav-number">2.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#loader"><span class="nav-number">3.</span> <span class="nav-text">loader</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plugin"><span class="nav-number">4.</span> <span class="nav-text">plugin</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单例模式"><span class="nav-number"></span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number"></span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF"><span class="nav-number">1.</span> <span class="nav-text">CSRF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XSS"><span class="nav-number">2.</span> <span class="nav-text">XSS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#promise"><span class="nav-number"></span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端模块化"><span class="nav-number"></span> <span class="nav-text">前端模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#规范"><span class="nav-number">1.</span> <span class="nav-text">规范</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒模型"><span class="nav-number"></span> <span class="nav-text">盒模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型链"><span class="nav-number"></span> <span class="nav-text">原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#instanceof"><span class="nav-number">3.</span> <span class="nav-text">instanceof</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue生命周期"><span class="nav-number"></span> <span class="nav-text">vue生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#diff算法"><span class="nav-number"></span> <span class="nav-text">diff算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端优化"><span class="nav-number"></span> <span class="nav-text">前端优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨域"><span class="nav-number"></span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS"><span class="nav-number">1.</span> <span class="nav-text">CORS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSONP"><span class="nav-number">2.</span> <span class="nav-text">JSONP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#window-postMessage"><span class="nav-number">3.</span> <span class="nav-text">window.postMessage</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#websocket"><span class="nav-number">4.</span> <span class="nav-text">websocket</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue双向绑定"><span class="nav-number"></span> <span class="nav-text">Vue双向绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hasOwnProperty-NaN"><span class="nav-number"></span> <span class="nav-text">hasOwnProperty</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#in"><span class="nav-number">1.</span> <span class="nav-text">in</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hasOwnProperty"><span class="nav-number">2.</span> <span class="nav-text">hasOwnProperty</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post和get"><span class="nav-number"></span> <span class="nav-text">post和get</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收"><span class="nav-number"></span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组遍历"><span class="nav-number"></span> <span class="nav-text">数组遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#for"><span class="nav-number">1.</span> <span class="nav-text">for</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach-语句"><span class="nav-number">2.</span> <span class="nav-text">forEach 语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">3.</span> <span class="nav-text">map</span></a></li></ol></li></div>
             
 
           </div>
