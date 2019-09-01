@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="整理一下正则表达式的规则和一些常用的例子">
+<meta name="description" content="搜资料的时候发现了大佬的作品，直接贴链接吧，自己的东西等学好了点再来">
 <meta name="keywords" content="前端,JS,正则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式">
 <meta property="og:url" content="https://www.kffhi.com/blog/2019/08/30/正则表达式/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="整理一下正则表达式的规则和一些常用的例子">
+<meta property="og:description" content="搜资料的时候发现了大佬的作品，直接贴链接吧，自己的东西等学好了点再来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-30T07:42:25.609Z">
+<meta property="og:updated_time" content="2019-09-01T07:43:12.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
-<meta name="twitter:description" content="整理一下正则表达式的规则和一些常用的例子">
+<meta name="twitter:description" content="搜资料的时候发现了大佬的作品，直接贴链接吧，自己的东西等学好了点再来">
 
 
 
@@ -353,7 +353,27 @@
       
 
       
-        <p>整理一下正则表达式的规则和一些常用的例子<br><a id="more"></a></p>
+        <p>搜资料的时候发现了大佬的作品，<a href="https://juejin.im/post/5965943ff265da6c30653879" target="_blank" rel="noopener">直接贴链接吧</a>，自己的东西等学好了点再来<br><a id="more"></a></p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接字面量</span></span><br><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用构造函数</span></span><br><span class="line"><span class="keyword">var</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"ab+c"</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h5><p>特殊意义的元字符</p>
+<pre><code>\d  ： 匹配一个0-9的数字,相当于[0-9],和它相反的是\D -&gt;匹配一个除了0-9的任意字符
+\w  ： 匹配一个0-9、a-z、A-Z、_的数字或字符,相当于[0-9a-zA-Z_]
+\s  ： 匹配一个空白字符(空格、制表符...)
+\b  ： 匹配一个单词的边界
+\t  ： 匹配一个制表符
+\n  ： 匹配一个换行
+.   ： 匹配一个除了\n以外的任意字符
+^   ： 以某一个元字符开头
+$   ： 以某一个元字符结尾
+\   ： 转义字符
+x|y ： x或者y的一个
+[xyz]   ：  x、y、z中的任意一个
+[^xyz]  ：  除了xyz中的任意一个字符
+[a-z]   ：  匹配a-z中的任意一个字符
+[^a-z]  ：  匹配除了a-z中的任意一个字符
+()  ： 正则中的分组
+</code></pre><p>代表数量的元字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ : 出现一到多次</span><br><span class="line">   * : 出现零到多次</span><br><span class="line">   ? : 出现零到一次</span><br><span class="line">   &#123;n&#125; : 出现n次</span><br><span class="line">   &#123;n,&#125; : 出现n到多次</span><br><span class="line">   &#123;n,m&#125; : 出现n-m次</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -448,8 +468,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -509,6 +538,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建"><span class="nav-number">1.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#元字符"><span class="nav-number">1.2.</span> <span class="nav-text">元字符</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
