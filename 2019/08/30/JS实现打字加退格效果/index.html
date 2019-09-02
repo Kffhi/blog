@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="不知道怎么描述，模仿typora主页的一个简单的动画">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-30T07:41:22.577Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190902/1.gif">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20190902/2.gif">
+<meta property="og:updated_time" content="2019-09-02T14:28:04.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS实现打字加退格效果">
 <meta name="twitter:description" content="不知道怎么描述，模仿typora主页的一个简单的动画">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/20190902/1.gif">
 
 
 
@@ -354,6 +357,14 @@
 
       
         <p>不知道怎么描述，模仿typora主页的一个简单的动画<br><a id="more"></a></p>
+<h4 id="原版"><a href="#原版" class="headerlink" title="原版"></a>原版</h4><p>首先是原版的动画效果</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190902/1.gif" alt></p>
+<h4 id="第一版（JS定时器"><a href="#第一版（JS定时器" class="headerlink" title="第一版（JS定时器"></a>第一版（JS定时器</h4><p>第一反应便是用计时器实现，代码写的比较冗杂不过逻辑还是挺清楚的</p>
+<p>思路是通过定时器控制innerHTML的值在0.5s内依次增加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>]</span><br><span class="line"><span class="keyword">var</span> b = [<span class="string">'x'</span>, <span class="string">'y'</span>, <span class="string">'z'</span>, <span class="string">'B'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'A'</span>]</span><br><span class="line"><span class="keyword">let</span> testText = []</span><br><span class="line"><span class="keyword">let</span> elm = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'test'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showArrA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> testText = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      testText.push(a[i])</span><br><span class="line">      elm.innerHTML = clear(<span class="built_in">String</span>(testText))</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">String</span>(testText) == <span class="built_in">String</span>(a)) &#123;</span><br><span class="line">        deleteA(testText)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">500</span> * i)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showArrB</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> testText = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; b.length; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      testText.push(b[i])</span><br><span class="line">      elm.innerHTML = clear(<span class="built_in">String</span>(testText))</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">String</span>(testText) == <span class="built_in">String</span>(b)) &#123;</span><br><span class="line">        deleteB(testText)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">500</span> * i)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deleteA</span>(<span class="params">testText</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> clearTime1 = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    testText.splice(testText.length - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    elm.innerHTML = clear(<span class="built_in">String</span>(testText))</span><br><span class="line">    <span class="keyword">if</span> (testText.length === <span class="number">0</span>) &#123;</span><br><span class="line">      clearInterval(clearTime1)</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        showArrB()</span><br><span class="line">      &#125;, <span class="number">500</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="number">500</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deleteB</span>(<span class="params">testText</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> clearTime2 = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    testText.splice(testText.length - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    elm.innerHTML = clear(<span class="built_in">String</span>(testText))</span><br><span class="line">    <span class="keyword">if</span> (testText.length === <span class="number">0</span>) &#123;</span><br><span class="line">      clearInterval(clearTime2)</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        showArrA()</span><br><span class="line">      &#125;, <span class="number">500</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="number">500</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clear</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  str = str.replace(<span class="regexp">/,/g</span>, <span class="string">""</span>)</span><br><span class="line">  <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showArrA()</span><br></pre></td></tr></table></figure>
+<p>效果</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20190902/2.gif" alt></p>
+<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p><del>显然上面的代码太菜了，但是最近比较忙，先放着有时间再来吧</del></p>
 
       
     </div>
@@ -452,8 +463,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -513,6 +533,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#原版"><span class="nav-number">1.</span> <span class="nav-text">原版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一版（JS定时器"><span class="nav-number">2.</span> <span class="nav-text">第一版（JS定时器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
