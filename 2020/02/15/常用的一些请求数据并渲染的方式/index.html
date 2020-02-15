@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS,通信,Ajax,JSONP,Axios,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="总结一下常用的前后端通信方式，直接上代码">
+<meta name="keywords" content="JS,通信,Ajax,JSONP,Axios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的一些请求数据并渲染的方式">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/02/15/常用的一些请求数据并渲染的方式/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="总结一下常用的前后端通信方式，直接上代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-26T14:40:39.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的一些请求数据并渲染的方式">
+<meta name="twitter:description" content="总结一下常用的前后端通信方式，直接上代码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/02/15/常用的一些请求数据并渲染的方式/">
+
+
+
+
+
+  <title>常用的一些请求数据并渲染的方式 | Kffhi的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/02/15/常用的一些请求数据并渲染的方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用的一些请求数据并渲染的方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-15T20:03:02+08:00">
+                2020-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>总结一下常用的前后端通信方式，直接上代码<br><a id="more"></a></p>
+<p>DOM结构基本如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"test"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>请求的数据格式为</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"ErrorOk"</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">"pText"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"content"</span>: <span class="string">"s1111"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">"content"</span>: <span class="string">"s2222"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="attr">"content"</span>: <span class="string">"s3333"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="原生JS封装ajax-方法"><a href="#原生JS封装ajax-方法" class="headerlink" title="原生JS封装ajax()方法"></a>原生JS封装ajax()方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 封装ajax</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">     params = params || &#123;&#125;</span><br><span class="line">     params.data = params.data || &#123;&#125;</span><br><span class="line">     <span class="comment">// 判断是ajax请求还是jsonp请求</span></span><br><span class="line">     <span class="keyword">var</span> json = params.jsonp ? jsonp(params) : json(params)</span><br><span class="line">     <span class="comment">// ajax</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">json</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">       <span class="comment">// 请求方式，默认GET</span></span><br><span class="line">       params.type = (params.type || <span class="string">'GET'</span>).toUpperCase()</span><br><span class="line">       <span class="comment">// 避免特殊字符，格式化之后再传输数据</span></span><br><span class="line">       params.data = formatParams(params.data)</span><br><span class="line">       <span class="keyword">var</span> xhr = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 实例化XMLHttpRequest对象</span></span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">         xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="comment">// IE6及以下版本</span></span><br><span class="line">         xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>)</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//监听事件，只要readyState 的值变化，就会调用readystatechange 事件</span></span><br><span class="line">       xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="comment">// readyState属性表示请求/相应过程的当前活动阶段，4为完成，已经接收到全部相应数据</span></span><br><span class="line">         <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">           <span class="keyword">var</span> status = xhr.status</span><br><span class="line">           <span class="comment">// status: 相应的HTTP状态码</span></span><br><span class="line">           <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt;= <span class="number">300</span>) &#123;</span><br><span class="line">             <span class="keyword">var</span> response = <span class="string">''</span></span><br><span class="line">             <span class="comment">// 判断接收数据的内容类型</span></span><br><span class="line">             <span class="keyword">var</span> type = xhr.getResponseHeader(<span class="string">'Content-type'</span>)</span><br><span class="line">             <span class="keyword">if</span> (type.indexOf(<span class="string">'xml'</span>) !== <span class="number">-1</span> &amp;&amp; xhr.responseXML) &#123;</span><br><span class="line">               response = xhr.responseXML  <span class="comment">// Document对象响应</span></span><br><span class="line">             &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === <span class="string">'application/json'</span>) &#123;</span><br><span class="line">               response = <span class="built_in">JSON</span>.parse(xhr.responseText)  <span class="comment">// JSON响应</span></span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               xhr = xhr.responseText  <span class="comment">// 字符串响应</span></span><br><span class="line">             &#125;</span><br><span class="line">             <span class="comment">// 成功回调函数</span></span><br><span class="line">             params.success &amp;&amp; params.success(response)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             params.error &amp;&amp; params.error(status)</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 连接和传输数据</span></span><br><span class="line">       <span class="keyword">if</span> (params.type === <span class="string">'GET'</span>) &#123;</span><br><span class="line">         <span class="comment">// 三个参数：请求方式、请求地址（GET方式时，传输数据是加在地址后面的）、是否异步请求</span></span><br><span class="line">         xhr.open(params.type, params.url + <span class="string">'?'</span> + params.data, <span class="literal">true</span>)</span><br><span class="line">         xhr.send(<span class="literal">null</span>)</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         xhr.open(params.type, params.url, <span class="literal">true</span>)</span><br><span class="line">         <span class="comment">// 必须，设置提交时的内容类型</span></span><br><span class="line">         xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded; charset=UTF-8'</span>)</span><br><span class="line">         <span class="comment">// 传输数据</span></span><br><span class="line">         xhr.send(params.data)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 格式化参数</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">formatParams</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> arr = []</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">var</span> name <span class="keyword">in</span> data) &#123;</span><br><span class="line">         <span class="comment">// encodeURLComponent() : 用于对URL中的某一部分进行编吗</span></span><br><span class="line">         arr.push(<span class="built_in">encodeURIComponent</span>(name) + <span class="string">'='</span> + <span class="built_in">encodeURIComponent</span>(data[name]))</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 添加一个随机参数防止缓存</span></span><br><span class="line">       arr.push(<span class="string">'v='</span> + random())</span><br><span class="line">       <span class="keyword">return</span> arr.join(<span class="string">'&amp;'</span>)</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 获取随机数</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">random</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10000</span> + <span class="number">500</span>)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 调用</span></span><br><span class="line">   ajax(&#123;</span><br><span class="line">     url: <span class="string">'./test.json'</span>,  <span class="comment">// 请求地址</span></span><br><span class="line">     type: <span class="string">'GET'</span>,  <span class="comment">// 请求类型，默认"GET"，还可以是"POST"</span></span><br><span class="line">     <span class="comment">// data: &#123; 'b': '异步请求' &#125;,  // 传输数据</span></span><br><span class="line">     success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;  <span class="comment">// 请求成功的回调函数</span></span><br><span class="line">       <span class="built_in">console</span>.log(res)</span><br><span class="line">       <span class="keyword">let</span> aaa = <span class="string">''</span></span><br><span class="line">       <span class="keyword">for</span> (item <span class="keyword">of</span> res.pText) &#123;</span><br><span class="line">         aaa += <span class="string">'&lt;p&gt;'</span> + item.content + <span class="string">'&lt;/p&gt;'</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">let</span> test = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'test'</span>)[<span class="number">0</span>]</span><br><span class="line">       <span class="comment">// console.log(test)</span></span><br><span class="line">       <span class="comment">// console.log(aaa)</span></span><br><span class="line">       test.innerHTML = aaa</span><br><span class="line">     &#125;,</span><br><span class="line">     error: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123; &#125;  <span class="comment">// 请求失败的回调函数</span></span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h4><p>jQuery封装好了ajax，直接用就好</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用jQuery</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url: <span class="string">"./test.json"</span>,</span><br><span class="line">  <span class="comment">// data: &#123; name: 'jenny' &#125;,</span></span><br><span class="line">  type: <span class="string">"GET"</span>,</span><br><span class="line">  dataType: <span class="string">"json"</span>,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">    <span class="keyword">let</span> aaa = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">of</span> res.pText) &#123;</span><br><span class="line">      aaa += <span class="string">'&lt;p&gt;'</span> + item.content + <span class="string">'&lt;/p&gt;'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> test = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'test'</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="comment">// console.log(test)</span></span><br><span class="line">    <span class="comment">// console.log(aaa)</span></span><br><span class="line">    test.innerHTML = aaa</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="Vue-axios"><a href="#Vue-axios" class="headerlink" title="Vue+axios"></a>Vue+axios</h4><p>以这个例子而言，DOM结构为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"test"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in pText"</span> <span class="attr">:key</span>=<span class="string">"index"</span>&gt;</span>&#123;&#123; item.content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      pText: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getText() &#123;</span><br><span class="line">      axios.get(<span class="string">'https://www.kffhi.com/test/test.json'</span>)</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (res.data.ErrorOk === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.pText = res.data.pText</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.pText)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.getText()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><p>JSONP主要原理是利用了<code>script</code>标签可以跨域请求的特性，由其 <code>src</code> 属性发送请求到服务器，服务器返回 <code>JavaScript</code>代码，浏览器接受响应，然后就直接执行了，这和通过 <code>script</code> 标签引用外部文件的原理是一样的，具体这里不展开</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/blog/tags/通信/" rel="tag"># 通信</a>
+          
+            <a href="/blog/tags/Ajax/" rel="tag"># Ajax</a>
+          
+            <a href="/blog/tags/JSONP/" rel="tag"># JSONP</a>
+          
+            <a href="/blog/tags/Axios/" rel="tag"># Axios</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/02/15/原型链和面向对象/" rel="next" title="原型链和面向对象">
+                <i class="fa fa-chevron-left"></i> 原型链和面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/02/15/正则表达式/" rel="prev" title="正则表达式">
+                正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#原生JS封装ajax-方法"><span class="nav-number">1.</span> <span class="nav-text">原生JS封装ajax()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jQuery"><span class="nav-number">2.</span> <span class="nav-text">jQuery</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-axios"><span class="nav-number">3.</span> <span class="nav-text">Vue+axios</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP"><span class="nav-number">4.</span> <span class="nav-text">JSONP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

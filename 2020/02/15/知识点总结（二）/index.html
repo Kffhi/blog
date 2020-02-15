@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="http,浏览器,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="知识点总结（二）——http及浏览器部分">
+<meta name="keywords" content="http,浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识点总结（二）">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/02/15/知识点总结（二）/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="知识点总结（二）——http及浏览器部分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20190312/311436_1552361773903_9DC69E327B4B3691E94CD9D52D10E2C1">
+<meta property="og:updated_time" content="2019-07-28T10:36:26.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="知识点总结（二）">
+<meta name="twitter:description" content="知识点总结（二）——http及浏览器部分">
+<meta name="twitter:image" content="https://uploadfiles.nowcoder.com/images/20190312/311436_1552361773903_9DC69E327B4B3691E94CD9D52D10E2C1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/02/15/知识点总结（二）/">
+
+
+
+
+
+  <title>知识点总结（二） | Kffhi的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/02/15/知识点总结（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">知识点总结（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-15T20:03:03+08:00">
+                2020-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/杂项/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>知识点总结（二）——http及浏览器部分<br><a id="more"></a></p>
+<h4 id="http和https"><a href="#http和https" class="headerlink" title="http和https"></a>http和https</h4><p><strong>http</strong>：超文本传输协议，是一个客户端和服务器请求应答的标准（TCP），用于从服务器传输超文本到本地浏览器的传输协议</p>
+<p><strong>https</strong>：以安全为目标的http通道，在http下加入SSL层，确保数组传输，保证网站真实性</p>
+<h5 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h5><p>http为明文传输，https用SSL协议进行了信息加密</p>
+<p>http为80端口，https为443端口</p>
+<p>http连接为无状态连接</p>
+<h5 id="https协议工作原理"><a href="#https协议工作原理" class="headerlink" title="https协议工作原理"></a>https协议工作原理</h5><p>客户使用https url访问服务器，则要求web 服务器建立ssl链接</p>
+<p>web服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），返回给客户端</p>
+<p>客户端和web服务器端开始协商SSL链接的安全等级，也就是加密等级</p>
+<p>客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话密钥，并传送给网站</p>
+<p>web服务器通过自己的私钥解密出会话密钥</p>
+<p>web服务器通过会话密钥加密与客户端之间的通信</p>
+<h5 id="https协议的优点"><a href="#https协议的优点" class="headerlink" title="https协议的优点"></a>https协议的优点</h5><p>使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器</p>
+<p>HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全，可防止数据在传输过程中不被窃取、改变，确保数据的完整性</p>
+<p>HTTPS是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加了中间人攻击的成本</p>
+<h5 id="https协议的缺点"><a href="#https协议的缺点" class="headerlink" title="https协议的缺点"></a>https协议的缺点</h5><p>https握手阶段比较费时，会使页面加载时间延长50%，增加10%~20%的耗电</p>
+<p>https缓存不如http高效，会增加数据开销</p>
+<p>SSL证书也需要钱，功能越强大的证书费用越高</p>
+<p>SSL证书需要绑定IP，不能再同一个IP上绑定多个域名，ipv4资源支持不了这种消耗</p>
+<h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><p>第一次握手：客户端发送syn包到服务器，并进入SYN_SEND状态，等待服务器确认</p>
+<p>第二次握手：服务器收到syn包，必须确认客户的，同时自己也发送一个SYN包，即SYN+ACK包，此时服务器进入SYN_RECV状态</p>
+<p>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手</p>
+<p>连接建立后，客户端和服务器就可以开始进行数据传输了</p>
+<h4 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h4><ul>
+<li>TCP是面向连接的，UDP是无连接的即发送数据前不需要先建立链接</li>
+<li>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达；UDP尽最大努力交付，即不保证可靠交付。 并且因为TCP可靠，面向连接，不会丢失数据因此适合大数据量的交换</li>
+<li>TCP是面向字节流，UDP面向报文，并且网络出现拥塞不会使得发送速率降低（因此会出现丢包，对实时的应用比如IP电话和视频会议等）</li>
+<li>TCP只能是1对1的，UDP支持1对1,1对多</li>
+<li>TCP的首部较大为20字节，而UDP只有8字节</li>
+<li>TCP是面向连接的可靠性传输，而UDP是不可靠的</li>
+</ul>
+<h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>WebSocket是HTML5中的协议，支持持久连续，http协议不支持持久性连接。Http1.0和HTTP1.1都不支持持久性的链接，HTTP1.1中的keep-alive，将多个http请求合并为1个</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>建立在 TCP 协议之上，服务器端的实现比较容易</li>
+<li>与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器</li>
+<li>数据格式比较轻量，性能开销小，通信高效</li>
+<li>可以发送文本，也可以发送二进制数据</li>
+<li>没有同源限制，客户端可以与任意服务器通信</li>
+<li>协议标识符是<code>ws</code>（如果加密，则为<code>wss</code>），服务器网址就是 URL</li>
+</ul>
+<h5 id="基本请求"><a href="#基本请求" class="headerlink" title="基本请求"></a>基本请求</h5><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span>: x3JJHMbDL1EzLkh9GBhXDw==</span><br><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span>: chat, superchat</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span>: 13</span><br><span class="line"><span class="attribute">Origin</span>: http://example.com</span><br></pre></td></tr></table></figure>
+<h5 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">"wss://echo.websocket.org"</span>);</span><br><span class="line"></span><br><span class="line">ws.onopen = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connection open ..."</span>); </span><br><span class="line">  ws.send(<span class="string">"Hello WebSockets!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">"Received Message: "</span> + evt.data);</span><br><span class="line">  ws.close();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ws.onclose = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Connection closed."</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h4><p>提升访问速度（可以对于，请求资源所需时间更少，访问速度更快，相比http1.0）</p>
+<p>允许多路复用：多路复用允许同时通过单一的HTTP/2连接发送多重请求-响应信息。改善了：在http1.1中，浏览器客户端在同一时间，针对同一域名下的请求有一定数量限制（连接数量），超过限制会被阻塞。</p>
+<p>二进制分帧：HTTP2.0会将所有的传输信息分割为更小的信息或者帧，并对他们进行二进制编码</p>
+<p>首部压缩：在服务器和客户端各维护一个“首部表”，表中用索引代表首部名，或者首部键-值对，上一次发送两端都会记住已发送过哪些首部，下一次发送只需要传输差异的数据，相同的数据直接用索引表示即可，另外还可以选择地对首部值压缩后再传输。按照这样的设计，两次轮询请求的首部基本是一样的，那之后的请求基本只需要发送几个索引就可以了</p>
+<p>服务器端推送：指还没有收到浏览器的请求，服务器就把各种资源推送给浏览器。比如，浏览器只请求了index.html，但是服务器把index.html、style.css、example.png全部发送给浏览器。这样的话，只需要一轮 HTTP 通信，浏览器就得到了全部资源，提高了性能。是唯一一个需要开发者自己配置的功能。</p>
+<h4 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h4><h5 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h5><p>GET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应当用于会产生副作用的非幂等的操作中</p>
+<p>GET会方法请求指定的页面信息，并返回响应主体，GET被认为是不安全的方法，因为GET方法会被网络蜘蛛等任意的访问</p>
+<h5 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h5><p>HEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分，即：响应主体。这样，我们可以不传输全部内容的情况下，就可以获取服务器的响应头信息。HEAD方法常被用于客户端查看服务器的性能。</p>
+<h5 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h5><p>POST请求会 向指定资源提交数据，请求服务器进行处理，如：表单数据提交、文件上传等，请求数据会被包含在请求体中。POST方法是非幂等的方法，因为这个请求可能会创建新的资源或/和修改现有资源。</p>
+<h5 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h5><p>PUT请求会身向指定资源位置上传其最新内容，PUT方法是幂等方法。通过该方法客户端可以将指定资源的最新数据传送给服务器取代指定的资源的内容。</p>
+<h5 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h5><p>DELETE请求用于请求服务器删除所请求URI（统一资源标识符，Uniform Resource Identifier）所标识的资源。DELETE请求后指定资源会被删除，DELETE方法也是幂等的。</p>
+<h5 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h5><p>CONNECT方法是HTTP/1.1协议预留的，能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接与非加密的HTTP代理服务器的通信。</p>
+<p>OPTIONS</p>
+<p>OPTIONS请求与HEAD类似，一般也是用于客户端查看服务器的性能。 这个方法会请求服务器返回该资源所支持的所有HTTP请求方法，该方法会用’*’来代替资源名称，向服务器发送OPTIONS请求，可以测试服务器功能是否正常。JavaScript的XMLHttpRequest对象进行CORS跨域资源共享时，就是使用OPTIONS方法发送嗅探请求，以判断是否有对指定资源的访问权限。 允许</p>
+<h5 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h5><p>TRACE请求服务器回显其收到的请求信息，该方法主要用于HTTP请求的测试或诊断。</p>
+<h5 id="PATCH"><a href="#PATCH" class="headerlink" title="PATCH"></a>PATCH</h5><p>PATCH方法出现的较晚，它在2010年的RFC 5789标准中被定义。PATCH请求与PUT请求类似，同样用于资源的更新。二者有以下两点不同：</p>
+<ul>
+<li>但PATCH一般用于资源的部分更新，而PUT一般用于资源的整体更新。</li>
+<li>当资源不存在时，PATCH会创建一个新的资源，而PUT只会对已在资源进行更新。</li>
+</ul>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><p>100    Continue    继续。客户端应继续其请求</p>
+<p>101    Switching Protocols    切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议</p>
+<p>200    OK    请求成功。一般用于GET与POST请求</p>
+<p>201    Created    已创建。成功请求并创建了新的资源</p>
+<p>202    Accepted    已接受。已经接受请求，但未处理完成</p>
+<p>203    Non-Authoritative Information    非授权信息。请求成功。但返回的meta信息不在原始的服务器，而是一个副本</p>
+<p>204    No Content    无内容。服务器成功处理，但未返回内容。在未更新网页的情况下，可确保浏览器继续显示当前文档</p>
+<p>205    Reset Content    重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。可通过此返回码清除浏览器的表单域</p>
+<p>206    Partial Content    部分内容。服务器成功处理了部分GET请求</p>
+<p>300    Multiple Choices    多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择</p>
+<p>301    Moved Permanently    永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</p>
+<p>302    Found    临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</p>
+<p>303    See Other    查看其它地址。与301类似。使用GET和POST请求查看</p>
+<p>304    Not Modified    未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源</p>
+<p>305    Use Proxy    使用代理。所请求的资源必须通过代理访问</p>
+<p>306    Unused    已经被废弃的HTTP状态码</p>
+<p>307    Temporary Redirect    临时重定向。与302类似。使用GET请求重定向</p>
+<p>400    Bad Request    客户端请求的语法错误，服务器无法理解</p>
+<p>401    Unauthorized    请求要求用户的身份认证</p>
+<p>402    Payment Required    保留，将来使用</p>
+<p>403    Forbidden    服务器理解请求客户端的请求，但是拒绝执行此请求</p>
+<p>404    Not Found    服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置”您所请求的资源无法找到”的个性页面</p>
+<p>405    Method Not Allowed    客户端请求中的方法被禁止</p>
+<p>406    Not Acceptable    服务器无法根据客户端请求的内容特性完成请求</p>
+<p>407    Proxy Authentication Required    请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权</p>
+<p>408    Request Time-out    服务器等待客户端发送的请求时间过长，超时</p>
+<p>409    Conflict    服务器完成客户端的PUT请求是可能返回此代码，服务器处理请求时发生了冲突</p>
+<p>410    Gone    客户端请求的资源已经不存在。410不同于404，如果资源以前有现在被永久删除了可使用410代码，网站设计人员可通过301代码指定资源的新位置</p>
+<p>411    Length Required    服务器无法处理客户端发送的不带Content-Length的请求信息</p>
+<p>412    Precondition Failed    客户端请求信息的先决条件错误</p>
+<p>413    Request Entity Too Large    由于请求的实体过大，服务器无法处理，因此拒绝请求。为防止客户端的连续请求，服务器可能会关闭连接。如果只是服务器暂时无法处理，则会包含一个Retry-After的响应信息</p>
+<p>414    Request-URI Too Large    请求的URI过长（URI通常为网址），服务器无法处理</p>
+<p>415    Unsupported Media Type    服务器无法处理请求附带的媒体格式</p>
+<p>416    Requested range not satisfiable    客户端请求的范围无效</p>
+<p>417    Expectation Failed    服务器无法满足Expect的请求头信息</p>
+<p>500    Internal Server Error    服务器内部错误，无法完成请求</p>
+<p>501    Not Implemented    服务器不支持请求的功能，无法完成请求</p>
+<p>502    Bad Gateway    作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</p>
+<p>503    Service Unavailable    由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中</p>
+<p>504    Gateway Time-out    充当网关或代理的服务器，未及时从远端服务器获取请求</p>
+<p>505    HTTP Version not supported    服务器不支持请求的HTTP协议的版本，无法完成处理</p>
+<h4 id="Cookie、sessionStorage、localStorage的区别"><a href="#Cookie、sessionStorage、localStorage的区别" class="headerlink" title="Cookie、sessionStorage、localStorage的区别"></a>Cookie、sessionStorage、localStorage的区别</h4><h5 id="共同点："><a href="#共同点：" class="headerlink" title="共同点："></a>共同点：</h5><p>都是保存在浏览器端，并且是同源的</p>
+<h5 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h5><p>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递。而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下,存储的大小很小只有4K左右。 （key：可以在浏览器和服务器端来回传递，存储容量小，只有大约4K左右）</p>
+<h5 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h5><p>仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持，localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。（key：本身就是一个回话过程，关闭浏览器后消失，session为一个回话，当页面不同即使是同一页面打开两次，也被视为同一次回话）</p>
+<h5 id="localStorage："><a href="#localStorage：" class="headerlink" title="localStorage："></a>localStorage：</h5><p>localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。（key：同源窗口都会共享，并且不会失效，不管窗口或者浏览器关闭与否都会始终生效）</p>
+<h5 id="补充cookie的作用："><a href="#补充cookie的作用：" class="headerlink" title="补充cookie的作用："></a>补充cookie的作用：</h5><p>保存用户登录状态。例如将用户id存储于一个cookie内，这样当用户下次访问该页面时就不需要重新登录了，现在很多论坛和社区都提供这样的功能。 cookie还可以设置过期时间，当超过时间期限后，cookie就会自动消失。因此，系统往往可以提示用户保持登录状态的时间：常见选项有一个月、三个 月、一年等。</p>
+<p>跟踪用户行为。例如一个天气预报网站，能够根据用户选择的地区显示当地的天气情况。如果每次都需要选择所在地是烦琐的，当利用了cookie后就会显得很人性化了，系统能够记住上一次访问的地区，当下次再打开该页面时，它就会自动显示上次用户所在地区的天气情况。因为一切都是在后 台完成，所以这样的页面就像为某个用户所定制的一样，使用起来非常方便定制页面。如果网站提供了换肤或更换布局的功能，那么可以使用cookie来记录用户的选项，例如：背景色、分辨率等。当用户下次访问时，仍然可以保存上一次访问的界面风格</p>
+<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><p>BOM即浏览器对象</p>
+<h5 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h5><p><code>location</code> 是最有用的BOM对象之一，它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能<br>以下是<code>location</code>对象的属性列表</p>
+<ol>
+<li><code>hash</code> 返回URL中的hash（#号后跟零或多个字符），如果URL中不包含散列，则返回空字符串,例”#contents”</li>
+<li><code>host</code> 返回服务器名称和端口号(如果有).例”<a href="http://www.kffhi.com:80&quot;">www.kffhi.com:80&quot;</a></li>
+<li><code>hostname</code> 返回不带端口号的服务器名称.例”<a href="http://www.kffhi.com&quot;">www.kffhi.com&quot;</a></li>
+<li><code>href</code> 返回当前页面的完整url.例”<a href="http://www.kffhi.com/index.html&quot;">www.kffhi.com/index.html&quot;</a></li>
+<li><code>pathname</code> 返回url中的目录或文件名,例”/game/2048”</li>
+<li><code>port</code> 返回url的端口号,如果没有则返回空字符串.例”8080”</li>
+<li><code>protocol</code> 返回页面使用的协议。通常是http:或https:</li>
+<li><code>search</code> 返回URL的查询字符串。这个字符串以问号开头,’?id=100’</li>
+</ol>
+<p>尽管’search’属性可以返回查询字符串,但为了更加方便的访问其参数,可以通过下面的代码将其转化为包含参数的对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//取得查询字符串并去掉开头的问号</span></span><br><span class="line">    <span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span>),</span><br><span class="line">    <span class="comment">//保存数据的对象</span></span><br><span class="line">    args = &#123;&#125;,</span><br><span class="line">    <span class="comment">//取得每一项</span></span><br><span class="line">    items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</span><br><span class="line">    item = <span class="literal">null</span>,</span><br><span class="line">    name = <span class="literal">null</span>,</span><br><span class="line">    value = <span class="literal">null</span>,</span><br><span class="line">    <span class="comment">//在for 循环中使用</span></span><br><span class="line">    i = <span class="number">0</span>,</span><br><span class="line">    len = items.length;</span><br><span class="line">    <span class="comment">//逐个将每一项添加到args 对象中</span></span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">    item = items[i].split(<span class="string">"="</span>);</span><br><span class="line">    name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">    value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (name.length) &#123;</span><br><span class="line">    args[name] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过以下任何一种方式都会导致页面的跳转或重载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location.href = <span class="string">"http://www.baidu.com"</span>;</span><br><span class="line">location.hash = <span class="string">"#section1"</span>;</span><br><span class="line">location.search = <span class="string">"?q=javascript"</span>;</span><br><span class="line">location.hostname = <span class="string">"www.yahoo.com"</span>;</span><br><span class="line">location.pathname = <span class="string">"mydir"</span>;</span><br><span class="line">location.port = <span class="number">8080</span>;</span><br></pre></td></tr></table></figure>
+<p>通过<code>reload()</code>可以重新加载当前页面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">location.reload(); <span class="comment">//重新加载(有可能从缓存中加载)</span></span><br><span class="line">location.reload(<span class="literal">true</span>);<span class="comment">//重新加载(直接从服务器加载)</span></span><br></pre></td></tr></table></figure>
+<h5 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h5><p>history 对象保存着用户上网的历史记录，从窗口被打开的那一刻算起</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//后退一页</span></span><br><span class="line">history.go(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//前进一页</span></span><br><span class="line">history.go(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//前进两页</span></span><br><span class="line">history.go(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//跳转到最近的包含'wrox.com'字符的页面</span></span><br><span class="line">history.go(<span class="string">"wrox.com"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//后退一页</span></span><br><span class="line">history.back();</span><br><span class="line"><span class="comment">//前进一页</span></span><br><span class="line">history.forward();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (history.length == <span class="number">0</span>)&#123;</span><br><span class="line"><span class="comment">//这应该是用户打开窗口后的第一个页面</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Navigation对象"><a href="#Navigation对象" class="headerlink" title="Navigation对象"></a>Navigation对象</h5><p>最早由 Netscape Navigator 2.0 引入的navigator 对象，现在已经成为识别客户端浏览器的事实标准,navigator有以下跨浏览器属性和方法</p>
+<ol>
+<li><code>appCodeName</code> 浏览器的名称。通常都是Mozilla，即使在非Mozilla浏览器中也是如此</li>
+<li><code>appName</code> 完整的浏览器名称</li>
+<li><code>appVersion</code> 浏览器版本，一般不与实际的浏览器版本对应.</li>
+<li><code>cookieEnabled</code> 表示cookie是否启用</li>
+<li><code>javaEnabled()</code> 表示单签浏览器是否启用Java</li>
+<li><code>onLine</code> 表示浏览器是否连接到了因特网</li>
+<li><code>mimeTypes</code> 在浏览器中注册的MIME类型数组</li>
+<li><code>platform</code> 浏览器的系统平台</li>
+<li><code>plugins</code> 浏览器中安装的插件信息的数组</li>
+<li><code>userAgent</code> 浏览器用户代理字符串<br><code>userAgent</code>是最常用的属性.</li>
+</ol>
+<p>插件检测</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//检测插件（在IE 中无效）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">name = name.toLowerCase();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; navigator.plugins.length; i++)&#123;</span><br><span class="line"><span class="keyword">if</span> (navigator. plugins [i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检测Flash</span></span><br><span class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//检测IE 中的插件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasIEPlugin</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">new</span> ActiveXObject(name);</span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span> (ex)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//检测Flash</span></span><br><span class="line">alert(hasIEPlugin(<span class="string">"ShockwaveFlash.ShockwaveFlash"</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="web-worker"><a href="#web-worker" class="headerlink" title="web worker"></a>web worker</h4><p>JavaScript 语言采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等着</p>
+<p>Web Worker 的作用，就是为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢</p>
+<p>Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭</p>
+<h5 id="Web-Worker-有以下几个使用注意点。"><a href="#Web-Worker-有以下几个使用注意点。" class="headerlink" title="Web Worker 有以下几个使用注意点。"></a>Web Worker 有以下几个使用注意点。</h5><ul>
+<li><strong>同源限制</strong></li>
+</ul>
+<p>分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源</p>
+<ul>
+<li><strong>DOM 限制</strong></li>
+</ul>
+<p>Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用<code>document</code>、<code>window</code>、<code>parent</code>这些对象。但是，Worker 线程可以<code>navigator</code>对象和<code>location</code>对象</p>
+<ul>
+<li><strong>通信联系</strong></li>
+</ul>
+<p>Worker 线程和主线程不在同一个上下文环境，它们不能直接通信，必须通过消息完成</p>
+<ul>
+<li><strong>脚本限制</strong></li>
+</ul>
+<p>Worker 线程不能执行<code>alert()</code>方法和<code>confirm()</code>方法，但可以使用 XMLHttpRequest 对象发出 AJAX 请求</p>
+<ul>
+<li><strong>文件限制</strong></li>
+</ul>
+<p>Worker 线程无法读取本地文件，即不能打开本机的文件系统（<code>file://</code>），它所加载的脚本，必须来自网络</p>
+<h5 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h5><p>主线程采用<code>new</code>命令，调用<code>Worker()</code>构造函数，新建一个 Worker 线程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">'work.js'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>Worker()</code>构造函数的参数是一个脚本文件，该文件就是 Worker 线程所要执行的任务。由于 Worker 不能读取本地文件，所以这个脚本必须来自网络。如果下载没有成功（比如404错误），Worker 就会默默地失败</p>
+<p>然后，主线程调用<code>worker.postMessage()</code>方法，向 Worker 发消息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker.postMessage(<span class="string">'Hello World'</span>);</span><br><span class="line">worker.postMessage(&#123;<span class="attr">method</span>: <span class="string">'echo'</span>, <span class="attr">args</span>: [<span class="string">'Work'</span>]&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>worker.postMessage()</code>方法的参数，就是主线程传给 Worker 的数据。它可以是各种数据类型，包括二进制数据</p>
+<p>接着，主线程通过<code>worker.onmessage</code>指定监听函数，接收子线程发回来的消息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">worker.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Received message '</span> + event.data);</span><br><span class="line">  doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 执行任务</span></span><br><span class="line">  worker.postMessage(<span class="string">'Work done!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，事件对象的<code>data</code>属性可以获取 Worker 发来的数据</p>
+<p>Worker 完成任务以后，主线程就可以把它关掉</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker.terminate();</span><br></pre></td></tr></table></figure>
+<h5 id="Worker线程"><a href="#Worker线程" class="headerlink" title="Worker线程"></a>Worker线程</h5><p>Worker 线程内部需要有一个监听函数，监听<code>message</code>事件</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  self.postMessage(<span class="string">'You said: '</span> + e.data);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>self</code>代表子线程自身，即子线程的全局对象。因此，等同于下面两种写法</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="keyword">this</span>.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.postMessage(<span class="string">'You said: '</span> + e.data);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line">addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  postMessage(<span class="string">'You said: '</span> + e.data);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>除了使用<code>self.addEventListener()</code>指定监听函数，也可以使用<code>self.onmessage</code>指定。监听函数的参数是一个事件对象，它的<code>data</code>属性包含主线程发来的数据。<code>self.postMessage()</code>方法用来向主线程发送消息</p>
+<p>根据主线程发来的数据，Worker 线程可以调用不同的方法，下面是一个例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> data = e.data;</span><br><span class="line">  <span class="keyword">switch</span> (data.cmd) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'start'</span>:</span><br><span class="line">      self.postMessage(<span class="string">'WORKER STARTED: '</span> + data.msg);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'stop'</span>:</span><br><span class="line">      self.postMessage(<span class="string">'WORKER STOPPED: '</span> + data.msg);</span><br><span class="line">      self.close(); <span class="comment">// Terminates the worker.</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      self.postMessage(<span class="string">'Unknown command: '</span> + data.msg);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>self.close()</code>用于在 Worker 内部关闭自身</p>
+<h5 id="加载脚本"><a href="#加载脚本" class="headerlink" title="加载脚本"></a>加载脚本</h5><p>Worker 内部如果要加载其他脚本，有一个专门的方法<code>importScripts()</code>。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">importScripts(<span class="string">'script1.js'</span>);</span><br></pre></td></tr></table></figure>
+<p>该方法可以同时加载多个脚本</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">importScripts(<span class="string">'script1.js'</span>, <span class="string">'script2.js'</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h5><p>主线程可以监听 Worker 是否发生错误。如果发生错误，Worker 会触发主线程的<code>error</code>事件。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">worker.onerror(<span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log([</span><br><span class="line">    <span class="string">'ERROR: Line '</span>, e.lineno, <span class="string">' in '</span>, e.filename, <span class="string">': '</span>, e.message</span><br><span class="line">  ].join(<span class="string">''</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">worker.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Worker 内部也可以监听<code>error</code>事件</p>
+<h5 id="关闭Worker"><a href="#关闭Worker" class="headerlink" title="关闭Worker"></a>关闭Worker</h5><p>使用完毕，为了节省系统资源，必须关闭 Worker。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line">worker.terminate();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.close();</span><br></pre></td></tr></table></figure>
+<h4 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h4><p>iframe元素会创建包含另一个文档的内联框架</p>
+<p>缺点：</p>
+<ul>
+<li>会阻塞主页面的onload事件</li>
+<li>搜索引擎无法解读这种页面，不利于SEO（搜索引擎优化）</li>
+<li>iframe和主页面共享连接池，而浏览器对相同区域有限制所以会影响性能</li>
+</ul>
+<h4 id="Doctype"><a href="#Doctype" class="headerlink" title="Doctype"></a>Doctype</h4><p>Doctype声明于文档最前面，告诉浏览器以何种方式来渲染页面，这里有两种模式，<strong>严格模式</strong>和<strong>混杂模式</strong></p>
+<p>严格模式的排版和JS 运作模式是 以该浏览器支持的最高标准运行</p>
+<p>混杂模式，向后兼容，模拟老式浏览器，防止浏览器无法兼容页面</p>
+<h4 id="CSRF及XSS的网络攻击的防范"><a href="#CSRF及XSS的网络攻击的防范" class="headerlink" title="CSRF及XSS的网络攻击的防范"></a>CSRF及XSS的网络攻击的防范</h4><p>CSRF：跨站请求伪造，可以理解为攻击者盗用了用户的身份，以用户的名义发送了恶意请求，比如用户登录了一个网站后，立刻在另一个tab页面访问量攻击者用来制造攻击的网站，这个网站要求访问刚刚登陆的网站，并发送了一个恶意请求，这时候CSRF就产生了，比如这个制造攻击的网站使用一张图片，但是这种图片的链接却是可以修改数据库的，这时候攻击者就可以以用户的名义操作这个数据库</p>
+<p>防御方式：使用验证码，检查https头部的refer，使用token</p>
+<p>XSS：跨站脚本攻击，是说攻击者通过注入恶意的脚本，在用户浏览网页的时候进行攻击，比如获取cookie，或者其他用户身份信息，可以分为存储型和反射型，存储型是攻击者输入一些数据并且存储到了数据库中，其他浏览者看到的时候进行攻击，反射型的话不存储在数据库中，往往表现为将攻击代码放在url地址的请求参数中</p>
+<p>防御方式：为cookie设置httpOnly属性，对用户的输入进行检查，进行特殊字符过滤</p>
+<h4 id="解决click在移动端的300ms延迟"><a href="#解决click在移动端的300ms延迟" class="headerlink" title="解决click在移动端的300ms延迟"></a>解决click在移动端的300ms延迟</h4><ul>
+<li>粗暴型，禁用缩放</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用FastClick，其原理是：</li>
+</ul>
+<p>检测到touchend事件后，立刻出发模拟click事件，并且把浏览器300毫秒之后真正出发的事件给阻断掉</p>
+<h4 id="addEventListener"><a href="#addEventListener" class="headerlink" title="addEventListener"></a>addEventListener</h4><p><code>EventTarget.addEventListener()</code>方法将指定的监听器注册到 <code>EventTarget</code> 上，当该对象触发指定的事件时，指定的回调函数就会被执行。 事件目标可以是一个文档上的元素 <code>Element</code>,<code>Document</code>和<code>Window</code>或者任何其他支持事件的对象 (比如 <code>XMLHttpRequest</code>)</p>
+<p><code>addEventListener()</code>的工作原理是将实现<code>EventListener</code>的函数或对象添加到调用它的<code>EventTarget</code>上的指定事件类型的事件侦听器列表中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target.addEventListener(type, listener [,&#123;<span class="attr">capture</span>: <span class="built_in">Boolean</span>, <span class="attr">bubbling</span>: <span class="built_in">Boolean</span>, <span class="attr">once</span>: <span class="built_in">Boolean</span>&#125;]);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>type 表示监听事件类型的字符串</li>
+<li>listener 当所监听的事件类型触发时，会接收到一个事件通知</li>
+<li>options (可选) <ol>
+<li>capture 表示listener会在该类型的事件捕获阶段传播到该EventTarget 时触发</li>
+<li>once 表示listener在添加之后最多只调用一次。如果是 true，listener会在其被调用之后自动移除</li>
+<li>passive 表示listener永远不会调用preventDefault()。如果listener仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告</li>
+</ol>
+</li>
+</ul>
+<h4 id="http请求头"><a href="#http请求头" class="headerlink" title="http请求头"></a>http请求头</h4><p>可以将http首部分为通用首部，请求首部，响应首部，实体首部</p>
+<p>通用首部表示一些通用信息，比如date表示报文创建时间</p>
+<p>请求首部就是请求报文中独有的，如cookie，和缓存相关的如if-Modified-Since</p>
+<p>响应首部就是响应报文中独有的，如set-cookie，和重定向相关的location</p>
+<p>实体首部用来描述实体部分，如allow用来描述可执行的请求方法，content-type描述主题类型，content-Encoding描述主体的编码方式</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Header</th>
+<th style="text-align:left">解释</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Accept</td>
+<td style="text-align:left">指定客户端能够接收的内容类型</td>
+<td style="text-align:left">Accept: text/plain, text/html,application/json</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Charset</td>
+<td style="text-align:left">浏览器可以接受的字符编码集。</td>
+<td style="text-align:left">Accept-Charset: iso-8859-5</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Encoding</td>
+<td style="text-align:left">指定浏览器可以支持的web服务器返回内容压缩编码类型。</td>
+<td style="text-align:left">Accept-Encoding: compress, gzip</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Language</td>
+<td style="text-align:left">浏览器可接受的语言</td>
+<td style="text-align:left">Accept-Language: en,zh</td>
+</tr>
+<tr>
+<td style="text-align:left">Accept-Ranges</td>
+<td style="text-align:left">可以请求网页实体的一个或者多个子范围字段</td>
+<td style="text-align:left">Accept-Ranges: bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">Authorization</td>
+<td style="text-align:left">HTTP授权的授权证书</td>
+<td style="text-align:left">Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td style="text-align:left">Cache-Control</td>
+<td style="text-align:left">指定请求和响应遵循的缓存机制</td>
+<td style="text-align:left">Cache-Control: no-cache</td>
+</tr>
+<tr>
+<td style="text-align:left">Connection</td>
+<td style="text-align:left">表示是否需要持久连接。（HTTP 1.1默认进行持久连接）</td>
+<td style="text-align:left">Connection: close</td>
+</tr>
+<tr>
+<td style="text-align:left">Cookie</td>
+<td style="text-align:left">HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</td>
+<td style="text-align:left">Cookie: $Version=1; Skin=new;</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Length</td>
+<td style="text-align:left">请求的内容长度</td>
+<td style="text-align:left">Content-Length: 348</td>
+</tr>
+<tr>
+<td style="text-align:left">Content-Type</td>
+<td style="text-align:left">请求的与实体对应的MIME信息</td>
+<td style="text-align:left">Content-Type: application/x-www-form-urlencoded</td>
+</tr>
+<tr>
+<td style="text-align:left">Date</td>
+<td style="text-align:left">请求发送的日期和时间</td>
+<td style="text-align:left">Date: Tue, 15 Nov 2010 08:12:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">Expect</td>
+<td style="text-align:left">请求的特定的服务器行为</td>
+<td style="text-align:left">Expect: 100-continue</td>
+</tr>
+<tr>
+<td style="text-align:left">From</td>
+<td style="text-align:left">发出请求的用户的Email</td>
+<td style="text-align:left">From: <a href="mailto:user@email.com" target="_blank" rel="noopener">user@email.com</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Host</td>
+<td style="text-align:left">指定请求的服务器的域名和端口号</td>
+<td style="text-align:left">Host: <a href="http://www.zcmhi.com" target="_blank" rel="noopener">www.zcmhi.com</a></td>
+</tr>
+<tr>
+<td style="text-align:left">If-Match</td>
+<td style="text-align:left">只有请求内容与实体相匹配才有效</td>
+<td style="text-align:left">If-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Modified-Since</td>
+<td style="text-align:left">如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码</td>
+<td style="text-align:left">If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">If-None-Match</td>
+<td style="text-align:left">如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变</td>
+<td style="text-align:left">If-None-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Range</td>
+<td style="text-align:left">如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag</td>
+<td style="text-align:left">If-Range: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align:left">If-Unmodified-Since</td>
+<td style="text-align:left">只在实体在指定时间之后未被修改才请求成功</td>
+<td style="text-align:left">If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">Max-Forwards</td>
+<td style="text-align:left">限制信息通过代理和网关传送的时间</td>
+<td style="text-align:left">Max-Forwards: 10</td>
+</tr>
+<tr>
+<td style="text-align:left">Pragma</td>
+<td style="text-align:left">用来包含实现特定的指令</td>
+<td style="text-align:left">Pragma: no-cache</td>
+</tr>
+<tr>
+<td style="text-align:left">Proxy-Authorization</td>
+<td style="text-align:left">连接到代理的授权证书</td>
+<td style="text-align:left">Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td style="text-align:left">Range</td>
+<td style="text-align:left">只请求实体的一部分，指定范围</td>
+<td style="text-align:left">Range: bytes=500-999</td>
+</tr>
+<tr>
+<td style="text-align:left">Referer</td>
+<td style="text-align:left">先前网页的地址，当前请求网页紧随其后,即来路</td>
+<td style="text-align:left">Referer: <a href="http://www.zcmhi.com/archives/71.html" target="_blank" rel="noopener">http://www.zcmhi.com/archives…</a></td>
+</tr>
+<tr>
+<td style="text-align:left">TE</td>
+<td style="text-align:left">客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息</td>
+<td style="text-align:left">TE: trailers,deflate;q=0.5</td>
+</tr>
+<tr>
+<td style="text-align:left">Upgrade</td>
+<td style="text-align:left">向服务器指定某种传输协议以便服务器进行转换（如果支持）</td>
+<td style="text-align:left">Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11</td>
+</tr>
+<tr>
+<td style="text-align:left">User-Agent</td>
+<td style="text-align:left">User-Agent的内容包含发出请求的用户信息</td>
+<td style="text-align:left">User-Agent: Mozilla/5.0 (Linux; X11)</td>
+</tr>
+<tr>
+<td style="text-align:left">Via</td>
+<td style="text-align:left">通知中间网关或代理服务器地址，通信协议</td>
+<td style="text-align:left">Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)</td>
+</tr>
+<tr>
+<td style="text-align:left">Warning</td>
+<td style="text-align:left">关于消息实体的警告信息</td>
+<td style="text-align:left">Warn: 199 Miscellaneous warning</td>
+</tr>
+</tbody>
+</table>
+<h4 id="强缓存和协商缓存"><a href="#强缓存和协商缓存" class="headerlink" title="强缓存和协商缓存"></a>强缓存和协商缓存</h4><p>缓存分为两种：强缓存和协商缓存，根据响应的header内容来决定</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>获取资源形式</th>
+<th>状态码</th>
+<th>发送请求到服务器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>强缓存</td>
+<td>从缓存取</td>
+<td>200（from cache）</td>
+<td>否，直接从缓存取</td>
+</tr>
+<tr>
+<td>协商缓存</td>
+<td>从缓存取</td>
+<td>304（not modified）</td>
+<td>是，通过服务器来告知缓存是否可用</td>
+</tr>
+</tbody>
+</table>
+<p>强缓存相关字段有expires，cache-control。如果cache-control与expires同时存在的话，cache-control的优先级高于expires</p>
+<p>协商缓存相关字段有Last-Modified/If-Modified-Since，Etag/If-None-Match</p>
+<p><img src="https://uploadfiles.nowcoder.com/images/20190312/311436_1552361773903_9DC69E327B4B3691E94CD9D52D10E2C1" alt></p>
+<h4 id="网站优化"><a href="#网站优化" class="headerlink" title="网站优化"></a>网站优化</h4><ul>
+<li>减少http请求</li>
+<li>内容发布网络（CDN）</li>
+<li>Expries请求头，利用缓存</li>
+<li>压缩组件</li>
+<li>样式表放在顶部</li>
+<li>JS放在底部（JS会阻塞页面渲染及下载）</li>
+<li>减少回流重绘</li>
+<li>减少CSS表达式</li>
+<li>使用外部CSS及JS</li>
+<li>减少DNS查找</li>
+<li>减少重定向</li>
+<li>实体标签（ETag）</li>
+<li>Ajax可缓存</li>
+</ul>
+<h4 id="Get和Post区别"><a href="#Get和Post区别" class="headerlink" title="Get和Post区别"></a>Get和Post区别</h4><p>get参数通过url传递，post放在request body中</p>
+<p>get请求在url中传递的参数是有长度限制的，而post没有</p>
+<p>get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息</p>
+<p>get请求只能进行url编码，而post支持多种编码方式</p>
+<p>get请求会浏览器主动cache，而post支持多种编码方式</p>
+<p>get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</p>
+<p>GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同</p>
+<p>GET产生一个TCP数据包；POST产生两个TCP数据包</p>
+<h4 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h4><p>DNS解析</p>
+<p>TCP连接</p>
+<p>发送HTTP请求</p>
+<p>服务器处理请求并返回HTTP报文</p>
+<p>浏览器解析渲染页面</p>
+<p>连接结束</p>
+<h4 id="检测网站性能"><a href="#检测网站性能" class="headerlink" title="检测网站性能"></a>检测网站性能</h4><p>检测页面加载时间一般有两种方式，一种是被动去测：就是在被检测的页面置入脚本或探针，当用户访问网页时，探针自动采集数据并传回数据库进行分析，另一种主动监测的方式，即主动的搭建分布式受控环境，模拟用户发起页面访问请求，主动采集性能数据并分析，在检测的精准度上，专业的第三方工具效果更佳，比如说性能极客</p>
+<h4 id="cookie字段及编码"><a href="#cookie字段及编码" class="headerlink" title="cookie字段及编码"></a>cookie字段及编码</h4><h5 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h5><ul>
+<li><p>name字段为一个cookie的名称</p>
+</li>
+<li><p>value字段为一个cookie的值</p>
+</li>
+<li><p>domain字段为可以访问此cookie的域名</p>
+<p>非顶级域名，如二级域名或者三级域名，设置的cookie的domain只能为顶级域名或者二级域名或者三级域名本身，不能设置其他二级域名的cookie，否则cookie无法生成</p>
+<p>顶级域名只能设置domain为顶级域名，不能设置为二级域名或者三级域名，否则cookie无法生成</p>
+<p>二级域名能读取设置了domain为顶级域名或者自身的cookie，不能读取其他二级域名domain的cookie。所以要想cookie在多个二级域名中共享，需要设置domain为顶级域名，这样就可以在所有二级域名里面或者到这个cookie的值了<br>顶级域名只能获取到domain设置为顶级域名的cookie，其他domain设置为二级域名的无法获取</p>
+</li>
+<li><p>path字段为可以访问此cookie的页面路径。 比如domain是abc.com,path是/test，那么只有/test路径下的页面可以读取此cookie</p>
+</li>
+<li>expires/Max-Age 字段为此cookie超时时间。若设置其值为一个时间，那么当到达此时间后，此cookie失效。不设置的话默认值是Session，意思是cookie会和session一起失效。当浏览器关闭(不是浏览器标签页，而是整个浏览器) 后，此cookie失效</li>
+<li>Size字段 此cookie大小</li>
+<li>http字段  cookie的httponly属性。若此属性为true，则只有在http请求头中会带有此cookie的信息，而不能通过document.cookie来访问此cookie</li>
+<li>secure 字段 设置是否只能通过https来传递此条cookie</li>
+</ul>
+<h5 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h5><p>cookie其实是个字符串，但这个字符串中<code>逗号、分号、空格</code>被当做了特殊符号。所以当cookie的 key 和 value 中含有这3个特殊字符时，需要对其进行额外编码，一般会用<code>escape</code>进行编码，读取时用<code>unescape</code>进行解码；当然也可以用<code>encodeURIComponent/decodeURIComponent</code>或者<code>encodeURI/decodeURI</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> key = <span class="built_in">escape</span>(<span class="string">"name;value"</span>);</span><br><span class="line"><span class="keyword">var</span> value = <span class="built_in">escape</span>(<span class="string">"this is a value contain , and ;"</span>);</span><br><span class="line"><span class="built_in">document</span>.cookie= key + <span class="string">"="</span> + value + <span class="string">"; expires=Thu, 26 Feb 2116 11:50:25 GMT; domain=sankuai.com; path=/"</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/http/" rel="tag"># http</a>
+          
+            <a href="/blog/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/02/15/知识点总结（三）/" rel="next" title="知识点总结（三）">
+                <i class="fa fa-chevron-left"></i> 知识点总结（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/02/15/背景渐变动画/" rel="prev" title="background+animation实现背景渐变动画">
+                background+animation实现背景渐变动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#http和https"><span class="nav-number">1.</span> <span class="nav-text">http和https</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区别："><span class="nav-number">1.1.</span> <span class="nav-text">区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">https协议工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的优点"><span class="nav-number">1.3.</span> <span class="nav-text">https协议的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https协议的缺点"><span class="nav-number">1.4.</span> <span class="nav-text">https协议的缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手"><span class="nav-number">2.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP和UDP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket"><span class="nav-number">4.</span> <span class="nav-text">WebSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">4.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本请求"><span class="nav-number">4.3.</span> <span class="nav-text">基本请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#简单示例"><span class="nav-number">4.4.</span> <span class="nav-text">简单示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http2-0"><span class="nav-number">5.</span> <span class="nav-text">http2.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">6.</span> <span class="nav-text">请求方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET"><span class="nav-number">6.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HEAD"><span class="nav-number">6.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST"><span class="nav-number">6.3.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PUT"><span class="nav-number">6.4.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DELETE"><span class="nav-number">6.5.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONNECT"><span class="nav-number">6.6.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TRACE"><span class="nav-number">6.7.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PATCH"><span class="nav-number">6.8.</span> <span class="nav-text">PATCH</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码"><span class="nav-number">7.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie、sessionStorage、localStorage的区别"><span class="nav-number">8.</span> <span class="nav-text">Cookie、sessionStorage、localStorage的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共同点："><span class="nav-number">8.1.</span> <span class="nav-text">共同点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie"><span class="nav-number">8.2.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sessionStorage"><span class="nav-number">8.3.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#localStorage："><span class="nav-number">8.4.</span> <span class="nav-text">localStorage：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#补充cookie的作用："><span class="nav-number">8.5.</span> <span class="nav-text">补充cookie的作用：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BOM"><span class="nav-number">9.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#location对象"><span class="nav-number">9.1.</span> <span class="nav-text">location对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#history对象"><span class="nav-number">9.2.</span> <span class="nav-text">history对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Navigation对象"><span class="nav-number">9.3.</span> <span class="nav-text">Navigation对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-worker"><span class="nav-number">10.</span> <span class="nav-text">web worker</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Web-Worker-有以下几个使用注意点。"><span class="nav-number">10.1.</span> <span class="nav-text">Web Worker 有以下几个使用注意点。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主线程"><span class="nav-number">10.2.</span> <span class="nav-text">主线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Worker线程"><span class="nav-number">10.3.</span> <span class="nav-text">Worker线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加载脚本"><span class="nav-number">10.4.</span> <span class="nav-text">加载脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#错误处理"><span class="nav-number">10.5.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关闭Worker"><span class="nav-number">10.6.</span> <span class="nav-text">关闭Worker</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iframe"><span class="nav-number">11.</span> <span class="nav-text">iframe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Doctype"><span class="nav-number">12.</span> <span class="nav-text">Doctype</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF及XSS的网络攻击的防范"><span class="nav-number">13.</span> <span class="nav-text">CSRF及XSS的网络攻击的防范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决click在移动端的300ms延迟"><span class="nav-number">14.</span> <span class="nav-text">解决click在移动端的300ms延迟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#addEventListener"><span class="nav-number">15.</span> <span class="nav-text">addEventListener</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http请求头"><span class="nav-number">16.</span> <span class="nav-text">http请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强缓存和协商缓存"><span class="nav-number">17.</span> <span class="nav-text">强缓存和协商缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网站优化"><span class="nav-number">18.</span> <span class="nav-text">网站优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Get和Post区别"><span class="nav-number">19.</span> <span class="nav-text">Get和Post区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器渲染过程"><span class="nav-number">20.</span> <span class="nav-text">浏览器渲染过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测网站性能"><span class="nav-number">21.</span> <span class="nav-text">检测网站性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cookie字段及编码"><span class="nav-number">22.</span> <span class="nav-text">cookie字段及编码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字段"><span class="nav-number">22.1.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编码"><span class="nav-number">22.2.</span> <span class="nav-text">编码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
