@@ -88,8 +88,8 @@
 <meta property="og:description" content="利用Hexo搭建个人博客，Github进行版本管理同时将项目同步至阿里云服务器">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://theme-next.iissnan.com/uploads/five-minutes-setup/validation-default-scheme-mac.png">
-<meta property="og:image" content="http://www.asgardusk.com/public/blog/images/hexoeditor/1.png">
-<meta property="og:updated_time" content="2019-05-16T07:40:47.437Z">
+<meta property="og:image" content="http://www.kffhi.com/public/blog/images/hexoeditor.png">
+<meta property="og:updated_time" content="2020-02-16T08:21:36.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建个人博客及Github和服务器端配置">
 <meta name="twitter:description" content="利用Hexo搭建个人博客，Github进行版本管理同时将项目同步至阿里云服务器">
@@ -359,7 +359,7 @@
         <p>利用Hexo搭建个人博客，Github进行版本管理同时将项目同步至阿里云服务器<br><a id="more"></a></p>
 <h3 id="hexo的配置"><a href="#hexo的配置" class="headerlink" title="hexo的配置"></a>hexo的配置</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>首先需要Git和Node.js环境</p>
 <p>运行以下命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo-cli`</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <h4 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h4><p>安装完成后运行以下命令会在指定文件夹中新建所需文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo init &lt;folder&gt;</span><br><span class="line"><span class="meta">$</span> cd &lt;folder&gt;</span><br><span class="line"><span class="meta">$</span> npm install</span><br></pre></td></tr></table></figure>
 <p>新建完成后，指定文件夹的目录如下所示</p>
@@ -484,7 +484,7 @@
 <h5 id="HexoEditor"><a href="#HexoEditor" class="headerlink" title="HexoEditor"></a>HexoEditor</h5><p>Hexo支持markdown语法，使用Typora完全OK，但是有些私有语法的使用HexoEditor会更方便</p>
 <p>下载安装在<a href="https://github.com/zhuzhuyule/HexoEditor/releases" target="_blank" rel="noopener">这里</a></p>
 <p>简单配置</p>
-<p><img src="http://www.asgardusk.com/public/blog/images/hexoeditor/1.png" alt="配置"></p>
+<p><img src="http://www.kffhi.com/public/blog/images/hexoeditor.png" alt="配置"></p>
 <p> Hexo配置文件选择网站根目录下的_config.yml文件，Tag模板目录选择网站很目录下的 /scaffolds 文件夹</p>
 <p><strong>在预览试图中右键点击所插入的图片，点击上传至SM.MS可将本地图片上传至云端，之后会发现文章中的图片Path变为URL链接。</strong></p>
 <p>发布可以选择<code>hexo g</code>及<code>hexo d</code>或者直接在编辑器右键-hexo-部署网站</p>
@@ -496,7 +496,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//换成你自己的邮箱</span><br><span class="line">ssh-keygen -t rsa -C "yourgithubemail@gmail.com"</span><br><span class="line">//一直next并记住生成的地址</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/root/.ssh/id_rsa):</span><br><span class="line">Created directory '/root/.ssh'.</span><br><span class="line">Enter passphrase (empty for no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved in /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /root/.ssh/id_rsa.pub.</span><br></pre></td></tr></table></figure>
 <p>复制ssh</p>
 <p>进入.ssh目录，打开<code>id_rsa.pub</code>文件并复制里面的内容</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd .ssh</span><br><span class="line">ls</span><br><span class="line">vim cat id_rsa.pub</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd .ssh</span><br><span class="line">ls</span><br><span class="line">vim id_rsa.pub</span><br></pre></td></tr></table></figure>
 <h4 id="Github的准备"><a href="#Github的准备" class="headerlink" title="Github的准备"></a>Github的准备</h4><p>设置SSH</p>
 <p>打开github—account Setting—SSH and GPG keys—New SSH key，title随便填，key为刚才复制的<code>id_rsa.pub</code>文件内容</p>
 <p>新建一个repo用来存放blog</p>
