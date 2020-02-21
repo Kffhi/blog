@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="关于React生命周期的整理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-18T09:01:26.320Z">
+<meta property="og:image" content="http://kffhi.com/public/blog/images/20200221/1.png">
+<meta property="og:updated_time" content="2020-02-21T09:21:28.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React生命周期">
 <meta name="twitter:description" content="关于React生命周期的整理">
+<meta name="twitter:image" content="http://kffhi.com/public/blog/images/20200221/1.png">
 
 
 
@@ -365,8 +367,49 @@
 
       
         <p>关于React生命周期的整理<br><a id="more"></a></p>
-<h3 id="挂载阶段"><a href="#挂载阶段" class="headerlink" title="挂载阶段"></a>挂载阶段</h3><p>#### </p>
-<h3 id="更新阶段"><a href="#更新阶段" class="headerlink" title="更新阶段"></a>更新阶段</h3><h3 id="卸载阶段"><a href="#卸载阶段" class="headerlink" title="卸载阶段"></a>卸载阶段</h3>
+<p>生命周期图谱</p>
+<p><img src="http://kffhi.com/public/blog/images/20200221/1.png" alt="1582273224975"></p>
+<h3 id="挂载阶段"><a href="#挂载阶段" class="headerlink" title="挂载阶段"></a>挂载阶段</h3><h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p>组件构造函数，第一个执行</p>
+<p>如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数</p>
+<p>在 React 组件挂载之前，会调用它的构造函数。在为 React.Component 子类实现构造函数时，应在其他语句之前前调用 <code>super(props)</code>。否则，<code>this.props</code> 在构造函数中可能会出现未定义的 bug</p>
+<p>通常构造函数仅用于一下两种情况</p>
+<ul>
+<li>通过给<code>this.state</code>赋值对象来初始化内部state</li>
+<li>为时间处理函数绑定实例</li>
+</ul>
+<p>在<code>constructor()</code>函数中不要调用<code>setState</code>方法，如果组件需要使用内部state，直接在构造函数中为<code>this.state</code>赋值初始state</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">  <span class="keyword">super</span>(props);</span><br><span class="line">  <span class="comment">// 不要在这里调用 this.setState()</span></span><br><span class="line">  <span class="keyword">this</span>.state = &#123; <span class="attr">counter</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>避免将 props 的值复制给 state！</em></strong></p>
+<h4 id="getDerviedStateFromProps"><a href="#getDerviedStateFromProps" class="headerlink" title="getDerviedStateFromProps"></a>getDerviedStateFromProps</h4><p><code>getDerivedStateFromProps</code> 会在调用 render 方法之前调用，并且在初始挂载及后续更新时都会被调用</p>
+<p>一个静态方法，所以不能在这个函数里面使用this，这个函数有两个参数props和state，分别指接收到的新参数和当前的state对象，这个函数会返回一个对象用来更新当前的state对象，如果不需要更新可以返回null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static getDerivedStateFromProps(nextProps, prevState) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="render"><a href="#render" class="headerlink" title="render"></a>render</h4><p><code>render()</code> 方法是 class 组件中唯一必须实现的方法</p>
+<p>当 <code>render</code> 被调用时，它会检查 <code>this.props</code> 和 <code>this.state</code> 的变化并返回以下类型之一：</p>
+<ul>
+<li><strong>React 元素</strong>。通常通过 JSX 创建。例如，<code>&lt;div /&gt;</code> 会被 React 渲染为 DOM 节点，<code>&lt;MyComponent /&gt;</code> 会被 React 渲染为自定义组件，无论是 <code>&lt;div /&gt;</code> 还是 <code>&lt;MyComponent /&gt;</code> 均为 React 元素</li>
+<li><strong>数组或 fragments</strong>。 使得 render 方法可以返回多个元素</li>
+<li><strong>Portals</strong>。可以渲染子节点到不同的 DOM 子树中</li>
+<li><strong>字符串或数值类型</strong>。它们在 DOM 中会被渲染为文本节点</li>
+<li><strong>布尔类型或 null</strong>。什么都不渲染。（主要用于支持返回 <code>test &amp;&amp; &lt;Child /&gt;</code> 的模式，其中 test 为布尔类型。)</li>
+</ul>
+<p><code>render()</code> 函数应该为纯函数，这意味着在不修改组件 state 的情况下，每次调用时都返回相同的结果，并且它不会直接与浏览器交互</p>
+<h4 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h4><p><code>componentDidMount()</code> 会在组件挂载后（插入 DOM 树中）立即调用。依赖于 DOM 节点的初始化应该放在这里。如需通过网络请求获取数据，此处是实例化请求的好地方</p>
+<p>这个方法是比较适合添加订阅的地方。如果添加了订阅，请不要忘记在 <code>componentWillUnmount()</code> 里取消订阅</p>
+<p>你可以在 <code>componentDidMount()</code> 里<strong>直接调用 setState()</strong>。它将触发额外渲染，但此渲染会发生在浏览器更新屏幕之前。如此保证了即使在 <code>render()</code> 两次调用的情况下，用户也不会看到中间状态。</p>
+<h3 id="更新阶段"><a href="#更新阶段" class="headerlink" title="更新阶段"></a>更新阶段</h3><h4 id="getDerivedStateFromProps"><a href="#getDerivedStateFromProps" class="headerlink" title="getDerivedStateFromProps"></a>getDerivedStateFromProps</h4><h4 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shouldComponentUpdate(nextProps, nextState)</span><br></pre></td></tr></table></figure>
+<p>根据 <code>shouldComponentUpdate()</code> 的返回值，判断 React 组件的输出是否受当前 state 或 props 更改的影响。默认行为是 state 每次发生变化组件都会重新渲染。大部分情况下，你应该遵循默认行为</p>
+<p>当 props 或 state 发生变化时，<code>shouldComponentUpdate()</code> 会在渲染执行之前被调用。返回值默认为 true。首次渲染或使用 <code>forceUpdate()</code> 时不会调用该方法。</p>
+<p>此方法仅作为<strong>性能优化的方式</strong>而存在。不要企图依靠此方法来“阻止”渲染，因为这可能会产生 bug。你应该<strong>考虑使用内置的 PureComponent 组件</strong>，而不是手动编写 <code>shouldComponentUpdate()</code></p>
+<h4 id="render-1"><a href="#render-1" class="headerlink" title="render"></a>render</h4><h4 id="getSnapshotBeforeUpdate"><a href="#getSnapshotBeforeUpdate" class="headerlink" title="getSnapshotBeforeUpdate"></a>getSnapshotBeforeUpdate</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getSnapshotBeforeUpdate(prevProps, prevState)</span><br></pre></td></tr></table></figure>
+<p><code>getSnapshotBeforeUpdate()</code> 在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期的任何返回值将作为参数传递给 <code>componentDidUpdate()</code>。</p>
+<p>此用法并不常见，但它可能出现在 UI 处理中，如需要以特殊方式处理滚动位置的聊天线程等</p>
+<h4 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentDidUpdate(prevProps, prevState, snapshot)</span><br></pre></td></tr></table></figure>
+<p><code>componentDidUpdate()</code> 会在更新后会被立即调用。首次渲染不会执行此方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">componentDidUpdate(prevProps) &#123;</span><br><span class="line">  <span class="comment">// 典型用法（不要忘记比较 props）：</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.props.userID !== prevProps.userID) &#123;</span><br><span class="line">    <span class="keyword">this</span>.fetchData(<span class="keyword">this</span>.props.userID);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以在 <code>componentDidUpdate()</code> 中<strong>直接调用 setState()</strong>，但请注意<strong>它必须被包裹在一个条件语句里</strong>，正如上述的例子那样进行处理，否则会导致死循环。它还会导致额外的重新渲染，虽然用户不可见，但会影响组件性能。不要将 props “镜像”给 state，请考虑直接使用 props</p>
+<h3 id="卸载阶段"><a href="#卸载阶段" class="headerlink" title="卸载阶段"></a>卸载阶段</h3><h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><p>当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的DOM元素等垃圾清理工作</p>
+<p>注意不要在这个函数里去调用setState，因为组件不会重新渲染了</p>
+
       
     </div>
     
@@ -546,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载阶段"><span class="nav-number">1.</span> <span class="nav-text">挂载阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新阶段"><span class="nav-number">2.</span> <span class="nav-text">更新阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载阶段"><span class="nav-number">3.</span> <span class="nav-text">卸载阶段</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载阶段"><span class="nav-number">1.</span> <span class="nav-text">挂载阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">1.1.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDerviedStateFromProps"><span class="nav-number">1.2.</span> <span class="nav-text">getDerviedStateFromProps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#render"><span class="nav-number">1.3.</span> <span class="nav-text">render</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentDidMount"><span class="nav-number">1.4.</span> <span class="nav-text">componentDidMount</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新阶段"><span class="nav-number">2.</span> <span class="nav-text">更新阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getDerivedStateFromProps"><span class="nav-number">2.1.</span> <span class="nav-text">getDerivedStateFromProps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shouldComponentUpdate"><span class="nav-number">2.2.</span> <span class="nav-text">shouldComponentUpdate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#render-1"><span class="nav-number">2.3.</span> <span class="nav-text">render</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getSnapshotBeforeUpdate"><span class="nav-number">2.4.</span> <span class="nav-text">getSnapshotBeforeUpdate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentDidUpdate"><span class="nav-number">2.5.</span> <span class="nav-text">componentDidUpdate</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载阶段"><span class="nav-number">3.</span> <span class="nav-text">卸载阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillUnmount"><span class="nav-number">4.</span> <span class="nav-text">componentWillUnmount</span></a></li></ol></div>
             
 
           </div>
