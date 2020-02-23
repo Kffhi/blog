@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,JS,QS,翻译,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="npm官网的QS文档翻译，原文地址：https://www.npmjs.com/package/qs">
+<meta name="keywords" content="前端,JS,QS,翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QS文档">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/02/23/QS文档/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="npm官网的QS文档翻译，原文地址：https://www.npmjs.com/package/qs">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-23T09:58:26.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QS文档">
+<meta name="twitter:description" content="npm官网的QS文档翻译，原文地址：https://www.npmjs.com/package/qs">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/02/23/QS文档/">
+
+
+
+
+
+  <title>QS文档 | Kffhi的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/02/23/QS文档/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">QS文档</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T16:17:11+08:00">
+                2020-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>npm官网的QS文档翻译，原文地址：<a href="https://www.npmjs.com/package/qs" target="_blank" rel="noopener">https://www.npmjs.com/package/qs</a><br><a id="more"></a></p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line"><span class="keyword">var</span> assert = <span class="built_in">require</span>(<span class="string">'assert'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> obj = qs.parse(<span class="string">'a=c'</span>);</span><br><span class="line">assert.deepEqual(obj, &#123; <span class="attr">a</span>: <span class="string">'c'</span> &#125;);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> str = qs.stringify(obj);</span><br><span class="line">assert.equal(str, <span class="string">'a=c'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="解析对象"><a href="#解析对象" class="headerlink" title="解析对象"></a>解析对象</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qs.parse(string, [options]);</span><br></pre></td></tr></table></figure>
+<p>qs可以给查询字符串创建嵌套对象，方法是用<code>[]</code>包裹子键名，例如，字符串<code>foo[bar]=baz</code>被转换为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assert.deepEqual(qs.parse(<span class="string">'foo[bar]=baz'</span>), &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">        bar: <span class="string">'baz'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当使用<code>plainObjects</code>选项时，解析后的值由object .create(null)创建作为空对象返回，因此原型方法将不存在于其上，用户可以将这些名称设置为他们喜欢的任何值:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nullObject = qs.parse(<span class="string">'a[hasOwnProperty]=b'</span>, &#123; <span class="attr">plainObjects</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.deepEqual(nullObject, &#123; <span class="attr">a</span>: &#123; <span class="attr">hasOwnProperty</span>: <span class="string">'b'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>默认情况下，会覆盖对象原型上的属性的参数将被忽略，如果希望保留来自这些字段的数据，则可以使用上面提到的<code>plainobjects</code>，或者将<code>allowprototype</code>设置为true，以便允许用户输入覆盖这些属性。警告:启用此选项通常不是一个好主意，因为它在试图使用已覆盖的属性时可能会导致问题。总是要小心这个选择。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> protoObject = qs.parse(<span class="string">'a[hasOwnProperty]=b'</span>, &#123; <span class="attr">allowPrototypes</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.deepEqual(protoObject, &#123; <span class="attr">a</span>: &#123; <span class="attr">hasOwnProperty</span>: <span class="string">'b'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>URL编码的字符串也可以：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assert.deepEqual(qs.parse(<span class="string">'a%5Bb%5D=c'</span>), &#123;</span><br><span class="line">    a: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>也可以使用嵌套对象，像<code>foo[bar][baz]=foobarbaz</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assert.deepEqual(qs.parse(<span class="string">'foo[bar][baz]=foobarbaz'</span>), &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">        bar: &#123;</span><br><span class="line">            baz: <span class="string">'foobarbaz'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>默认情况下qs只解析嵌套对象的5个子元素，这意味着如果你解析例如这样的字符串 <code>a[b][c][d][e][f][g][h][i]=j</code> ，得到的结果会是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> expected = &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        b: &#123;</span><br><span class="line">            c: &#123;</span><br><span class="line">                d: &#123;</span><br><span class="line">                    e: &#123;</span><br><span class="line">                        f: &#123;</span><br><span class="line">                            <span class="string">'[g][h][i]'</span>: <span class="string">'j'</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> string = <span class="string">'a[b][c][d][e][f][g][h][i]=j'</span>;</span><br><span class="line">assert.deepEqual(qs.parse(string), expected);</span><br></pre></td></tr></table></figure>
+<p>可以通过<code>depth</code>选项<code>qs.parse(string, [options])</code>来覆盖这个值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deep = qs.parse(<span class="string">'a[b][c][d][e][f][g][h][i]=j'</span>, &#123; <span class="attr">depth</span>: <span class="number">1</span> &#125;);</span><br><span class="line">assert.deepEqual(deep, &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123; <span class="string">'[c][d][e][f][g][h][i]'</span>: <span class="string">'j'</span> &#125; &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>深度限制有助于减轻qs用于解析用户输入时的滥用，建议将其保持为一个合理的小数字。</p>
+<p>出于类似的原因，默认情况下qs最多只能解析1000个参数。这可以通过传递一个 <code>parameterLimit</code> 选项来覆盖:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> limited = qs.parse(<span class="string">'a=b&amp;c=d'</span>, &#123; <span class="attr">parameterLimit</span>: <span class="number">1</span> &#125;);</span><br><span class="line">assert.deepEqual(limited, &#123; <span class="attr">a</span>: <span class="string">'b'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>使用 <code>ignoreQueryPrefix</code>来忽略开头的问号：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> prefixed = qs.parse(<span class="string">'?a=b&amp;c=d'</span>, &#123; <span class="attr">ignoreQueryPrefix</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.deepEqual(prefixed, &#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>也可以传递一个可选的分隔符：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> delimited = qs.parse(<span class="string">'a=b;c=d'</span>, &#123; <span class="attr">delimiter</span>: <span class="string">';'</span> &#125;);</span><br><span class="line">assert.deepEqual(delimited, &#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>分隔符也可以是正则表达式:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexed = qs.parse(<span class="string">'a=b;c=d,e=f'</span>, &#123; <span class="attr">delimiter</span>: <span class="regexp">/[;,]/</span> &#125;);</span><br><span class="line">assert.deepEqual(regexed, &#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span>, <span class="attr">e</span>: <span class="string">'f'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p><code>allowDots</code> 用于启用点表示法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withDots = qs.parse(<span class="string">'a.b=c'</span>, &#123; <span class="attr">allowDots</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.deepEqual(withDots, &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果必须处理遗留的浏览器或服务，还支持对iso-8859-1这样的按百分比编码的字节进行解码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oldCharset = qs.parse(<span class="string">'a=%A7'</span>, &#123; <span class="attr">charset</span>: <span class="string">'iso-8859-1'</span> &#125;);</span><br><span class="line">assert.deepEqual(oldCharset, &#123; <span class="attr">a</span>: <span class="string">'§'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>一些服务将初始的<code>utf8=✓</code>值添加到表单中，这样旧版本Internet Explorer更可能将表单提交为utf-8。此外，如果表单具有<code>accept-charset</code>参数或者包含页面具有不同的字符集，服务器可以根据复选标记字符的错误编码检查值，并检测到查询字符串或<code>application/x-www-form-urlencoded</code>没有作为utf-8发送。</p>
+<p>qs通过<code>charsetSentinel</code>选项支持这种机制。如果指定将从返回的对象中省略<code>utf8</code>参数。它将根据复选标记的编码方式切换到<code>iso-8859-1/utf-8</code>模式。</p>
+<p>重要提示:当同时指定<code>charset</code>选项和<code>charsetSentinel</code>选项时，当请求包含<code>utf8</code>参数时，charset将被覆盖，而实际的charset可以从utf8参数推断出来。在这个意义上，<code>charset</code>将作为默认的charset而不是权威的charset。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> detectedAsUtf8 = qs.parse(<span class="string">'utf8=%E2%9C%93&amp;a=%C3%B8'</span>, &#123;</span><br><span class="line">    charset: <span class="string">'iso-8859-1'</span>,</span><br><span class="line">    charsetSentinel: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">assert.deepEqual(detectedAsUtf8, &#123; <span class="attr">a</span>: <span class="string">'ø'</span> &#125;);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Browsers encode the checkmark as &amp;#10003; when submitting as iso-8859-1:</span></span><br><span class="line"><span class="keyword">var</span> detectedAsIso8859_1 = qs.parse(<span class="string">'utf8=%26%2310003%3B&amp;a=%F8'</span>, &#123;</span><br><span class="line">    charset: <span class="string">'utf-8'</span>,</span><br><span class="line">    charsetSentinel: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">assert.deepEqual(detectedAsIso8859_1, &#123; <span class="attr">a</span>: <span class="string">'ø'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果想解码<code>&amp;#...;</code> ，可以根据实际字符串的语法指定<code>interpretNumericEntities</code> 选项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> detectedAsIso8859_1 = qs.parse(<span class="string">'a=%26%239786%3B'</span>, &#123;</span><br><span class="line">    charset: <span class="string">'iso-8859-1'</span>,</span><br><span class="line">    interpretNumericEntities: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line">assert.deepEqual(detectedAsIso8859_1, &#123; <span class="attr">a</span>: <span class="string">'☺'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>当charset在<code>charsetSentinel</code> 模式下被检测到时也可以work</p>
+<h4 id="解析数组"><a href="#解析数组" class="headerlink" title="解析数组"></a>解析数组</h4><p>qs同样可以使用<code>[]</code>来解析数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withArray = qs.parse(<span class="string">'a[]=b&amp;a[]=c'</span>);</span><br><span class="line">assert.deepEqual(withArray, &#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;);</span><br></pre></td></tr></table></figure>
+<p>也可以指定索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withIndexes = qs.parse(<span class="string">'a[1]=c&amp;a[0]=b'</span>);</span><br><span class="line">assert.deepEqual(withIndexes, &#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;);</span><br></pre></td></tr></table></figure>
+<p>注意，数组中的索引和对象中的键之间的惟一区别是，方括号之间的值必须是一个数字，才能创建数组。在创建具有特定索引的数组时，qs将稀疏数组压缩为仅保留其顺序的现有值:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> noSparse = qs.parse(<span class="string">'a[1]=b&amp;a[15]=c'</span>);</span><br><span class="line">assert.deepEqual(noSparse, &#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;);</span><br></pre></td></tr></table></figure>
+<p>注意，空字符串也是一个值，将被保留</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withEmptyString = qs.parse(<span class="string">'a[]=&amp;a[]=b'</span>);</span><br><span class="line">assert.deepEqual(withEmptyString, &#123; <span class="attr">a</span>: [<span class="string">''</span>, <span class="string">'b'</span>] &#125;);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> withIndexedEmptyString = qs.parse(<span class="string">'a[0]=b&amp;a[1]=&amp;a[2]=c'</span>);</span><br><span class="line">assert.deepEqual(withIndexedEmptyString, &#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">''</span>, <span class="string">'c'</span>] &#125;);</span><br></pre></td></tr></table></figure>
+<p>qs还将限制在数组中指定索引的最大索引数为20。任何索引大于20的数组成员都将被转换为一个以索引作为键的对象。处理发送了一个例如<code>a[999999999]</code>这种情况，遍历这个庞大的数组将花费大量时间。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withMaxIndex = qs.parse(<span class="string">'a[100]=b'</span>);</span><br><span class="line">assert.deepEqual(withMaxIndex, &#123; <span class="attr">a</span>: &#123; <span class="string">'100'</span>: <span class="string">'b'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>这个限制可以通过<code>arrayLimit</code> 来覆盖：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withArrayLimit = qs.parse(<span class="string">'a[1]=b'</span>, &#123; <span class="attr">arrayLimit</span>: <span class="number">0</span> &#125;);</span><br><span class="line">assert.deepEqual(withArrayLimit, &#123; <span class="attr">a</span>: &#123; <span class="string">'1'</span>: <span class="string">'b'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>可以通过设置<code>parseArrays: false</code>禁用数组解析：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> noParsingArrays = qs.parse(<span class="string">'a[]=b'</span>, &#123; <span class="attr">parseArrays</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">assert.deepEqual(noParsingArrays, &#123; <span class="attr">a</span>: &#123; <span class="string">'0'</span>: <span class="string">'b'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果使用混合表示法，qs会将其合并为一项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixedNotation = qs.parse(<span class="string">'a[0]=b&amp;a[b]=c'</span>);</span><br><span class="line">assert.deepEqual(mixedNotation, &#123; <span class="attr">a</span>: &#123; <span class="string">'0'</span>: <span class="string">'b'</span>, <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p>也可以创建一个对象数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arraysOfObjects = qs.parse(<span class="string">'a[][b]=c'</span>);</span><br><span class="line">assert.deepEqual(arraysOfObjects, &#123; <span class="attr">a</span>: [&#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125;] &#125;);</span><br></pre></td></tr></table></figure>
+<p>qs也可以解析逗号连接的数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arraysOfObjects = qs.parse(<span class="string">'a=b,c'</span>, &#123; <span class="attr">comma</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">assert.deepEqual(arraysOfObjects, &#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;)</span><br></pre></td></tr></table></figure>
+<p><em>（不能转换嵌套对象，如：a={b:1},{c:d}）</em></p>
+<h4 id="Stringifying"><a href="#Stringifying" class="headerlink" title="Stringifying"></a>Stringifying</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(object, [options]);</span><br></pre></td></tr></table></figure>
+<p>在进行字符串化时，默认情况下qs对输出进行URI编码。对象是字符串化的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span> &#125;), <span class="string">'a=b'</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;), <span class="string">'a%5Bb%5D=c'</span>);</span><br></pre></td></tr></table></figure>
+<p>设置<code>encode</code> 为<code>false</code>可以禁用此编码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> unencoded = qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;, &#123; <span class="attr">encode</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">assert.equal(unencoded, <span class="string">'a[b]=c'</span>);</span><br></pre></td></tr></table></figure>
+<p>设置<code>encodeValuesOnly</code> 为<code>true</code>可以禁用通过key比编码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> encodedValues = qs.stringify(</span><br><span class="line">    &#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: [<span class="string">'d'</span>, <span class="string">'e=f'</span>], <span class="attr">f</span>: [[<span class="string">'g'</span>], [<span class="string">'h'</span>]] &#125;,</span><br><span class="line">    &#123; <span class="attr">encodeValuesOnly</span>: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br><span class="line">assert.equal(encodedValues,<span class="string">'a=b&amp;c[0]=d&amp;c[1]=e%3Df&amp;f[0][0]=g&amp;f[1][0]=h'</span>);</span><br></pre></td></tr></table></figure>
+<p>也可以通过设置<code>encoder</code> 选项替换为自定义编码方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> encoded = qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;, &#123; <span class="attr">encoder</span>: <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Passed in values `a`, `b`, `c`</span></span><br><span class="line">    <span class="keyword">return</span> <span class="comment">// Return encoded string</span></span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p><em>（当<code>encoder</code>设置为<code>false</code>时将不被应用）</em></p>
+<p>即使在<code>encoder</code>模式，<code>decoder</code>的<code>parse</code>也可以覆盖属性和值的解码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> decoded = qs.parse(<span class="string">'x=z'</span>, &#123; <span class="attr">decoder</span>: <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Passed in values `x`, `z`</span></span><br><span class="line">    <span class="keyword">return</span> <span class="comment">// Return decoded string</span></span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>通过使用提供给编码器的类型参数，可以使用不同的逻辑对键和值进行编码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> encoded = qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="string">'c'</span> &#125; &#125;, &#123; <span class="attr">encoder</span>: <span class="function"><span class="keyword">function</span> (<span class="params">str, defaultEncoder, charset, type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'key'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// Encoded key</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === <span class="string">'value'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// Encoded value</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>类型参数也提供给解码器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> decoded = qs.parse(<span class="string">'x=z'</span>, &#123; <span class="attr">decoder</span>: <span class="function"><span class="keyword">function</span> (<span class="params">str, defaultEncoder, charset, type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'key'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// Decoded key</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === <span class="string">'value'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// Decoded value</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>超出这一点的示例将显示为输出不是为清晰而编码的URI。请注意，这些情况下的返回值将在实际使用期间进行URI编码。</p>
+<p>当数组被字符串化时，默认情况下会给它们显式的索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>] &#125;);</span><br><span class="line"><span class="comment">// 'a[0]=b&amp;a[1]=c&amp;a[2]=d'</span></span><br></pre></td></tr></table></figure>
+<p>设置<code>indices</code>为<code>false</code>可以覆盖此选项</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>] &#125;, &#123; <span class="attr">indices</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"><span class="comment">// 'a=b&amp;a=c&amp;a=d'</span></span><br></pre></td></tr></table></figure>
+<p>可以使用<code>arrayFormat</code> 来指定输出数组的格式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;, &#123; <span class="attr">arrayFormat</span>: <span class="string">'indices'</span> &#125;)</span><br><span class="line"><span class="comment">// 'a[0]=b&amp;a[1]=c'</span></span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;, &#123; <span class="attr">arrayFormat</span>: <span class="string">'brackets'</span> &#125;)</span><br><span class="line"><span class="comment">// 'a[]=b&amp;a[]=c'</span></span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;, &#123; <span class="attr">arrayFormat</span>: <span class="string">'repeat'</span> &#125;)</span><br><span class="line"><span class="comment">// 'a=b&amp;a=c'</span></span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>] &#125;, &#123; <span class="attr">arrayFormat</span>: <span class="string">'comma'</span> &#125;)</span><br><span class="line"><span class="comment">// 'a=b,c'</span></span><br></pre></td></tr></table></figure>
+<p>当对象被字符串化时，默认情况下它们使用括号表示法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123; <span class="attr">c</span>: <span class="string">'d'</span>, <span class="attr">e</span>: <span class="string">'f'</span> &#125; &#125; &#125;);</span><br><span class="line"><span class="comment">// 'a[b][c]=d&amp;a[b][e]=f'</span></span><br></pre></td></tr></table></figure>
+<p>可以通过将<code>allowDots</code>设置为<code>true</code>来覆盖它以使用点表示法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123; <span class="attr">c</span>: <span class="string">'d'</span>, <span class="attr">e</span>: <span class="string">'f'</span> &#125; &#125; &#125;, &#123; <span class="attr">allowDots</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// 'a.b.c=d&amp;a.b.e=f'</span></span><br></pre></td></tr></table></figure>
+<p>空字符串和空值将省略该值，但等号(=)仍然存在:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">''</span> &#125;), <span class="string">'a='</span>);</span><br></pre></td></tr></table></figure>
+<p>没有值的键(如空对象或数组)将什么也不返回</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: [] &#125;), <span class="string">''</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: &#123;&#125; &#125;), <span class="string">''</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: [&#123;&#125;] &#125;), <span class="string">''</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: []&#125; &#125;), <span class="string">''</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: &#123;&#125;&#125; &#125;), <span class="string">''</span>);</span><br></pre></td></tr></table></figure>
+<p>设置为<code>undefined</code>值的属性将会被完全省略</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="literal">null</span>, <span class="attr">b</span>: <span class="literal">undefined</span> &#125;), <span class="string">'a='</span>);</span><br></pre></td></tr></table></figure>
+<p>查询字符串可以选择以问号作为前缀</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span> &#125;, &#123; <span class="attr">addQueryPrefix</span>: <span class="literal">true</span> &#125;), <span class="string">'?a=b&amp;c=d'</span>);</span><br></pre></td></tr></table></figure>
+<p>也可以用stringify覆盖分隔符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span> &#125;, &#123; <span class="attr">delimiter</span>: <span class="string">';'</span> &#125;), <span class="string">'a=b;c=d'</span>);</span><br></pre></td></tr></table></figure>
+<p>可以使用<code>serializeDate</code>对<code>Date</code>对象进行序列化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">7</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: date &#125;), <span class="string">'a=1970-01-01T00:00:00.007Z'</span>.replace(<span class="regexp">/:/g</span>, <span class="string">'%3A'</span>));</span><br><span class="line">assert.equal(</span><br><span class="line">    qs.stringify(&#123; <span class="attr">a</span>: date &#125;, &#123; <span class="attr">serializeDate</span>: <span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123; <span class="keyword">return</span> d.getTime(); &#125; &#125;),</span><br><span class="line">    <span class="string">'a=7'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>使用<code>sort</code>选项来改变参数键的顺序：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alphabeticalSort</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.localeCompare(b);</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'c'</span>, <span class="attr">z</span>: <span class="string">'y'</span>, <span class="attr">b</span> : <span class="string">'f'</span> &#125;, &#123; <span class="attr">sort</span>: alphabeticalSort &#125;), <span class="string">'a=c&amp;b=f&amp;z=y'</span>);</span><br></pre></td></tr></table></figure>
+<p>最后，您可以使用<code>filter</code>选项来限制哪些键将包含在stringified输出中。如果传递一个函数，将为每个键调用该函数以获得替换值。否则，如果传递一个数组，它将用于为字符串化选择属性和数组索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filterFunc</span>(<span class="params">prefix, value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (prefix == <span class="string">'b'</span>) &#123;</span><br><span class="line">        <span class="comment">// Return an `undefined` value to omit a property.</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (prefix == <span class="string">'e[f]'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value.getTime();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (prefix == <span class="string">'e[g][0]'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span>, <span class="attr">e</span>: &#123; <span class="attr">f</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">123</span>), <span class="attr">g</span>: [<span class="number">2</span>] &#125; &#125;, &#123; <span class="attr">filter</span>: filterFunc &#125;);</span><br><span class="line"><span class="comment">// 'a=b&amp;c=d&amp;e[f]=123&amp;e[g][0]=4'</span></span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="string">'d'</span>, <span class="attr">e</span>: <span class="string">'f'</span> &#125;, &#123; <span class="attr">filter</span>: [<span class="string">'a'</span>, <span class="string">'e'</span>] &#125;);</span><br><span class="line"><span class="comment">// 'a=b&amp;e=f'</span></span><br><span class="line">qs.stringify(&#123; <span class="attr">a</span>: [<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>], <span class="attr">e</span>: <span class="string">'f'</span> &#125;, &#123; <span class="attr">filter</span>: [<span class="string">'a'</span>, <span class="number">0</span>, <span class="number">2</span>] &#125;);</span><br><span class="line"><span class="comment">// 'a[0]=b&amp;a[2]=d'</span></span><br></pre></td></tr></table></figure>
+<h4 id="处理null值"><a href="#处理null值" class="headerlink" title="处理null值"></a>处理null值</h4><p>默认情况下<code>null</code>会被处理为空字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> withNull = qs.stringify(&#123; <span class="attr">a</span>: <span class="literal">null</span>, <span class="attr">b</span>: <span class="string">''</span> &#125;);</span><br><span class="line">assert.equal(withNull, <span class="string">'a=&amp;b='</span>);</span><br></pre></td></tr></table></figure>
+<p>解析不区分带等号和不带等号的参数。两者都被转换为空字符串。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> equalsInsensitive = qs.parse(<span class="string">'a&amp;b='</span>);</span><br><span class="line">assert.deepEqual(equalsInsensitive, &#123; <span class="attr">a</span>: <span class="string">''</span>, <span class="attr">b</span>: <span class="string">''</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>要区分<code>null</code>和空字符串，请使用<code>strictNullHandling</code>，在结果字符串中，<code>null</code>没有<code>=</code>号</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strictNull = qs.stringify(&#123; <span class="attr">a</span>: <span class="literal">null</span>, <span class="attr">b</span>: <span class="string">''</span> &#125;, &#123; <span class="attr">strictNullHandling</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.equal(strictNull, <span class="string">'a&amp;b='</span>);</span><br></pre></td></tr></table></figure>
+<p>若要解析没有<code>=</code>返回<code>null</code>的值，请使用<code>strictNullHandling</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parsedStrictNull = qs.parse(<span class="string">'a&amp;b='</span>, &#123; <span class="attr">strictNullHandling</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.deepEqual(parsedStrictNull, &#123; <span class="attr">a</span>: <span class="literal">null</span>, <span class="attr">b</span>: <span class="string">''</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>要完全跳过具有空值的呈现键，请使用<code>skipNulls</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nullsSkipped = qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b'</span>, <span class="attr">c</span>: <span class="literal">null</span>&#125;, &#123; <span class="attr">skipNulls</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">assert.equal(nullsSkipped, <span class="string">'a=b'</span>);</span><br></pre></td></tr></table></figure>
+<p>如果您正在与遗留系统通信，您可以使用<code>charset</code>选项切换到<code>iso-8859-1</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iso = qs.stringify(&#123; æ: <span class="string">'æ'</span> &#125;, &#123; <span class="attr">charset</span>: <span class="string">'iso-8859-1'</span> &#125;);</span><br><span class="line">assert.equal(iso, <span class="string">'%E6=%E6'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>iso-8859-1</code>中不存在的字符将被转换为数字实体，这与浏览器的功能类似</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numeric = qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'☺'</span> &#125;, &#123; <span class="attr">charset</span>: <span class="string">'iso-8859-1'</span> &#125;);</span><br><span class="line">assert.equal(numeric, <span class="string">'a=%26%239786%3B'</span>);</span><br></pre></td></tr></table></figure>
+<p>您可以使用<code>charsetSentinel</code>选项来声明字符，方法是在复选标记中包含一个<code>utf8=✓</code>参数，并进行适当的编码，这与Ruby里Rails或其他提交表单时的做法类似。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sentinel = qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'☺'</span> &#125;, &#123; <span class="attr">charsetSentinel</span>: <span class="literal">true</span> &#125;);assert.equal(sentinel, <span class="string">'utf8=%E2%9C%93&amp;a=%E2%98%BA'</span>); <span class="keyword">var</span> isoSentinel = qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'æ'</span> &#125;, &#123; <span class="attr">charsetSentinel</span>: <span class="literal">true</span>, <span class="attr">charset</span>: <span class="string">'iso-8859-1'</span> &#125;);assert.equal(isoSentinel, <span class="string">'utf8=%26%2310003%3B&amp;a=%E6'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="处理特殊字符集"><a href="#处理特殊字符集" class="headerlink" title="处理特殊字符集"></a>处理特殊字符集</h4><p>默认情况下，字符的编码和解码是在utf-8中完成的，并且还通过<code>charset</code>参数构建了<code>iso-8859-1</code>支持。</p>
+<p>如果希望将查询字符串编码为不同的字符集(即Shift JIS)，可以使用<code>qs-iconv</code>库</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> encoder = <span class="built_in">require</span>(<span class="string">'qs-iconv/encoder'</span>)(<span class="string">'shift_jis'</span>);<span class="keyword">var</span> shiftJISEncoded = qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'こんにちは！'</span> &#125;, &#123; <span class="attr">encoder</span>: encoder &#125;);assert.equal(shiftJISEncoded, <span class="string">'a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I'</span>);</span><br></pre></td></tr></table></figure>
+<p>这也适用于查询字符串的解码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> decoder = <span class="built_in">require</span>(<span class="string">'qs-iconv/decoder'</span>)(<span class="string">'shift_jis'</span>);<span class="keyword">var</span> obj = qs.parse(<span class="string">'a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I'</span>, &#123; <span class="attr">decoder</span>: decoder &#125;);assert.deepEqual(obj, &#123; <span class="attr">a</span>: <span class="string">'こんにちは！'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="RFC-3986和RFC-1738的空间编码"><a href="#RFC-3986和RFC-1738的空间编码" class="headerlink" title="RFC 3986和RFC 1738的空间编码"></a>RFC 3986和RFC 1738的空间编码</h4><p>RFC3986作为默认选项，将<code>&#39; &#39;</code>编码为<code>%20</code>向后兼容。同时，输出可以按照RFC1738使用<code>&#39; &#39;</code> 等于 <code>&#39;+&#39;</code>进行字符串化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b c'</span> &#125;), <span class="string">'a=b%20c'</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b c'</span> &#125;, &#123; <span class="attr">format</span> : <span class="string">'RFC3986'</span> &#125;), <span class="string">'a=b%20c'</span>);</span><br><span class="line">assert.equal(qs.stringify(&#123; <span class="attr">a</span>: <span class="string">'b c'</span> &#125;, &#123; <span class="attr">format</span> : <span class="string">'RFC1738'</span> &#125;), <span class="string">'a=b+c'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><p>如果您有潜在的安全漏洞要报告，请发送电子邮件至@ljharb或访问<a href="https://tidelift.com/security。" target="_blank" rel="noopener">https://tidelift.com/security。</a></p>
+<p><em>译：kffhi，于2020/02/23</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/blog/tags/QS/" rel="tag"># QS</a>
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/02/22/虚拟DOM/" rel="next" title="虚拟DOM">
+                <i class="fa fa-chevron-left"></i> 虚拟DOM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用法"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析对象"><span class="nav-number">2.</span> <span class="nav-text">解析对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析数组"><span class="nav-number">3.</span> <span class="nav-text">解析数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stringifying"><span class="nav-number">4.</span> <span class="nav-text">Stringifying</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理null值"><span class="nav-number">5.</span> <span class="nav-text">处理null值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理特殊字符集"><span class="nav-number">6.</span> <span class="nav-text">处理特殊字符集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RFC-3986和RFC-1738的空间编码"><span class="nav-number">7.</span> <span class="nav-text">RFC 3986和RFC 1738的空间编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Security"><span class="nav-number">8.</span> <span class="nav-text">Security</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
