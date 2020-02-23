@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="React相关总结之组件通信">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-22T08:46:30.208Z">
+<meta property="og:updated_time" content="2020-02-23T08:14:15.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React组件通信">
 <meta name="twitter:description" content="React相关总结之组件通信">
@@ -365,7 +365,31 @@
 
       
         <p>React相关总结之组件通信<br><a id="more"></a></p>
-
+<h4 id="父子组件通信"><a href="#父子组件通信" class="headerlink" title="父子组件通信"></a>父子组件通信</h4><p>通过props和自定义事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">class App extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;Child name=&apos;tadpole&apos; /&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子组件</span><br><span class="line">function Child(props) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;&#123;props.name&#125;&lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">class App extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state = &#123;data: &apos;&apos;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 自定义的回调事件</span><br><span class="line">    childValue = data =&gt; &#123;</span><br><span class="line">        this.setState(&#123;data&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                子组件传递过来的值：&#123;this.state.data&#125;</span><br><span class="line">                &lt;Child transferValue=&#123;this.childValue&#125;/&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子组件</span><br><span class="line">class Child extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state = &#123;data: &apos;&apos;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    valueChange = data =&gt; &#123;</span><br><span class="line">        // 保证子组件中的值和传递过去的值一致</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            data: data.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">        // 触发回调 传递给父组件</span><br><span class="line">        this.props.transferValue(data.target.value)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                子组件： &lt;input vlaue=&#123;this.state.data&#125; onChange=&#123;this.valueChange&#125; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="跨级组件"><a href="#跨级组件" class="headerlink" title="跨级组件"></a>跨级组件</h4><ul>
+<li>一层一层嵌套props</li>
+<li>Context</li>
+</ul>
+<h5 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个Context对象</span><br><span class="line">const InitContext = React.createContext()</span><br><span class="line"></span><br><span class="line">class App extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            // 使用一个 Provider 来将当前的 context 传递给以下的组件树</span><br><span class="line">            &lt;InitContext.Provider value=&apos;tadpole&apos;&gt;</span><br><span class="line">                &lt;Child /&gt;</span><br><span class="line">            &lt;/InitContext.Provider&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child(props) &#123;</span><br><span class="line">    return (</span><br><span class="line">            &lt;LastComponent /&gt;</span><br><span class="line">        )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class LastComponent extends React.Component &#123;</span><br><span class="line">    // 指定 contextType 读取当前的  context</span><br><span class="line">    static contextType = InitContext</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;name: &#123;this.context&#125;&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>Context</code> 的注意点：</p>
+<ul>
+<li><strong>Context可以看作组件作用域</strong></li>
+</ul>
+<ul>
+<li>每个 <code>Context</code> 对象都会返回一个 <code>Provider React</code> 组件</li>
+<li>只有当组件所处的树中没有匹配到 <code>Provider</code> 时，其 <code>defaultValue</code> 参数才会生效,默认值为 <code>undefined</code></li>
+<li>多个 <code>Provider</code> 也可以嵌套使用，里层的会覆盖外层的数据 <code>Provider</code> 接收一个 <code>value</code> 属性，传递给消费组件(<code>React</code> 会往上找到最近的 <code>Provider</code>，然后使用它的值)</li>
+<li>可以在任何生命周期中访问到，包括 <code>render</code> 函数中</li>
+</ul>
+<p>关于Context更多的可以<a href="https://juejin.im/post/5a90e0545188257a63112977#comment" target="_blank" rel="noopener">看这个</a></p>
+<h4 id="非嵌套组件"><a href="#非嵌套组件" class="headerlink" title="非嵌套组件"></a>非嵌套组件</h4><ul>
+<li>Context，但是寻找共同的父组件可能存在很多级</li>
+<li>events创建自定义事件</li>
+<li>Redux之类的工具</li>
+</ul>
+<h5 id="events"><a href="#events" class="headerlink" title="events"></a>events</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install events -S</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -463,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -524,6 +557,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#父子组件通信"><span class="nav-number">1.</span> <span class="nav-text">父子组件通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨级组件"><span class="nav-number">2.</span> <span class="nav-text">跨级组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Context"><span class="nav-number">2.1.</span> <span class="nav-text">Context</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非嵌套组件"><span class="nav-number">3.</span> <span class="nav-text">非嵌套组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#events"><span class="nav-number">3.1.</span> <span class="nav-text">events</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
