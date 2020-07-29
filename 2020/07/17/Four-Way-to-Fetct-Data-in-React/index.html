@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端,JS,翻译,React,">
+  <meta name="keywords" content="前端,翻译,React,JS,">
 
 
 
@@ -80,17 +80,19 @@
 
 
 <meta name="description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
-<meta name="keywords" content="前端,JS,翻译,React">
+<meta name="keywords" content="前端,翻译,React,JS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Four Way to Fetct Data in React">
+<meta property="og:title" content="&lt;译&gt; Four Way to Fetct Data in React">
 <meta property="og:url" content="https://www.kffhi.com/blog/2020/07/17/Four-Way-to-Fetct-Data-in-React/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
 <meta property="og:description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-17T14:19:24.188Z">
+<meta property="og:image" content="http://kffhi.com/public/blog/images/20200729/1.png">
+<meta property="og:updated_time" content="2020-07-29T13:52:26.767Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Four Way to Fetct Data in React">
+<meta name="twitter:title" content="&lt;译&gt; Four Way to Fetct Data in React">
 <meta name="twitter:description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
+<meta name="twitter:image" content="http://kffhi.com/public/blog/images/20200729/1.png">
 
 
 
@@ -126,7 +128,7 @@
 
 
 
-  <title>Four Way to Fetct Data in React | Kffhi的博客</title>
+  <title><译> Four Way to Fetct Data in React | Kffhi的博客</译></title>
   
 
 
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Four Way to Fetct Data in React</h1>
+          <h1 class="post-title" itemprop="name headline"><译> Four Way to Fetct Data in React</译></h1>
         
 
         <div class="post-meta">
@@ -365,8 +367,49 @@
 
       
         <p>新坑，翻译系列，第一篇，在React里面获取数据的四种方式<br><a id="more"></a></p>
-<p>#### </p>
-
+<p>在React中有4种通过HTTP向Web Api 发送请求的方式，分别是：</p>
+<ul>
+<li>Inline</li>
+<li>Centralized</li>
+<li>Custom Hook</li>
+<li>react-query/swr</li>
+</ul>
+<p>注：在这篇文章中，将使用<code>fetch</code>进行HTTP调用，这种模式也适用于Axios等方案，但如果你正在使用GraphQL，可以使用Apollo等其他方案。这里假设你正在调用一个传统的REST API.</p>
+<h4 id="Inline-内联"><a href="#Inline-内联" class="headerlink" title="Inline(内联)"></a>Inline(内联)</h4><p>这是最简单且明显的选择，在React组件中进行HTTP调用并处理相应</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">featch(<span class="string">'/users'</span>).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;res.json()&#125;)</span><br></pre></td></tr></table></figure>
+<p>看起来非常简单，但这个案例忽略了加载状态，错误处理，声明，设置相关状态等，实际的HTTP调用更象这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">InlineDemo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [users, setUsers] = useState([]);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> [error, setError] = useState(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetch(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_API_BASE_URL&#125;</span>users`</span>)</span><br><span class="line">      .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (response.ok) <span class="keyword">return</span> response.json();</span><br><span class="line">        <span class="keyword">throw</span> response;</span><br><span class="line">      &#125;)</span><br><span class="line">      .then(<span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">        setUsers(json);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        setError(err);</span><br><span class="line">      &#125;)</span><br><span class="line">      .finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        setLoading(<span class="literal">false</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (loading) <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="string">"Oops!"</span>;</span><br><span class="line">  <span class="keyword">return</span> users[<span class="number">0</span>].username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于一个很少请求的简单应用程序，这是很好的选择。但是上面的状态声明和<code>useEffect</code>都是样板，如果我需要进行很多次HTTP请求，我不想每次都重复这些代码。Inline calls get ugly fast.</p>
+<p>确定需要处理的所有问题：</p>
+<ul>
+<li>声明加载状态</li>
+<li>声明错误状态</li>
+<li>输出错误信息</li>
+<li>检查响应是否200</li>
+<li>如果响应正常则转为JSON并返回promise</li>
+<li>响应失败则抛出错误</li>
+<li>在finally中隐藏加载状态，确保即使发生错误也能隐藏加载器</li>
+<li>声明一个空的依赖项数组以便<code>useEffect</code>只运行一次</li>
+</ul>
+<p>如你所示这只是一个简单的例子它忽视了许多相关问题</p>
+<h4 id="Centralized-folder-集中式文件夹"><a href="#Centralized-folder-集中式文件夹" class="headerlink" title="Centralized folder(集中式文件夹)"></a>Centralized folder(集中式文件夹)</h4><p>如果我们在一个文件夹里处理所有的HTTP请求呢？使用这种方法，我们创建了一个名为<strong>services</strong>的文件夹，并在其中放置了进行HTTP请求的函数。<strong>services</strong>是比较流行的术语，当然也可以使用其他代替名称例如<strong>client</strong>或者<strong>api</strong></p>
+<p><img src="http://kffhi.com/public/blog/images/20200729/1.png" alt></p>
+<p>重点是，所有的请求都是在一个文件夹中的JS 函数处理的，集中处理的<code>getUsers</code>长这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getUsers</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> fetch(<span class="string">`<span class="subst">$&#123;process.env.REACT_APP_API_BASE_URL&#125;</span>users`</span>).then(<span class="function"><span class="params">response</span> =&gt;</span></span><br><span class="line">    response.json()</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>getUsers</code>的调用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getUsers &#125; <span class="keyword">from</span> <span class="string">"./services/userService"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">CentralDemo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [users, setUsers] = useState([]);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> [error, setError] = useState(<span class="literal">null</span>);</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    getUsers()</span><br><span class="line">      .then(<span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">        setUsers(json);</span><br><span class="line">        setLoading(<span class="literal">false</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        setError(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (loading) <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="string">"Oops!"</span>;</span><br><span class="line">  <span class="keyword">return</span> users[<span class="number">0</span>].username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里并没有简化很多请求的场景。它的主要优点是强制一致地处理HTTP调用。其思想是：当相关的函数一起处理时，统一处理会更容易（<strong>When related functions are handled together, it’s easier to handle them consistently</strong>）。如果<strong>userService</strong>文件夹中包含所有的HTTP请求的功能，那我很容易确保他们始终如一。如果调用被复用，就很容易在集中位置进行调用。</p>
+<p>然而，这样调用还是有许多样板代码，我们可以进一步优化</p>
+<h4 id="Custom-Hook-自定义Hook"><a href="#Custom-Hook-自定义Hook" class="headerlink" title="Custom Hook(自定义Hook)"></a>Custom Hook(自定义Hook)</h4><p>通过React Hooks，我们最终可以集中重复的逻辑。所以怎么创建一个<code>useFetch</code> hook去组织我们的HTTP请求呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useEffect, useRef &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="comment">// This custom hook centralizes and streamlines handling of HTTP calls</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useFetch</span>(<span class="params">url, init</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> [error, setError] = useState(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> prevInit = useRef();</span><br><span class="line">  <span class="keyword">const</span> prevUrl = useRef();</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  	<span class="comment">// Only refetch if url or init params change.</span></span><br><span class="line">    <span class="keyword">if</span> (prevUrl.current === url &amp;&amp; prevInit.current === init) <span class="keyword">return</span>;</span><br><span class="line">    prevUrl.current = url;</span><br><span class="line">    prevInit.current = init;</span><br><span class="line">    fetch(process.env.REACT_APP_API_BASE_URL + url, init)</span><br><span class="line">      .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (response.ok) <span class="keyword">return</span> response.json();</span><br><span class="line">        setError(response);</span><br><span class="line">      &#125;)</span><br><span class="line">      .then(<span class="function"><span class="params">data</span> =&gt;</span> setData(data))</span><br><span class="line">      .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        setError(err);</span><br><span class="line">      &#125;)</span><br><span class="line">      .finally(<span class="function"><span class="params">()</span> =&gt;</span> setLoading(<span class="literal">false</span>));</span><br><span class="line">  &#125;, [init, url]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; data, loading, error &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你的实现也许会有差异，但是这个基本的方案会很有帮助。这个简单的hook极大简化了所有的调用场景，看看使用这个钩子获取数据时所需的代码减少了多少：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> useFetch <span class="keyword">from</span> <span class="string">"./useFetch"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">HookDemo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data, loading, error &#125; = useFetch(<span class="string">"users"</span>);</span><br><span class="line">  <span class="keyword">if</span> (loading) <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="string">"Oops!"</span>;</span><br><span class="line">  <span class="keyword">return</span> data[<span class="number">0</span>].username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于许多应用而言，只需要一个像这样的自定义钩子。但是，尽管已经看起来比较复杂但是仍忽略了许多问题，缓存呢？如果客户端连接不可靠，怎么重新获取呢？当用户聚焦标签时需要重新获取数据吗？如何消除重复查询？</p>
+<p>你可以选择使用自定义的hook完成所有这些工作，但是你也可以选择别的…</p>
+<h4 id="react-query-or-swr"><a href="#react-query-or-swr" class="headerlink" title="react-query or swr"></a>react-query or swr</h4><p>使用react-query或swr，可以处理缓存、重试、焦点上的重取（refetch on focus）、重复查询以及更多的问题。我不需要维护一个自定义hook，而且每个HTTP调用只需要很少的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getUsers &#125; <span class="keyword">from</span> <span class="string">"./services/userService"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useQuery &#125; <span class="keyword">from</span> <span class="string">"react-query"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">ReactQueryDemo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data, isLoading, error &#125; = useQuery(<span class="string">"users"</span>, getUsers);</span><br><span class="line">  <span class="keyword">if</span> (isLoading) <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="string">"Oops!"</span>;</span><br><span class="line">  <span class="keyword">return</span> data[<span class="number">0</span>].username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于许多应用而言，这是我目前的选择，<a href="https://codesandbox.io/s/4-ways-to-handle-restful-http-in-react-k3xug" target="_blank" rel="noopener">这是完整的示例代码</a></p>
+<h4 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a><a href="https://www.bitnative.com/2020/07/06/four-ways-to-fetch-data-in-react/" target="_blank" rel="noopener">原文地址</a></h4>
       
     </div>
     
@@ -385,11 +428,11 @@
           
             <a href="/blog/tags/前端/" rel="tag"># 前端</a>
           
-            <a href="/blog/tags/JS/" rel="tag"># JS</a>
-          
             <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
           
             <a href="/blog/tags/React/" rel="tag"># React</a>
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
           
         </div>
       
@@ -462,8 +505,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -523,6 +575,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inline-内联"><span class="nav-number">1.</span> <span class="nav-text">Inline(内联)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Centralized-folder-集中式文件夹"><span class="nav-number">2.</span> <span class="nav-text">Centralized folder(集中式文件夹)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-Hook-自定义Hook"><span class="nav-number">3.</span> <span class="nav-text">Custom Hook(自定义Hook)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-query-or-swr"><span class="nav-number">4.</span> <span class="nav-text">react-query or swr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原文地址"><span class="nav-number">5.</span> <span class="nav-text">原文地址</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
