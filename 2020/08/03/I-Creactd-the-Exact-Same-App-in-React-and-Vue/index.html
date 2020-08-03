@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端,React,JS,HOC,">
+  <meta name="keywords" content="前端,翻译,React,JS,">
 
 
 
@@ -79,18 +79,25 @@
 
 
 
-<meta name="description" content="React相关总结之高阶组件">
-<meta name="keywords" content="前端,React,JS,HOC">
+<meta name="description" content="翻译系列第二篇，作几年前，作者使用使用默认的脚手架分别创建了React和Vue的标准应用。然后作者发了一篇（初版），又发了一篇（Hooks版本），现在是第三篇（Composition API版本），原文地址">
+<meta name="keywords" content="前端,翻译,React,JS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React高阶组件">
-<meta property="og:url" content="https://www.kffhi.com/blog/2020/02/22/React高阶组件/index.html">
+<meta property="og:title" content="20190722204952">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/08/03/I-Creactd-the-Exact-Same-App-in-React-and-Vue/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="React相关总结之高阶组件">
+<meta property="og:description" content="翻译系列第二篇，作几年前，作者使用使用默认的脚手架分别创建了React和Vue的标准应用。然后作者发了一篇（初版），又发了一篇（Hooks版本），现在是第三篇（Composition API版本），原文地址">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-22T08:47:27.131Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/1.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/2.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/3.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/4.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/5.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/6.png">
+<meta property="og:updated_time" content="2020-08-03T13:57:19.676Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React高阶组件">
-<meta name="twitter:description" content="React相关总结之高阶组件">
+<meta name="twitter:title" content="20190722204952">
+<meta name="twitter:description" content="翻译系列第二篇，作几年前，作者使用使用默认的脚手架分别创建了React和Vue的标准应用。然后作者发了一篇（初版），又发了一篇（Hooks版本），现在是第三篇（Composition API版本），原文地址">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/2020/08/03/1.png">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://www.kffhi.com/blog/2020/02/22/React高阶组件/">
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/08/03/I-Creactd-the-Exact-Same-App-in-React-and-Vue/">
 
 
 
 
 
-  <title>React高阶组件 | Kffhi的博客</title>
+  <title>20190722204952 | Kffhi的博客</title>
   
 
 
@@ -253,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/02/22/React高阶组件/">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/08/03/I-Creactd-the-Exact-Same-App-in-React-and-Vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kffhi">
@@ -270,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">React高阶组件</h1>
+          <h1 class="post-title" itemprop="name headline">20190722204952</h1>
         
 
         <div class="post-meta">
@@ -282,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-22T16:46:41+08:00">
-                2020-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-03T20:19:21+08:00">
+                2020-08-03
               </time>
             
 
@@ -305,7 +312,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/前端/" itemprop="url" rel="index">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/" itemprop="url" rel="index">
                     <span itemprop="name">前端</span>
                   </a>
                 </span>
@@ -316,19 +334,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/前端/JS/" itemprop="url" rel="index">
+                  <a href="/blog/categories/翻译/前端/JS/" itemprop="url" rel="index">
                     <span itemprop="name">JS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/前端/JS/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -364,7 +371,28 @@
       
 
       
-        <p>React相关总结之高阶组件<br><a id="more"></a></p>
+        <p>翻译系列第二篇，作几年前，作者使用使用默认的脚手架分别创建了React和Vue的标准应用。然后作者发了一篇（初版），又发了一篇（Hooks版本），现在是第三篇（Composition API版本），<a href="https://sunilsandhu.com/posts/i-created-the-exact-same-app-in-react-and-vue-2020-edition" target="_blank" rel="noopener">原文地址</a></p>
+<a id="more"></a>
+<h4 id="首先看一看这俩应用的样子"><a href="#首先看一看这俩应用的样子" class="headerlink" title="首先看一看这俩应用的样子"></a>首先看一看这俩应用的样子</h4><p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/1.png" alt></p>
+<p>这两个应用的的CSS完全一致，但是他们的位置不同。记住这一点，让我们看一看他们的文件结构</p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/2.png" alt></p>
+<p>可以看到他们的结构也很像，最大的不同在于React多了两个CSS文件。这是因为<code>create-react-app</code>默认使用独立的CSS文件创建组件，而<code>Vue CLI</code>则在单个文件里包含Vue组件所需的HTML、CSS和JavaScript</p>
+<p>最终，他们实现了相同的目的。这并不是说你不能在React或者Vue中以别的方式构造文件，这实际上取决于个人喜好，你可以在社区里看到许多关于CSS应该如何构建的讨论，尤其是React社区。因为存在许多CSS-in-JS方案。尽管他们都很有用，但是目前为止，我们只是用默认脚手架提供的默认方案。</p>
+<p>但是进一步讨论之前，先了解以下React组件和Vue组件分别是什么样子</p>
+<p><strong>React</strong></p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/3.png" alt></p>
+<p><strong>Vue</strong></p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/4.png" alt></p>
+<p>OK现在进入细节问题</p>
+<h4 id="怎样改变数据？"><a href="#怎样改变数据？" class="headerlink" title="怎样改变数据？"></a>怎样改变数据？</h4><p>首先，改变数据（mutate data）是什么意思，听起来有点专业？这意味着改变我们存储的数据，例如如果要修改某人的名字值从“John”到“Tom”，我们就改变了数据（mutate the data）。而这也是React和Vue的区别，Vue本质上创建了一个对象用来自由更新数据，而React通过状态钩子来处理。</p>
+<p><strong>React state</strong></p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/5.png" alt></p>
+<p><strong>Vue state</strong></p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/03/6.png" alt></p>
+<p>可以看到，我们像两者传递了数据，但是结构略有不同</p>
+<p>在React里——至少从2019年以后——我们通常会使用Hooks来处理状态，如果你没见过这种类型的概念它可能有点奇怪，但是基本上，它的工作原理如下：</p>
+<p>假设我们想要创建一个待办事项列表。我们可能需要创建一个名为list的变量，它可能会接受一个字符串或数组或者对象(如果我们想给每个todo字符串一个ID或其他一些东西)。我们可以通过写入<code>const [list, setList] = useState([])</code>来设置它。这里我们使用的是一个叫做useState的钩子，它让我们在组件中保持本地状态。</p>
+<p>另外，你可能已经注意到我们在<code>useState()</code>中传入了一个空数组[]。我们在里面放的是我们想要的列表初始值。本例中我们想要一个空数组。但是你也可以在接下来的图中看到我们在数组中传递了一些数据，这些数据最终成为<code>list</code>的初始化数据。想知道<code>setList</code>是做什么的？后面会写</p>
 
       
     </div>
@@ -384,11 +412,11 @@
           
             <a href="/blog/tags/前端/" rel="tag"># 前端</a>
           
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
             <a href="/blog/tags/React/" rel="tag"># React</a>
           
             <a href="/blog/tags/JS/" rel="tag"># JS</a>
-          
-            <a href="/blog/tags/HOC/" rel="tag"># HOC</a>
           
         </div>
       
@@ -401,19 +429,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2020/02/15/React组件通信/" rel="next" title="React组件通信">
-                <i class="fa fa-chevron-left"></i> React组件通信
-              </a>
+              <a href="/blog/2020/07/17/Four-Way-to-Fetct-Data-in-React/" rel="next" title="<译> Four Way to Fetct Data in React">
+                <i class="fa fa-chevron-left"></i> <译> Four Way to Fetct Data in React
+              </译></a>
             
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2020/02/22/Redux基础/" rel="prev" title="Redux基础">
-                Redux基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -465,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -526,6 +559,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先看一看这俩应用的样子"><span class="nav-number">1.</span> <span class="nav-text">首先看一看这俩应用的样子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎样改变数据？"><span class="nav-number">2.</span> <span class="nav-text">怎样改变数据？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

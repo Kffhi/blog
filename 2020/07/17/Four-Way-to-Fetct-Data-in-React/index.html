@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
+<meta name="description" content="新坑，翻译系列第一篇，在React里面获取数据的四种方式，原文地址">
 <meta name="keywords" content="前端,翻译,React,JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&lt;译&gt; Four Way to Fetct Data in React">
 <meta property="og:url" content="https://www.kffhi.com/blog/2020/07/17/Four-Way-to-Fetct-Data-in-React/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
+<meta property="og:description" content="新坑，翻译系列第一篇，在React里面获取数据的四种方式，原文地址">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://kffhi.com/public/blog/images/20200729/1.png">
-<meta property="og:updated_time" content="2020-07-29T13:52:26.767Z">
+<meta property="og:updated_time" content="2020-08-01T06:36:09.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="&lt;译&gt; Four Way to Fetct Data in React">
-<meta name="twitter:description" content="新坑，翻译系列，第一篇，在React里面获取数据的四种方式">
+<meta name="twitter:description" content="新坑，翻译系列第一篇，在React里面获取数据的四种方式，原文地址">
 <meta name="twitter:image" content="http://kffhi.com/public/blog/images/20200729/1.png">
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <p>新坑，翻译系列，第一篇，在React里面获取数据的四种方式<br><a id="more"></a></p>
+        <p>新坑，翻译系列第一篇，在React里面获取数据的四种方式，<a href="https://www.bitnative.com/2020/07/06/four-ways-to-fetch-data-in-react/" target="_blank" rel="noopener">原文地址</a><br><a id="more"></a></p>
 <p>在React中有4种通过HTTP向Web Api 发送请求的方式，分别是：</p>
 <ul>
 <li>Inline</li>
@@ -409,7 +409,7 @@
 <h4 id="react-query-or-swr"><a href="#react-query-or-swr" class="headerlink" title="react-query or swr"></a>react-query or swr</h4><p>使用react-query或swr，可以处理缓存、重试、焦点上的重取（refetch on focus）、重复查询以及更多的问题。我不需要维护一个自定义hook，而且每个HTTP调用只需要很少的代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getUsers &#125; <span class="keyword">from</span> <span class="string">"./services/userService"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useQuery &#125; <span class="keyword">from</span> <span class="string">"react-query"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">ReactQueryDemo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; data, isLoading, error &#125; = useQuery(<span class="string">"users"</span>, getUsers);</span><br><span class="line">  <span class="keyword">if</span> (isLoading) <span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="string">"Oops!"</span>;</span><br><span class="line">  <span class="keyword">return</span> data[<span class="number">0</span>].username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于许多应用而言，这是我目前的选择，<a href="https://codesandbox.io/s/4-ways-to-handle-restful-http-in-react-k3xug" target="_blank" rel="noopener">这是完整的示例代码</a></p>
-<h4 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a><a href="https://www.bitnative.com/2020/07/06/four-ways-to-fetch-data-in-react/" target="_blank" rel="noopener">原文地址</a></h4>
+
       
     </div>
     
@@ -454,6 +454,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/08/03/I-Creactd-the-Exact-Same-App-in-React-and-Vue/" rel="prev" title="20190722204952">
+                20190722204952 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -530,7 +534,7 @@
               
                 <a href="/blog/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -585,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inline-内联"><span class="nav-number">1.</span> <span class="nav-text">Inline(内联)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Centralized-folder-集中式文件夹"><span class="nav-number">2.</span> <span class="nav-text">Centralized folder(集中式文件夹)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-Hook-自定义Hook"><span class="nav-number">3.</span> <span class="nav-text">Custom Hook(自定义Hook)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-query-or-swr"><span class="nav-number">4.</span> <span class="nav-text">react-query or swr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原文地址"><span class="nav-number">5.</span> <span class="nav-text">原文地址</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inline-内联"><span class="nav-number">1.</span> <span class="nav-text">Inline(内联)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Centralized-folder-集中式文件夹"><span class="nav-number">2.</span> <span class="nav-text">Centralized folder(集中式文件夹)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-Hook-自定义Hook"><span class="nav-number">3.</span> <span class="nav-text">Custom Hook(自定义Hook)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-query-or-swr"><span class="nav-number">4.</span> <span class="nav-text">react-query or swr</span></a></li></ol></div>
             
 
           </div>
