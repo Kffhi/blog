@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,JS,翻译,React,Canvas,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译系列第三篇，在canvas里模拟物体碰撞，原文地址">
+<meta name="keywords" content="前端,JS,翻译,React,Canvas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;译&gt; Simulating Object Collisions With Canvas">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/08/22/Simulating-Object-Collisions-with-Canvas/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="翻译系列第三篇，在canvas里模拟物体碰撞，原文地址">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/9.gif">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/1.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/2.jpg">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/3.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/4.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/5.gif">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/6.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/7.png">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/8.png">
+<meta property="og:updated_time" content="2020-08-22T12:27:29.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;译&gt; Simulating Object Collisions With Canvas">
+<meta name="twitter:description" content="翻译系列第三篇，在canvas里模拟物体碰撞，原文地址">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/2020/08/22/9.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/08/22/Simulating-Object-Collisions-with-Canvas/">
+
+
+
+
+
+  <title><译> Simulating Object Collisions With Canvas | Kffhi的博客</译></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/08/22/Simulating-Object-Collisions-with-Canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><译> Simulating Object Collisions With Canvas</译></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-22T16:50:31+08:00">
+                2020-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译系列第三篇，在canvas里模拟物体碰撞，<a href="https://joshbradley.me/object-collisions-with-canvas/" target="_blank" rel="noopener">原文地址</a></p>
+<a id="more"></a>
+<p>作者开篇给了成品效果但是直接canvas绘制的不是gif，直接看原文吧，非常炫酷（强烈建以直接阅读原文，因因为效果作者是直接canvas绘在博客的，我后面的懒得截gif…），源码在<a href="https://gist.github.com/joshuabradley012/bd2bc96bbe1909ca8555a792d6a36e04" target="_blank" rel="noopener">这里</a></p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/9.gif" alt></p>
+<h4 id="canvas起步"><a href="#canvas起步" class="headerlink" title="canvas起步"></a>canvas起步</h4><p>如果你还不知道<canvas>，可以看看<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank" rel="noopener">MDN</a>，这里不展开了</canvas></p>
+<p>使用ES6的类将使我们能够稍后管理状态并创建常量，因此让我们从构造函数开始。要初始化画布，我们需要定义父元素、宽度和高度。最重要的是，我们需要把它的上下文分配给一个属性，我们可以在以后的绘图中使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(parent = document.body, width = 400, height = 400) &#123;</span><br><span class="line">    <span class="keyword">this</span>.canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">    <span class="keyword">this</span>.canvas.width = width;</span><br><span class="line">    <span class="keyword">this</span>.canvas.height = height;</span><br><span class="line">    parent.appendChild(<span class="keyword">this</span>.canvas);</span><br><span class="line">    <span class="keyword">this</span>.ctx = <span class="keyword">this</span>.canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，我们就可以添加方法来绘制特定的形状。在在这案例中，我们只画圆</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  drawCircle(actor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.ctx.beginPath();</span><br><span class="line">    <span class="keyword">this</span>.ctx.arc(actor.position.x, actor.position.y, actor.radius, <span class="number">0</span>, <span class="built_in">Math</span>.PI * <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.ctx.closePath();</span><br><span class="line">    <span class="keyword">this</span>.ctx.fillStyle = actor.color;</span><br><span class="line">    <span class="keyword">this</span>.ctx.fill();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，<code>drawCircle</code>需要一个具有<code>position</code>和<code>radius</code>属性的<code>actor</code>。让我们实现一个稍后将在其上构建的基本类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x = 20, y = 20, color = 'red', radius = 10) &#123;</span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">    <span class="keyword">this</span>.position = &#123; <span class="attr">x</span>: x, <span class="attr">y</span>: y &#125;;</span><br><span class="line">    <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在测试一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> canvas = <span class="keyword">new</span> Canvas();</span><br><span class="line"><span class="keyword">const</span> ball = <span class="keyword">new</span> Ball();</span><br><span class="line">canvas.drawCircle(ball);</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/1.png" alt></p>
+<p>下一步是使用动画循环在画布上添加一些动作</p>
+<h4 id="添加动画"><a href="#添加动画" class="headerlink" title="添加动画"></a>添加动画</h4><p>在我们开始之前，让我们用一些有用的线性代数方法创建一个向量类，这样我们就可以在坐标平面上轻松地工作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returning a new Vector creates immutability</span></span><br><span class="line"><span class="comment">   * and allows chaining. These properties are</span></span><br><span class="line"><span class="comment">   * extremely useful with the complex formulas</span></span><br><span class="line"><span class="comment">   * we'll be using.</span></span><br><span class="line"><span class="comment">   **/</span></span><br><span class="line">  add(vector) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Vector(<span class="keyword">this</span>.x + vector.x, <span class="keyword">this</span>.y + vector.y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  subtract(vector) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Vector(<span class="keyword">this</span>.x - vector.x, <span class="keyword">this</span>.y - vector.y);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  multiply(scalar) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Vector(<span class="keyword">this</span>.x * scalar, <span class="keyword">this</span>.y * scalar);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dotProduct(vector) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x * vector.x + <span class="keyword">this</span>.y * vector.y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> magnitude() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.sqrt(<span class="keyword">this</span>.x ** <span class="number">2</span> + <span class="keyword">this</span>.y ** <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> direction() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.atan2(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>让我们更新Ball，使用一个向量的实例来表示它的位置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x = 20, y = 20, color = 'red', radius = 10) &#123;</span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">    <span class="keyword">this</span>.position = <span class="keyword">new</span> Vector(x, y);</span><br><span class="line">    <span class="keyword">this</span>.radius = radius;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这将使添加运动，碰撞和质量变得更加简单。 因此，关于动画循环，这将变得复杂。 MDN的指南使用了非常简单的动画循环来实现这一目标。 但是，我将效仿<a href="https://eloquentjavascript.net/16_game.html" target="_blank" rel="noopener">Eloquent JavaScript</a>实现一个<code>State</code>类，该类提供某种程度的封装。 这使添加新形状或替换WebGL之类的显示变得更加容易（如果需要）。</p>
+<p><code>State</code>应该跟踪正在使用的显示以及在动画中出现的对象。最后，需要一个方法来更新每一帧中每个<code>actor</code>的位置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(display, actors) &#123;</span><br><span class="line">    <span class="keyword">this</span>.display = display;</span><br><span class="line">    <span class="keyword">this</span>.actors = actors;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(time) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Provide an update ID to let actors</span></span><br><span class="line"><span class="comment">     * update other actors only once.</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">const</span> updateId = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">1000000</span>);</span><br><span class="line">    <span class="keyword">const</span> actors = <span class="keyword">this</span>.actors.map(<span class="function"><span class="params">actor</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> actor.update(<span class="keyword">this</span>, time, updateId);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> State(<span class="keyword">this</span>.display, actors);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在状态中的每个<code>actor</code>都应该有一个更新方法来增加每个帧中的位置。对于<code>Ball</code>，我们需要添加更新以及速度属性。因为<code>Ball</code>获得了很多我们想要控制的属性，所以我们将如<a href="https://github.com/ryanmcdermott/clean-code-javascript#set-default-objects-with-objectassign" target="_blank" rel="noopener">clean JavaScript</a>所述使用<code>Object.assign</code>为构造函数提供一个配置对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(config) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.assign(<span class="keyword">this</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        type: <span class="string">'circle'</span>,</span><br><span class="line">        position: <span class="keyword">new</span> Vector(<span class="number">20</span>, <span class="number">20</span>),</span><br><span class="line">        velocity: <span class="keyword">new</span> Vector(<span class="number">5</span>, <span class="number">3</span>),</span><br><span class="line">        radius: <span class="number">10</span>,</span><br><span class="line">        color: <span class="string">'red'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      config</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(state, time, updateId) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting left or right of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.x &gt;= state.display.canvas.width || <span class="keyword">this</span>.position.x &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(-<span class="keyword">this</span>.velocity.x, <span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting top or bottom of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.y &gt;= state.display.canvas.height || <span class="keyword">this</span>.position.y &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(<span class="keyword">this</span>.velocity.x, -<span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">      ...this,</span><br><span class="line">      position: <span class="keyword">this</span>.position.add(<span class="keyword">this</span>.velocity),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了使画布保持最新，我们需要添加一个同步方法来调用每一帧。它应该重新绘制每个<code>actor</code>的<code>State</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span>() </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  sync(state) &#123;</span><br><span class="line">    <span class="keyword">this</span>.drawActors(state.actors);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  drawActors(actors) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> actor <span class="keyword">of</span> actors) &#123;</span><br><span class="line">      <span class="keyword">if</span> (actor.type === <span class="string">'circle'</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.drawCircle(actor);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们需要一个递归调用<code>requestAnimationFrame</code>来创建动画循环的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> runAnimation = <span class="function"><span class="params">animation</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> lastTime = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">const</span> frame = <span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (lastTime !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> timeStep = <span class="built_in">Math</span>.min(<span class="number">100</span>, time - lastTime) / <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// return false from animation to stop</span></span><br><span class="line">      <span class="keyword">if</span> (animation(timeStep) === <span class="literal">false</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lastTime = time;</span><br><span class="line">    requestAnimationFrame(frame);</span><br><span class="line">  &#125;;</span><br><span class="line">  requestAnimationFrame(frame);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样我们就可以在技术上运行动画了。然而，canvas会跟踪绘制在其上的每一帧，因此生成的动画看起来就像在画布上拖动画笔一样。这是它的样子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> display = <span class="keyword">new</span> Canvas();</span><br><span class="line"><span class="keyword">const</span> ball = <span class="keyword">new</span> Ball();</span><br><span class="line"><span class="keyword">const</span> actors = [ball];</span><br><span class="line"><span class="keyword">let</span> state = <span class="keyword">new</span> State(display, actors);</span><br><span class="line">runAnimation(<span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">  state = state.update(time);</span><br><span class="line">  display.sync(state);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/2.jpg" alt></p>
+<p>要改变这一点，我们可以修改<code>sync</code> 以在每次画布更新的时候清除画布。利用之前的帧没有被破坏这一事实，我们可以通过在整个画布上画一个白色矩形来实现这一点。如果矩形是不透明的，之前绘制的圆通过时它将创建一个<code>trail</code>效果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span>() </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  sync(state) &#123;</span><br><span class="line">    <span class="keyword">this</span>.clearDisplay();</span><br><span class="line">    <span class="keyword">this</span>.drawActors(state.actors);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  clearDisplay() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * If the rgba opacity is set to 1, there</span></span><br><span class="line"><span class="comment">     * will be no trail. The lower the opacity,</span></span><br><span class="line"><span class="comment">     * the longer the trail.</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">this</span>.ctx.fillStyle = <span class="string">'rgba(255, 255, 255, .4)'</span>;</span><br><span class="line">    <span class="keyword">this</span>.ctx.fillRect(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.canvas.width, <span class="keyword">this</span>.canvas.height);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们有了移动</p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/3.png" alt></p>
+<h4 id="检测碰撞"><a href="#检测碰撞" class="headerlink" title="检测碰撞"></a>检测碰撞</h4><p>在我们上次更新的球你已经看到了一点碰撞检测，我们检查球是否击中墙壁的画布，并更新相应的速度</p>
+<p>然而，要发现一个球是否与另一个球碰撞，我们必须检查每个球对每个球（<em>every ball</em> against <em>every ball</em>）。对于O(n2)复杂度，这是非常低效的，但这是除了创建一个复杂的矩阵来表示坐标之外的最佳解决方案。而且它对少于1000件物品也很有效</p>
+<p>这可以通过在每次更新Ball时使用for循环来实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  update(state, time, updateId) &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> actor <span class="keyword">of</span> state.actors) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// A ball can't collide with itself</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span> === actor) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> distance = <span class="keyword">this</span>.position.subtract(actor.position).magnitude;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (distance &lt;= <span class="keyword">this</span>.radius + actor.radius) &#123;</span><br><span class="line">        <span class="keyword">this</span>.color = <span class="string">'grey'</span>;</span><br><span class="line">        actor.color = <span class="string">'grey'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">      ...this,</span><br><span class="line">      position: <span class="keyword">this</span>.position.add(<span class="keyword">this</span>.velocity),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为我们使用一个矢量来跟踪球的位置，我们可以用两个物体之间的<a href="https://en.wikipedia.org/wiki/Euclidean_vector#Length" target="_blank" rel="noopener">位置差</a>的大小来测量两个物体之间的<a href="https://en.wikipedia.org/wiki/Euclidean_vector#Addition_and_subtraction" target="_blank" rel="noopener">距离</a>。记住，位置是在物体的中心测量的，所以要检测当边缘碰撞时，我们需要检查这个距离是否小于两个物体的半径的总和。</p>
+<p>现在，当球碰撞的时候没有什么有趣的事情发生，它们只是改变了颜色。但这只是个开始</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> display = <span class="keyword">new</span> Canvas();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball1 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">40</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">  radius: <span class="number">20</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball2 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">200</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">  color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actors = [ball1, ball2];</span><br><span class="line"><span class="keyword">let</span> state = <span class="keyword">new</span> State(display, actors);</span><br><span class="line"></span><br><span class="line">runAnimation(<span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">  state = state.update(time);</span><br><span class="line">  display.sync(state);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/4.png" alt></p>
+<h4 id="二维弹性碰撞计算"><a href="#二维弹性碰撞计算" class="headerlink" title="二维弹性碰撞计算"></a>二维弹性碰撞计算</h4><p>数学时间到了!我们将使用弹性碰撞，因为我发现这是一个有趣的动画，不用太复杂的重力和摩擦。但如果这就是你想要的，那就试试吧。</p>
+<p>维基百科有一个奇妙的动画在弹性碰撞页面上展示了在2D碰撞中会发生什么。</p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/5.gif" alt></p>
+<p>在数学上，这可以被定义为如下。记住还有另一个使用角度的公式，但是因为我们用的是向量，这个公式更容易实现。</p>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/6.png" alt></p>
+<p>其中v‘为最终速度矢量，v为当前速度，m为质量，x为位置。尖括号表示矢量的点积，双竖条表示矢量的大小或长度。</p>
+<p>目前，球的质量没有一个表示。假设密度恒定，我们可以用圆的球形面积作为质量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">get</span> sphereArea() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span> * <span class="built_in">Math</span>.PI * <span class="keyword">this</span>.radius ** <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用我们添加到Vector类中的方法，我们可以用JavaScript编写它。这不是一个很好的公式，但它是紧凑和准确的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> collisionVector = <span class="function">(<span class="params">b1, b2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> b1.velocity</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Take away from the starting velocity</span></span><br><span class="line">    .subtract(</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Subtract the positions</span></span><br><span class="line">      b1.position</span><br><span class="line">      .subtract(b2.position)</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * Multiply by the dot product of</span></span><br><span class="line"><span class="comment">       * the difference between the velocity</span></span><br><span class="line"><span class="comment">       * and position of both vectors</span></span><br><span class="line"><span class="comment">       **/</span></span><br><span class="line">      .multiply(</span><br><span class="line">        b1.velocity</span><br><span class="line">        .subtract(b2.velocity)</span><br><span class="line">        .dotProduct(</span><br><span class="line">          b1.position</span><br><span class="line">          .subtract(b2.position)</span><br><span class="line">        )</span><br><span class="line">        / b1.position</span><br><span class="line">        .subtract(b2.position)</span><br><span class="line">        .magnitude ** <span class="number">2</span></span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * Multiply by the amount of mass the</span></span><br><span class="line"><span class="comment">       * object represents in the collision.</span></span><br><span class="line"><span class="comment">       **/</span></span><br><span class="line">      .multiply(</span><br><span class="line">        (<span class="number">2</span> * b2.sphereArea)</span><br><span class="line">        / (b1.sphereArea + b2.sphereArea)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>值得注意的是，不变性是如何使这成为可能的。我们可以在同一个向量上执行多个操作而不改变它的属性，同时返回可以用于链接的新向量。</p>
+<p>现在我们可以在Ball的更新方法中使用这个。然而，我们还需要解决另一个问题。我们不能一次只更新一个速度因为两个角色的当前速度是确定它们新的速度所必需的。如果我们现在更新两个行动者的速度，速度会更新两次因为每个<code>actor</code>检查每个<code>actor</code>。</p>
+<p>所以我们需要一种方法来同时更新两个角色。可能还有更好的方法，但我想到的是为每个冲突创建一个ID，并在一个数组中跟踪这些ID，这样我们就可以在当前更新中跳过它们。碰撞ID由对象ID和更新ID组成。</p>
+<p>我们已经为State添加了一个更新ID，那么让我们为Ball添加一个对象ID以及一个碰撞数组。这些是我们需要计算的部分，在球中碰撞。我们把这个也更新一下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(config) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.assign(<span class="keyword">this</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">1000000</span>),</span><br><span class="line">        type: <span class="string">'circle'</span>,</span><br><span class="line">        position: <span class="keyword">new</span> Vector(<span class="number">40</span>, <span class="number">40</span>),</span><br><span class="line">        velocity: <span class="keyword">new</span> Vector(<span class="number">5</span>, <span class="number">3</span>),</span><br><span class="line">        radius: <span class="number">10</span>,</span><br><span class="line">        color: <span class="string">'red'</span>,</span><br><span class="line">        collisions: [],</span><br><span class="line">      &#125;,</span><br><span class="line">      config</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(state, time, updateId) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting left or right of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.x &gt;= state.display.canvas.width || <span class="keyword">this</span>.position.x &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(-<span class="keyword">this</span>.velocity.x, <span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting top or bottom of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.y &gt;= state.display.canvas.height || <span class="keyword">this</span>.position.y &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(<span class="keyword">this</span>.velocity.x, -<span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> actor <span class="keyword">of</span> state.actors) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * A ball can't collide with itself and</span></span><br><span class="line"><span class="comment">       * skip balls that have already collided.</span></span><br><span class="line"><span class="comment">       **/</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span> === actor || <span class="keyword">this</span>.collisions.includes(actor.id + updateId)) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> distance = <span class="keyword">this</span>.position.subtract(actor.position).magnitude;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (distance &lt;= <span class="keyword">this</span>.radius + actor.radius) &#123;</span><br><span class="line">        <span class="keyword">const</span> v1 = collisionVector(<span class="keyword">this</span>, actor);</span><br><span class="line">        <span class="keyword">const</span> v2 = collisionVector(actor, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.velocity = v1;</span><br><span class="line">        actor.velocity = v2;</span><br><span class="line">        <span class="keyword">this</span>.collisions.push(actor.id + updateId);</span><br><span class="line">        actor.collisions.push(<span class="keyword">this</span>.id + updateId);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">      ...this,</span><br><span class="line">      position: <span class="keyword">this</span>.position.add(<span class="keyword">this</span>.velocity),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看看效果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> display = <span class="keyword">new</span> Canvas();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball1 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">40</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">  radius: <span class="number">20</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball2 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">200</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">  color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actors = [ball1, ball2];</span><br><span class="line"><span class="keyword">let</span> state = <span class="keyword">new</span> State(display, actors);</span><br><span class="line"></span><br><span class="line">runAnimation(<span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">  state = state.update(time);</span><br><span class="line">  display.sync(state);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/7.png" alt></p>
+<p>这太棒了。但不幸的是，我们还没有完成。我们需要处理一些边界情况。</p>
+<h4 id="修复bug"><a href="#修复bug" class="headerlink" title="修复bug"></a>修复bug</h4><p>还有这么多要干的：</p>
+<ul>
+<li>更新墙壁检测，使只有边缘接触</li>
+<li>修复粘性碰撞</li>
+<li>修复墙壁挤压碰撞（wall squeeze collisions）</li>
+<li>防止过度使用内存</li>
+</ul>
+<p>壁面碰撞的第一个问题相对简单。我们只需要根据画布墙给位置更新一个上界和下界。</p>
+<p>对于第二个问题，你可能想知道什么是粘性碰撞。正如描述所示，当两个物体重叠和粘在一起时，会有一些瞬间。这导致了一个持续的碰撞更新，通常会导致一个疯狂的螺旋。这是一个只在特定情况下才会出现的问题，但是当框架中有10个以上的球时就变得很常见了。</p>
+<p>这里有一个粘性碰撞的例子（在原文）。</p>
+<p>我实现的解决方案是一个简单的”创可贴“。检查下一帧是否有碰撞，并更新当前帧，就像它们发生了碰撞一样。这样物体就不会有重叠的机会。然而，他们也没有机会碰撞。值得庆幸的是，这种影响并不明显。</p>
+<p>为了寻求更好的解决方案，我考虑了计算重叠的数量，并在添加新的速度之前消除与当前位置的距离。它在一个小的环境中工作，但是当模拟中有10个以上的球时，问题再次出现。我不确定这是否是由于浮动精度，或球备份到另一个（or balls backing up into another）。</p>
+<p>当一个球与另一个球同时撞击墙壁时，墙挤压就发生了。我没有一个完美的解决方案。如果先计算壁面碰撞，速度就会损失。如果在之后计算，则获得速度。这是由于我们为壁面碰撞创建的边界条件，即当边缘与壁面接触时位置停止。但是，如果我移除这个边界条件，物体可能会卡在墙上。</p>
+<p>我决定采用速度下降的解决方案，因为它在长时间运行的动画中看起来最好。</p>
+<p>最后，因为我们一直在追踪每个球的每次碰撞，它会很快淹没我们的内存。一个简单的解决方法是在一定的限制下减小数组的大小。我选择10作为极限，因为我很难想象一个球会同时与10个其他球相撞的情况。不过，这可以根据需要进行调整。</p>
+<p>这里有一个解决这些bug的稳定方案。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  update(state, time, updateId) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Limit the size of the collisions array to</span></span><br><span class="line"><span class="comment">     * prevent memory issues. If slice occurs on</span></span><br><span class="line"><span class="comment">     * too many elements, it starts to lag.</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.collisions.length &gt; <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.collisions = <span class="keyword">this</span>.collisions.slice(<span class="keyword">this</span>.collisions.length - <span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Set the upper and lower bounds based on the</span></span><br><span class="line"><span class="comment">     * size of the canvas and size of the ball.</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">const</span> upperLimit = <span class="keyword">new</span> Vector(</span><br><span class="line">      state.display.canvas.width - <span class="keyword">this</span>.radius,</span><br><span class="line">      state.display.canvas.height - <span class="keyword">this</span>.radius</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">const</span> lowerLimit = <span class="keyword">new</span> Vector(<span class="number">0</span> + <span class="keyword">this</span>.radius, <span class="number">0</span> + <span class="keyword">this</span>.radius);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting left or right of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.x &gt;= upperLimit.x || <span class="keyword">this</span>.position.x &lt;= lowerLimit.x) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(-<span class="keyword">this</span>.velocity.x, <span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if hitting top or bottom of display</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.position.y &gt;= upperLimit.y || <span class="keyword">this</span>.position.y &lt;= lowerLimit.y) &#123;</span><br><span class="line">      <span class="keyword">this</span>.velocity = <span class="keyword">new</span> Vector(<span class="keyword">this</span>.velocity.x, -<span class="keyword">this</span>.velocity.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> actor <span class="keyword">of</span> state.actors) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * A ball can't collide with itself and</span></span><br><span class="line"><span class="comment">       * skip balls that have already collided.</span></span><br><span class="line"><span class="comment">       **/</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span> === actor || <span class="keyword">this</span>.collisions.includes(actor.id + updateId)) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * Check if actors collide in the next frame</span></span><br><span class="line"><span class="comment">       * by adding the current velocity and updating</span></span><br><span class="line"><span class="comment">       * now if they do.</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">const</span> distance = <span class="keyword">this</span>.position.add(<span class="keyword">this</span>.velocity)</span><br><span class="line">        .subtract(actor.position.add(actor.velocity))</span><br><span class="line">        .magnitude;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (distance &lt;= <span class="keyword">this</span>.radius + actor.radius) &#123;</span><br><span class="line">        <span class="keyword">const</span> v1 = collisionVector(<span class="keyword">this</span>, actor);</span><br><span class="line">        <span class="keyword">const</span> v2 = collisionVector(actor, <span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.velocity = v1;</span><br><span class="line">        actor.velocity = v2;</span><br><span class="line">        <span class="keyword">this</span>.collisions.push(actor.id + updateId);</span><br><span class="line">        actor.collisions.push(<span class="keyword">this</span>.id + updateId);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Use the bounds to limit the position</span></span><br><span class="line"><span class="comment">     * update.</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">const</span> newX = <span class="built_in">Math</span>.max(</span><br><span class="line">      <span class="built_in">Math</span>.min(<span class="keyword">this</span>.position.x + <span class="keyword">this</span>.velocity.x, upperLimit.x),</span><br><span class="line">      lowerLimit.x</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> newY = <span class="built_in">Math</span>.max(</span><br><span class="line">      <span class="built_in">Math</span>.min(<span class="keyword">this</span>.position.y + <span class="keyword">this</span>.velocity.y, upperLimit.y),</span><br><span class="line">      lowerLimit.y</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">      ...this,</span><br><span class="line">      position: <span class="keyword">new</span> Vector(newX, newY),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<p>现在粘性只会发生在两个物体产生在彼此之上的时候。这可以使用一个随机生成器来实现，就像我在本文的介绍动画中所做的那样。</p>
+<p>我们完成了！ 让我们最后旋转一下（ Let’s give it a final whirl）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> display = <span class="keyword">new</span> Canvas();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball1 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">40</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">2</span>, <span class="number">3</span>),</span><br><span class="line">  radius: <span class="number">20</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ball2 = <span class="keyword">new</span> Ball(&#123;</span><br><span class="line">  position: <span class="keyword">new</span> Vector(<span class="number">200</span>, <span class="number">100</span>),</span><br><span class="line">  velocity: <span class="keyword">new</span> Vector(<span class="number">-1</span>, <span class="number">3</span>),</span><br><span class="line">  color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actors = [ball1, ball2];</span><br><span class="line"><span class="keyword">let</span> state = <span class="keyword">new</span> State(display, actors);</span><br><span class="line"></span><br><span class="line">runAnimation(<span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">  state = state.update(time);</span><br><span class="line">  display.sync(state);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.kffhi.com/public/blog/images/2020/08/22/8.png" alt></p>
+<h4 id="最终成品"><a href="#最终成品" class="headerlink" title="最终成品"></a>最终成品</h4><p>我将所有这些包在一个函数中，并使用一个循环来生成随机大小、颜色、不同位置和速度的球。您可以在源代码中看到所有这些内容。但是作为本文的总结，下面是我用于生成本文中的介绍动画的脚本。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> random = <span class="function">(<span class="params">max = <span class="number">9</span>, min = <span class="number">0</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>) + min);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> colors = [<span class="string">'red'</span>, <span class="string">'green'</span>, <span class="string">'blue'</span>, <span class="string">'purple'</span>, <span class="string">'orange'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> collidingBalls = <span class="function">(<span class="params">&#123; width = <span class="number">400</span>, height = <span class="number">400</span>, parent = <span class="built_in">document</span>.body, count = <span class="number">50</span> &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> display = <span class="keyword">new</span> Canvas(parent, width, height);</span><br><span class="line">  <span class="keyword">const</span> balls = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">    balls.push(<span class="keyword">new</span> Ball(&#123;</span><br><span class="line">      radius: random(<span class="number">8</span>, <span class="number">3</span>) + <span class="built_in">Math</span>.random(),</span><br><span class="line">      color: colors[random(colors.length - <span class="number">1</span>)],</span><br><span class="line">      position: <span class="keyword">new</span> Vector(random(width - <span class="number">10</span>, <span class="number">10</span>), random(height - <span class="number">10</span>, <span class="number">10</span>)),</span><br><span class="line">      velocity: <span class="keyword">new</span> Vector(random(<span class="number">3</span>, <span class="number">-3</span>), random(<span class="number">3</span>, <span class="number">-3</span>)),</span><br><span class="line">    &#125;));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> state = <span class="keyword">new</span> State(display, balls);</span><br><span class="line">  runAnimation(<span class="function"><span class="params">time</span> =&gt;</span> &#123;</span><br><span class="line">    state = state.update(time);</span><br><span class="line">    display.sync(state);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">collidingBalls(&#123;</span><br><span class="line">  count: <span class="number">40</span>,</span><br><span class="line">  height: <span class="number">260</span>,</span><br><span class="line">  width: <span class="number">460</span>,</span><br><span class="line">  parent: <span class="built_in">document</span>.getElementById(<span class="string">'hero'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这很有趣。但它并不完美。不完美的碰撞(因为球不接触)、挤压墙壁和球在彼此之上产生的问题仍然存在。如果你有解决这些问题的办法，请告诉我</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/React/" rel="tag"># React</a>
+          
+            <a href="/blog/tags/Canvas/" rel="tag"># Canvas</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/08/03/I-Creactd-the-Exact-Same-App-in-React-and-Vue/" rel="next" title="<译> I created the exact same app in React and Vue. Here are the differences.">
+                <i class="fa fa-chevron-left"></i> <译> I created the exact same app in React and Vue. Here are the differences.
+              </译></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#canvas起步"><span class="nav-number">1.</span> <span class="nav-text">canvas起步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加动画"><span class="nav-number">2.</span> <span class="nav-text">添加动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测碰撞"><span class="nav-number">3.</span> <span class="nav-text">检测碰撞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维弹性碰撞计算"><span class="nav-number">4.</span> <span class="nav-text">二维弹性碰撞计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修复bug"><span class="nav-number">5.</span> <span class="nav-text">修复bug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终成品"><span class="nav-number">6.</span> <span class="nav-text">最终成品</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
