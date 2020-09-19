@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改">
+<meta name="description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改，不过写到后来发现这里掺了太多的业务逻辑，不过还是按照组件把过程和逻辑记录一下">
 <meta name="keywords" content="前端,JS,Vue,element ui,穿梭树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于element-ui实现穿梭树组件">
 <meta property="og:url" content="https://www.kffhi.com/blog/2020/08/23/基于element-ui实现穿梭树组件/index.html">
 <meta property="og:site_name" content="Kffhi的博客">
-<meta property="og:description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改">
+<meta property="og:description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改，不过写到后来发现这里掺了太多的业务逻辑，不过还是按照组件把过程和逻辑记录一下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-23T06:38:34.066Z">
+<meta property="og:image" content="https://www.kffhi.com/public/blog/images/20200919/4.png">
+<meta property="og:updated_time" content="2020-09-19T05:59:30.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于element-ui实现穿梭树组件">
-<meta name="twitter:description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改">
+<meta name="twitter:description" content="element ui本身的穿梭框不支持树结构，左右都是树其实是有插件的，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改，不过写到后来发现这里掺了太多的业务逻辑，不过还是按照组件把过程和逻辑记录一下">
+<meta name="twitter:image" content="https://www.kffhi.com/public/blog/images/20200919/4.png">
 
 
 
@@ -364,8 +366,20 @@
       
 
       
-        <p>element ui本身的穿梭框不支持树结构，左右都是树其实是<a href="https://github.com/hql7/tree-transfer" target="_blank" rel="noopener">有插件的</a>，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改</p>
+        <p>element ui本身的穿梭框不支持树结构，左右都是树其实是<a href="https://github.com/hql7/tree-transfer" target="_blank" rel="noopener">有插件的</a>，不过我这里的需求是左树右列表，因此对作者的源码进行了一定的定制修改，不过写到后来发现这里掺了太多的业务逻辑，不过还是按照组件把过程和逻辑记录一下</p>
 <a id="more"></a>
+<h4 id="DOM结构及成品"><a href="#DOM结构及成品" class="headerlink" title="DOM结构及成品"></a>DOM结构及成品</h4><p>DOM没什么好说的，基本上左中右结构，左右两棵树，中间操作穿梭的按钮，左边会带有搜索，右边则在底部有操作按钮，最终结果如图所示</p>
+<p>左侧点击展开、收起，选中数据可添加进右侧，此时左侧数据保持选中状态被disable，右侧数据选中后可移除，与此同时左侧相应数据取消被选中和disable状态；同时右侧数据点击眼镜激活预览后（选中被预览的数据和选中要被移除的数据是两个独立的选择），点击「预览」按钮可以在BIM引擎中预览相应模型（这就是另外一个故事了）</p>
+<p><img src="https://www.kffhi.com/public/blog/images/20200919/4.png" alt></p>
+<h4 id="事件处理-amp-状态监测"><a href="#事件处理-amp-状态监测" class="headerlink" title="事件处理&amp;状态监测"></a>事件处理&amp;状态监测</h4><h5 id="源数据"><a href="#源数据" class="headerlink" title="源数据"></a>源数据</h5><p><strong>状态监测</strong></p>
+<p><strong>选中事件</strong></p>
+<p><strong>全选事件</strong></p>
+<p><strong>筛选</strong></p>
+<h5 id="目标数据"><a href="#目标数据" class="headerlink" title="目标数据"></a>目标数据</h5><p><strong>状态监测</strong></p>
+<p><strong>选中</strong></p>
+<p><strong>全选</strong></p>
+<p><strong>选中预览</strong></p>
+<h5 id="添加按钮"><a href="#添加按钮" class="headerlink" title="添加按钮"></a>添加按钮</h5><h5 id="移除按钮"><a href="#移除按钮" class="headerlink" title="移除按钮"></a>移除按钮</h5><h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -414,8 +428,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2020/08/23/基于element-ui完成表单中文件上传功能（单文件-多文件）/" rel="prev" title="基于element-ui完成表单中文件上传功能（单文件-多文件）">
-                基于element-ui完成表单中文件上传功能（单文件-多文件） <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2020/08/23/基于element-ui完成表单中文件上传功能（单文件-多文件）/" rel="prev" title="基于element-ui完成表单中文件上传功能（单文件-多文件-下载）">
+                基于element-ui完成表单中文件上传功能（单文件-多文件-下载） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -468,8 +482,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -529,6 +552,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM结构及成品"><span class="nav-number">1.</span> <span class="nav-text">DOM结构及成品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件处理-amp-状态监测"><span class="nav-number">2.</span> <span class="nav-text">事件处理&amp;状态监测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源数据"><span class="nav-number">2.1.</span> <span class="nav-text">源数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目标数据"><span class="nav-number">2.2.</span> <span class="nav-text">目标数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加按钮"><span class="nav-number">2.3.</span> <span class="nav-text">添加按钮</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移除按钮"><span class="nav-number">2.4.</span> <span class="nav-text">移除按钮</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">3.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
