@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,JS,翻译,React,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译系列第四篇，怎样使用React Ref原文地址">
+<meta name="keywords" content="前端,JS,翻译,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;译&gt; How to use React Ref">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/11/04/How-to-Use-React-Ref/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="翻译系列第四篇，怎样使用React Ref原文地址">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-11-04T14:23:07.074Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;译&gt; How to use React Ref">
+<meta name="twitter:description" content="翻译系列第四篇，怎样使用React Ref原文地址">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/11/04/How-to-Use-React-Ref/">
+
+
+
+
+
+  <title><译> How to use React Ref | Kffhi的博客</译></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/11/04/How-to-Use-React-Ref/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><译> How to use React Ref</译></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-04T22:22:04+08:00">
+                2020-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译系列第四篇，怎样使用React Ref<a href="https://www.robinwieruch.de/react-ref" target="_blank" rel="noopener">原文地址</a></p>
+<a id="more"></a>
+<p>在React中使用ref和真正理解它是两码事。说实话时至今日我也不确定十分完全理解它，因为它不像state或者effect一样常用而且它的API经常改变。在这个教程中，我会一步一步给你介绍React中的ref</p>
+<h4 id="Refs-Hook"><a href="#Refs-Hook" class="headerlink" title="Refs Hook"></a>Refs Hook</h4><p>在过去React refs和DOM紧密相关，但自从React引入了React Hooks之后就不再如此。Ref的意思就是引用（reference），所以它可以是任何事物的引用（DOM节点、JS 值等等）。因此在深入了解它的HTML节点用法之前， 我们先退一步探索不带DOM的React ref。以下面的组件为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  const [count, setCount] = React.useState(0);</span><br><span class="line"> </span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    const newCount = count + 1;</span><br><span class="line"> </span><br><span class="line">    setCount(newCount);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;count&#125;&lt;/p&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React提供了useRef钩子作为使用函数式组件时的状态API。<code>useRef</code>返回一个可变对象，该对象在react组件的生命周期内保持不变。具体而言，返回的对象有一个当前属性，它可以为我们保存任何可修改的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  const hasClickedButton = React.useRef(false);</span><br><span class="line"> </span><br><span class="line">  const [count, setCount] = React.useState(0);</span><br><span class="line"> </span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    const newCount = count + 1;</span><br><span class="line"> </span><br><span class="line">    setCount(newCount);</span><br><span class="line"> </span><br><span class="line">    hasClickedButton.current = true;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  console.log(&apos;Has clicked button? &apos; + hasClickedButton.current);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;count&#125;&lt;/p&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ref的当前属性会使用我们为useRef钩子提供的参数初始化（这里是false），无论何时我们都可以为ref的当前属性赋一个新值。在上面的例子中我们只是追踪按钮是否被点击。</p>
+<p>将ref设为新值并不会触发组件的重新渲染。虽然上一个示例中的状态更新函数(这里是setCount)会更新组件的状态并使组件重新渲染，但仅为ref的当前属性切换布尔值根本不会触发重新渲染：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function Counter() &#123;</span><br><span class="line">  const hasClickedButton = React.useRef(false);</span><br><span class="line"> </span><br><span class="line">  const [count, setCount] = React.useState(0);</span><br><span class="line"> </span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    // const newCount = count + 1;</span><br><span class="line"> </span><br><span class="line">    // setCount(newCount);</span><br><span class="line"> </span><br><span class="line">    hasClickedButton.current = true;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  // Does only run for the first render.</span><br><span class="line">  // Component does not render again, because no state is set anymore.</span><br><span class="line">  // Only the ref&apos;s current property is set, which does not trigger a re-render.</span><br><span class="line">  console.log(&apos;Has clicked button? &apos; + hasClickedButton.current);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;count&#125;&lt;/p&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Okay，我们使用useRef创建了一个存在于组件整个生命周期的可变对象，但是它不会在我们改变它时触发重新渲染——那是state的用途，那么这里ref的用途是什么？</p>
+<h4 id="Ref作为实例变量"><a href="#Ref作为实例变量" class="headerlink" title="Ref作为实例变量"></a>Ref作为实例变量</h4><p>当我们需要追踪某个状态但是不触发重新渲染机制ref在函数式组件中作为一个实例变量。例如我们可以追踪组件是第一次渲染还是重新渲染：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefInstanceVariable() &#123;</span><br><span class="line">  const [count, setCount] = React.useState(0);</span><br><span class="line"> </span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    setCount(count + 1);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const isFirstRender = React.useRef(true);</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    if (isFirstRender.current) &#123;</span><br><span class="line">      isFirstRender.current = false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;count&#125;&lt;/p&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">      &#123;/*</span><br><span class="line">        Only works because setCount triggers a re-render.</span><br><span class="line">        Just changing the ref&apos;s current value doesn&apos;t trigger a re-render.</span><br><span class="line">      */&#125;</span><br><span class="line">      &lt;p&gt;&#123;isFirstRender.current ? &apos;First render.&apos; : &apos;Re-render.&apos;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在本例中，我们将ref的当前属性初始化为true，因为我们假设组件在第一次初始化时从第一次呈现开始。然而当我们使用useEffect钩子——不需要第一次或任何一次渲染作为第二参数——在组件第一次渲染之后去更新ref的值。设置ref的当前属性为false不会触发重新渲染。</p>
+<p>现在我们可以创建一个useEffect钩子，它只在每个组件更新时而不是初始化时运行它的逻辑。这当然是每个React开发人员在某些时候都需要的特性，但React的useEffect钩子没有提供。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefInstanceVariable() &#123;</span><br><span class="line">  const [count, setCount] = React.useState(0);</span><br><span class="line"> </span><br><span class="line">  function onClick() &#123;</span><br><span class="line">    setCount(count + 1);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const isFirstRender = React.useRef(true);</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    if (isFirstRender.current) &#123;</span><br><span class="line">      isFirstRender.current = false;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      console.log(</span><br><span class="line">        `</span><br><span class="line">          I am a useEffect hook&apos;s logic</span><br><span class="line">          which runs for a component&apos;s</span><br><span class="line">          re-render.</span><br><span class="line">        `</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;count&#125;&lt;/p&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用refs为React组件部署实例变量并没有被广泛使用，也不经常需要，然而我在我的办公室看到过一些React开发人员，他们在我的课堂上学习了这个特性后，肯定知道他们需要一个useRef实例变量来处理他们的特定情况。</p>
+<p><strong>经验法则:当你需要跟踪你的React组件中不应该触发组件重新呈现的状态时，你可以使用React的useRef钩子为它创建一个实例变量</strong></p>
+<h4 id="DOM-REFS"><a href="#DOM-REFS" class="headerlink" title="DOM REFS"></a>DOM REFS</h4><p>让我们看看React ref的特长： DOM。大多数时候，当你必须与HTML元素交互的时候你会使用ref。React本质是声明性的，但有时你仍然需要从HTML元素读取值、与HTML元素交互甚至是向HTML写入值。对于这些不常见的情况，必须用ref以命令式的方式，而非声明式的方式与DOM交互。这个例子展示了ref与DOM交互的最流行的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;ComponentWithDomApi</span><br><span class="line">      label=&quot;Label&quot;</span><br><span class="line">      value=&quot;Value&quot;</span><br><span class="line">      isFocus</span><br><span class="line">    /&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function ComponentWithDomApi(&#123; label, value, isFocus &#125;) &#123;</span><br><span class="line">  const ref = React.useRef(); // (1)</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    if (isFocus) &#123;</span><br><span class="line">      ref.current.focus(); // (3)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [isFocus]);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;label&gt;</span><br><span class="line">      &#123;/* (2) */&#125;</span><br><span class="line">      &#123;label&#125;: &lt;input type=&quot;text&quot; value=&#123;value&#125; ref=&#123;ref&#125; /&gt;</span><br><span class="line">    &lt;/label&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>像之前一样，我们用useRef钩子创建ref对象，这种情况下我们不会给他任何初始值，因为这将在下一步完成——当我们把ref对象作为HTML属性提供给HTML元素的时候。React自动为我们将这个HTML元素的DOM节点分配给ref对象。最后我们可以使用DOM节点与它的API交互。</p>
+<p>前面的示例向我们展示了如何在React中与DOM API交互，接下来将学习如何使用ref从DOM节点中读取值。下面的示例从元素中读取大小以在浏览器中作为标题显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefRead() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = React.useRef();</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    const &#123; width &#125; = ref.current.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    document.title = `Width:$&#123;width&#125;`;</span><br><span class="line">  &#125;, []);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与前面一样，我们使用React的useRef钩子初始化ref对象，在JSX中使用它将ref的当前属性分配给DOM节点，最后通过useEffect钩子读取组件第一次渲染的元素宽度。你应该能够在你的浏览器的标签看到你的元素的宽度作为标题。</p>
+<p>不过，读取DOM节点的大小只在初始渲染时才会发生。如果你想在每次状态改变导致HTML元素的大小变化时读取它，你可以将状态作为依赖变量提供给useEffect。每当状态(这里是文本)发生变化时，元素的新大小将从HTML元素中读取并写入文档的title属性中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefRead() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = React.useRef();</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    const &#123; width &#125; = ref.current.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    document.title = `Width:$&#123;width&#125;`;</span><br><span class="line">  &#125;, [text]);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个例子都使用了useEffect钩子来处理ref对象。我们可以通过使用回调ref来避免这种情况。</p>
+<h4 id="回调Ref"><a href="#回调Ref" class="headerlink" title="回调Ref"></a>回调Ref</h4><p>对于前面的例子，一个更好的方法是使用所谓的回调ref。有了回调ref，你就不必再使用useEffect和useRef钩子了，因为回调ref允许你在每次渲染时访问DOM节点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefRead() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = (node) =&gt; &#123;</span><br><span class="line">    if (!node) return;</span><br><span class="line"> </span><br><span class="line">    const &#123; width &#125; = node.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    document.title = `Width:$&#123;width&#125;`;</span><br><span class="line">  &#125;;</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个回调ref只不过是一个可以用于JSX中的HTML元素的ref属性的函数。这个函数可以访问DOM节点，当在HTML元素的ref属性上使用它时就会触发它。本质上，它所做的与之前的副作用（side-effect）相同，但这次回调ref本身通知我们它已被附加到HTML元素。</p>
+<p>在使用useRef + useEffect组合之前，可以在useEffect的钩子依赖项数组的帮助下运行你的副作用一段时间。你可以通过使用useCallback钩子增强回调ref来达到同样的效果，使它只在组件的第一次渲染时运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefRead() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = React.useCallback((node) =&gt; &#123;</span><br><span class="line">    if (!node) return;</span><br><span class="line"> </span><br><span class="line">    const &#123; width &#125; = node.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    document.title = `Width:$&#123;width&#125;`;</span><br><span class="line">  &#125;, []);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里还可以更具体地使用useCallback钩子的依赖项数组。例如，只有在状态(这里是文本)发生改变时，才执行回调ref的回调函数，当然，这是为了组件的第一次呈现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefRead() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = React.useCallback((node) =&gt; &#123;</span><br><span class="line">    if (!node) return;</span><br><span class="line"> </span><br><span class="line">    const &#123; width &#125; = node.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    document.title = `Width:$&#123;width&#125;`;</span><br><span class="line">  &#125;, [text]);</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而，然后我们会再次以相同的行为结束，就像我们之前没有使用useCallback钩子，每一次渲染都会调用回调ref。</p>
+<h4 id="Ref的读写操作"><a href="#Ref的读写操作" class="headerlink" title="Ref的读写操作"></a>Ref的读写操作</h4><p>到目前为止，我们只在读取操作(例如读取一个DOM节点的大小)时使用了DOM ref，它也可以修改引用的DOM节点(写操作)。下一个示例向我们展示了如何使用ref来应用样式，而无需为其管理任何额外的状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithRefReadWrite() &#123;</span><br><span class="line">  const [text, setText] = React.useState(&apos;Some text ...&apos;);</span><br><span class="line"> </span><br><span class="line">  function handleOnChange(event) &#123;</span><br><span class="line">    setText(event.target.value);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  const ref = (node) =&gt; &#123;</span><br><span class="line">    if (!node) return;</span><br><span class="line"> </span><br><span class="line">    const &#123; width &#125; = node.getBoundingClientRect();</span><br><span class="line"> </span><br><span class="line">    if (width &gt;= 150) &#123;</span><br><span class="line">      node.style.color = &apos;red&apos;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      node.style.color = &apos;blue&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; value=&#123;text&#125; onChange=&#123;handleOnChange&#125; /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125;&gt;&#123;text&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以对这个引用的DOM节点上的任何属性执行此操作。需要注意的是由于React是声明性的，因此通常不应该这样使用。相反，你可以使用useState钩子来设置一个布尔值，无论你想要将文本颜色设置为红色还是蓝色。但是出于性能原因，有时直接操作DOM对于避免重新渲染会非常有帮助。</p>
+<p>为了了解它，我们也可以在React组件中以这种方式管理状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function ComponentWithImperativeRefState() &#123;</span><br><span class="line">  const ref = React.useRef();</span><br><span class="line"> </span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    ref.current.textContent = 0;</span><br><span class="line">  &#125;, []);</span><br><span class="line"> </span><br><span class="line">  function handleClick() &#123;</span><br><span class="line">    ref.current.textContent = Number(ref.current.textContent) + 1;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;span ref=&#123;ref&#125; /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">      &lt;button type=&quot;button&quot; onClick=&#123;handleClick&#125;&gt;</span><br><span class="line">        Increase</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但我们不建议你掉进这个兔子洞里……本质上，它只是向您展示了如何操作React中的ref属性中的元素。但是，为什么我们不再使用普通的JavaScript呢？因此，React的ref主要用于读操作。</p>
+<p>这篇介绍应该已经向你展示了如何通过useRef钩子或回调ref来使用ref引用DOM节点和实例变量。为了完整性起见，我还想提一下React的顶级API <code>createRef()</code>，它相当于React类组件的<code>useRef()</code>。也有一些被称为string ref的ref也不被推荐在React中使用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/blog/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/10/02/JavaScript设计模式与开发实践笔记/" rel="next" title="JavaScript设计模式与开发实践笔记">
+                <i class="fa fa-chevron-left"></i> JavaScript设计模式与开发实践笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Refs-Hook"><span class="nav-number">1.</span> <span class="nav-text">Refs Hook</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref作为实例变量"><span class="nav-number">2.</span> <span class="nav-text">Ref作为实例变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-REFS"><span class="nav-number">3.</span> <span class="nav-text">DOM REFS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回调Ref"><span class="nav-number">4.</span> <span class="nav-text">回调Ref</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref的读写操作"><span class="nav-number">5.</span> <span class="nav-text">Ref的读写操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
