@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,翻译,人脸识别,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译系列第五篇，怎样用JS检测人脸（或其他形状），原文地址">
+<meta name="keywords" content="前端,翻译,人脸识别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20190722204952">
+<meta property="og:url" content="https://www.kffhi.com/blog/2020/11/21/How-to-Detect-Human-Faces-in-JavaScript/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="翻译系列第五篇，怎样用JS检测人脸（或其他形状），原文地址">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/image1.gif">
+<meta property="og:updated_time" content="2020-11-21T07:53:44.436Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="20190722204952">
+<meta name="twitter:description" content="翻译系列第五篇，怎样用JS检测人脸（或其他形状），原文地址">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/image1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2020/11/21/How-to-Detect-Human-Faces-in-JavaScript/">
+
+
+
+
+
+  <title>20190722204952 | Kffhi的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2020/11/21/How-to-Detect-Human-Faces-in-JavaScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">20190722204952</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-21T15:52:32+08:00">
+                2020-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译系列第五篇，怎样用JS检测人脸（或其他形状），<a href="https://ckeditor.com/blog/How-to-detect-human-faces-and-other-shapes-in-JavaScript/" target="_blank" rel="noopener">原文地址</a></p>
+<a id="more"></a>
+<p>Google认为<a href="https://www.chromium.org/teams/web-capabilities-fugu" target="_blank" rel="noopener">web完全可以可以和本地应用程序相媲美</a>。多年来，本地应用程序优于web应用程序的一个领域是检测图像中的形状，直到最经几年才能完成诸如面部识别这样的任务，但是情况不再是这样了！</p>
+<h4 id="形状检测API"><a href="#形状检测API" class="headerlink" title="形状检测API"></a>形状检测API</h4><p>WICG（Web Platform Incubator Community Group）最近提出了一项新的标准提案：<a href="https://wicg.github.io/shape-detection-api/" target="_blank" rel="noopener">形状检测API（Shape Detection API）</a>。它允许检测图像中的两种类型的形状：</p>
+<ul>
+<li>面部</li>
+<li>条码和二维码</li>
+</ul>
+<p>目前，这两个检测器都能在chrome内部实现。默认启用的是条码检测，面部检测是后面的标识（chrome://flags#enable-experimental-web-platform-features）。还有另外一个定义<a href="https://wicg.github.io/shape-detection-api/text.html" target="_blank" rel="noopener">文本检测API</a>的规范，允许检测文本。这些检测器都共享相同的API：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> detector = <span class="keyword">new</span> FaceDetector( optionalOptions );</span><br><span class="line"><span class="keyword">const</span> results = <span class="keyword">await</span> detector.detect( imageBitmap );</span><br></pre></td></tr></table></figure>
+<p>有三个全局可用的接口(在页面和在Web工作线程内部)：</p>
+<ul>
+<li><code>FaceDetector</code></li>
+<li><code>BarcodeDetector</code></li>
+<li><code>TextDetector</code></li>
+</ul>
+<p><code>optionalOptions</code> 参数是一个对象，其中包含检测器的附加配置。每个形状检测器都有自己的一组选项，但是在大多数情况下你也可以完全省略这个参数，通常默认值就足够了。</p>
+<p>构造检测器之后，你就可以用它的异步方法<code>detect()</code>来检测图像中的形状，该方法返回一个带有图像中形状的坐标和关于该形状的其他信息的对象。例如<code>TextDetector</code> API中识别的文本或<code>FaceDetector</code> API中的眼睛或鼻子等面部特定部位的坐标</p>
+<p><code>imageBitmap</code> 参数是要分析的图像，作为<a href="https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmap" target="_blank" rel="noopener"><code>imageBitmap</code>实例</a>传递</p>
+<p>备注：为什么这个<code>ImageBitmap</code> 不只是一个img元素或简单的Blob？这是因为形状检测器也可以在workers内部使用，在这里不能访问DOM。使用<code>ImageBitmap</code> 对象可以解决这个问题。此外，它们允许使用更多的图像源，比如画布元素(包括屏幕外的)甚至视频</p>
+<p>基本上就是这样！</p>
+<h4 id="简单应用"><a href="#简单应用" class="headerlink" title="简单应用"></a>简单应用</h4><p>好吧，让我们看看新知识如何应用到实践中去。让我们准备一个示例web应用程序，它将允许使用所提议的API检测形状</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/image1.gif" alt></p>
+<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Shape Detection API demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Shape Detection API<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Face detection<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span>Choose an image file:</span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span> <span class="attr">data-type</span>=<span class="string">"face"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Barcode detection<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span>Choose an image file:</span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span> <span class="attr">data-type</span>=<span class="string">"barcode"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Text detection<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span>Choose an image file:</span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span> <span class="attr">data-type</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该文件包含三个<code>input[type=file]</code>元素，它们将是要分析的图像的来源。它们都有一个<code>[data-type]</code>属性，通知脚本要检索哪个形状。还有一个<code>script[type=module]</code>元素，它将包含处理输入元素所需的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> detectShape <span class="keyword">from</span> <span class="string">'./detector.mjs'</span>; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener( <span class="string">'change'</span>, <span class="keyword">async</span> ( &#123; target &#125; ) =&gt; &#123; <span class="comment">// 2</span></span><br><span class="line">	<span class="keyword">const</span> [ image ] = target.files; <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> detected = <span class="keyword">await</span> detectShape( image, target.dataset.type ); <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.log( detected ); <span class="comment">// 5</span></span><br><span class="line">&#125; );</span><br></pre></td></tr></table></figure>
+<p>首先，从检测器导入<code>detectShape()</code>函数。<code>detector.mjs</code>这个函数可以完成所有的工作</p>
+<p>然后将更改事件侦听器绑定到文档。由于有了事件委托机制，它将对输入元素中的所有更改做出反应</p>
+<p>另外，侦听器是异步的，因为检测器也是异步的，我希望在可能的情况下使用<code>async / await</code>语法</p>
+<p>还有一个解构语句，用于只获取传递给侦听器的事件对象的目标属性，从而只获取触发事件的元素</p>
+<p>幸运的是，下一行没有那么拥挤，它基本上获取用户选择的文件并将其保存到<code>image</code> 变量</p>
+<p>当你获得图像时，您可以将它与从[data-type]属性(4)获取的检测器类型一起传递给<code>detectShape()</code>函数</p>
+<p>最后将获取的结果打印在控制台</p>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><p>去看看<code>detector.mjs</code>文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123; <span class="comment">// 5</span></span><br><span class="line">	face: &#123;</span><br><span class="line">		fastMode: <span class="literal">true</span>,</span><br><span class="line">		maxDetectedFaces: <span class="number">1</span></span><br><span class="line">	&#125;,</span><br><span class="line">	barcode: &#123;&#125;,</span><br><span class="line">	text: &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">detectShape</span>(<span class="params"> image, type </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> bitmap = <span class="keyword">await</span> createImageBitmap( image ); <span class="comment">// 2</span></span><br><span class="line">	<span class="keyword">const</span> detector = <span class="keyword">new</span> <span class="built_in">window</span>[ getDetectorName( type ) ]( options[ type ] ); <span class="comment">//3</span></span><br><span class="line">	<span class="keyword">const</span> detected = <span class="keyword">await</span> detector.detect( bitmap ); <span class="comment">// 6</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> detected; <span class="comment">// 7</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDetectorName</span>(<span class="params"> type </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123; type[ <span class="number">0</span> ].toUpperCase() &#125;</span><span class="subst">$&#123; type.substring( <span class="number">1</span> ) &#125;</span>Detector`</span>; <span class="comment">// 4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> detectShape; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>该文件只有一个<code>detectShape()</code>函数导出，这个函数转换传递的文件，使用<code>createImageBitmap()</code>全局函数生成所需的<code>ImageBitmap</code>，然后创建一个适当的检测器</p>
+<p>构造函数名称派生自<code>type</code> 参数。它的第一个字母更改为大写，并添加<code>Detector</code> 后缀</p>
+<p>每一种检测器都有一个包含选项的对象。条形码和文本检测器都将使用默认选项，但是对于人脸检测器，有两个选项</p>
+<ul>
+<li><code>fastMode</code> 开启不太准确的检测(这将识别更多的面孔，但也会增加误报的数量)</li>
+<li><code>maxDetectedFaces</code> 设置为1只检测一张脸</li>
+</ul>
+<p>创建形状检测器后，可以调用它的<code>detect()</code>方法并等待结果。当获取结果时，将其返回</p>
+<h4 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h4><p>编码已经完成，但是，如果直接从该目录启动应用程序，它将无法正常工作。这主要是因为代码使用了受CORS规则约束的ES模块。解决这些问题有两种方法</p>
+<ul>
+<li>切换回旧的——非模块JavaScript一点都不cool</li>
+<li>开一个本地静态资源服务器——非常的cooooooooool</li>
+</ul>
+<p>幸运的是，使用本地web服务器非常简单，只需在应用程序所在的目录中运行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx http-server ./</span><br></pre></td></tr></table></figure>
+<p>（注：作者后面这里稍微解释了一下http-server的下载使用啥的，其实简单而言就目标目录，一行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hs -a [IPv4] -p [port]</span><br></pre></td></tr></table></figure>
+<p>就是这样！有了新的形状检测api，至少在Chrome中检测图像中的某些形状是相当容易的。我们需要等待，看看其他浏览器是否会跟进</p>
+<h4 id="源码和案例"><a href="#源码和案例" class="headerlink" title="源码和案例"></a>源码和案例</h4><p>该应用程序的<a href="https://github.com/Comandeer/shape-detection-api-demo" target="_blank" rel="noopener">完整代码</a>可在GitHub上获得。还有一个<a href="https://ckeditor.github.io/labs/shape-detection-api/" target="_blank" rel="noopener">稍微增强和样式化的实时文本、条形码和人脸检测演示</a>供您使用。它的<a href="https://github.com/ckeditor/labs/tree/master/docs/shape-detection-api" target="_blank" rel="noopener">源代码</a>也可以在GitHub上找到。不幸的是，在撰写本文时，Linux上还不支持形状检测</p>
+<p>接下来，人脸检测最重要的应用之一就是人脸识别。这项技术将从图像或视频帧中检测到的人脸与人脸数据库进行匹配。与其他生物识别技术一样，它可以用于认证用户、与计算机、智能手机或其他机器人系统交互、自动索引图像或用于视频监控目的</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/人脸识别/" rel="tag"># 人脸识别</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/11/04/How-to-Use-React-Ref/" rel="next" title="<译> How to use React Ref">
+                <i class="fa fa-chevron-left"></i> <译> How to use React Ref
+              </译></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#形状检测API"><span class="nav-number">1.</span> <span class="nav-text">形状检测API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单应用"><span class="nav-number">2.</span> <span class="nav-text">简单应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML"><span class="nav-number">3.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript"><span class="nav-number">4.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行程序"><span class="nav-number">5.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码和案例"><span class="nav-number">6.</span> <span class="nav-text">源码和案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
