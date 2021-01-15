@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="翻译,后端,Node,事件循环,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译系列第七篇，Node.js中事件循环利用简介，原文地址">
+<meta name="keywords" content="翻译,后端,Node,事件循环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;译&gt; Introduction to Event Loop Utilization in Node.js(1)">
+<meta property="og:url" content="https://www.kffhi.com/blog/2021/01/15/Introduction-to-Event-Loop-Utilization-in-Node/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="翻译系列第七篇，Node.js中事件循环利用简介，原文地址">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/6aMy5r8ceC52hFHzLtP4DM/cc996d40dd864799cc1d5249fb6309c9/Screen_Shot_2020-12-04_at_10.43.03_AM.png?w=600">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/7Emz4rCm9LBevL41t0UvJz/6ed272657397d645992ca4fcf5081214/event_loop_diagram2.png">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/6XdrW8wclMB5Mr2DeIbTBp/5a5bebe1a688d347638e9b69048602c9/1.png?w=400">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/1rPcNeiq6XekTTor2mbAP9/57355b6c1591972d63a6f8463db922c0/2.png?w=400">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/5sqAZRJuCeKgancUrMVmK/4f020b1c68e3be1a5a6548033cee64f6/3.png?w=400">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/2eW4LPfr5fMORnzC7Gnf5U/6bf19a4ea66948441e00491fce5e6cc5/6.png?w=400">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/tAj2M5wKryJocAgkzxeu9/46450cb86d555d4770f07138bde8b0de/7.png?w=550">
+<meta property="og:image" content="https://images.ctfassets.net/hspc7zpa5cvq/2qfmcuGZoePXwkJTKP2sCr/dad62e3a731ae161b37e8ba7967fc64d/8.png?w=550">
+<meta property="og:updated_time" content="2021-01-15T13:24:32.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;译&gt; Introduction to Event Loop Utilization in Node.js(1)">
+<meta name="twitter:description" content="翻译系列第七篇，Node.js中事件循环利用简介，原文地址">
+<meta name="twitter:image" content="https://images.ctfassets.net/hspc7zpa5cvq/6aMy5r8ceC52hFHzLtP4DM/cc996d40dd864799cc1d5249fb6309c9/Screen_Shot_2020-12-04_at_10.43.03_AM.png?w=600">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2021/01/15/Introduction-to-Event-Loop-Utilization-in-Node/">
+
+
+
+
+
+  <title><译> Introduction to Event Loop Utilization in Node.js(1) | Kffhi的博客</译></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2021/01/15/Introduction-to-Event-Loop-Utilization-in-Node/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><译> Introduction to Event Loop Utilization in Node.js(1)</译></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-15T21:21:15+08:00">
+                2021-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/后端/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译系列第七篇，Node.js中事件循环利用简介，<a href="https://nodesource.com/blog/event-loop-utilization-nodejs" target="_blank" rel="noopener">原文地址</a></p>
+<a id="more"></a>
+<p>去年，我花费了许多时间为libuv和node编写补丁已收集新指标。这样做的目的是在不引入可测量的开销的情况下间接推断应用程序的状态。我运行了几百个小时的基准测试，收集了超过100万个数据点以确保我的分析是正确的。我计划最终会写出来我研究的所有方面，但今天我们将关注一个已经添加到Node的指标</p>
+<p><strong>提前声明</strong>：用于定义事件循环的部分术语并不一致，例如“event loop tick”可以引用下一个事件循环迭代，或下一个事件循环阶段，或在堆栈完全退出之前处理的事件循环的“子阶段”。为了防止进一步的混淆，在这篇文章的最后是事件循环相关术语的正确定义</p>
+<p>最初，我在libuv和Node中添加了超过30个度量指标。例如其中一些正在计算处理的事件的数量、对事件循环的每个阶段和子阶段进行计时测量、并跟踪从流中写入和读取的数据量。有两件事情很快就变得明显起来。首先，这些指标大多没有提供额外的洞见。要么是因为噪音太多，要么是因为信息可以通过其他指标复制。其次，一些最低级别的指标显示了令人惊讶的模式，揭示了应用程序的执行情况。其中之一现在被称为事件循环利用率</p>
+<p>事件循环利用率(ELU)的最简单定义是事件提供程序中事件循环未空闲的时间与事件循环运行的总时间的比率</p>
+<p>这听起来很简单，但有些细微之处很容易被忽略。在这篇文章的最后，我希望已经充分解释了ELU以及事件循环的一般工作原理，从而让您有信心解释得到的指标</p>
+<h4 id="什么是事件循环"><a href="#什么是事件循环" class="headerlink" title="什么是事件循环"></a>什么是事件循环</h4><p>下面是官方Node.js文档中关于libuv每个阶段执行顺序的事件循环图表(这是我在2015年的<a href="https://nodesource.com/blog/understanding-the-nodejs-event-loop/" target="_blank" rel="noopener">一篇博文</a>中创建的图表的变体)</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/6aMy5r8ceC52hFHzLtP4DM/cc996d40dd864799cc1d5249fb6309c9/Screen_Shot_2020-12-04_at_10.43.03_AM.png?w=600" alt></p>
+<p>既然我们已经简单地回顾了一下，现在是时候把这些信息抛到脑后了。这些实现细节只会分散我们对事件循环如何在更基本的层次上工作的理解</p>
+<p>在继续讨论Node的图和我们将关注的事件循环之前，需要注意三个关键区别</p>
+<ul>
+<li>执行的仅有两个阶段：第一，进入事件提供程序，第二，调用事件分发程序</li>
+<li>事件循环的迭代在调用事件提供程序时开始(例如poll)</li>
+<li>事件循环中的所有活动都应该被视为接收事件的扩展</li>
+</ul>
+<p>事件循环的操作序列为：</p>
+<ul>
+<li>通过事件提供程序(例如epoll等待)从事件队列(例如内核)接收事件<ul>
+<li>如果事件队列包含一个事件，则会立即返回该事件</li>
+<li>否则，执行将被阻塞，直到事件到达</li>
+</ul>
+</li>
+<li>然后分配事件列表(例如libuv处理文件描述符)<ul>
+<li>在大多数情况下，会调用与每个事件相关的事件处理程序(例如回调函数)</li>
+<li>还可能发生其他操作，比如从监视列表中删除文件描述符</li>
+</ul>
+</li>
+</ul>
+<p>事实上，libuv在阶段执行的中间阶段而不是开始阶段运行轮询，这与需要处理它的其他Api有关。例如，如果在调用事件提供程序之前，计时器的超时已经过期，那么计时器的回调将首先被调用</p>
+<p>事件循环中的所有执行时间都可以视为处理事件的扩展，因为无论出于何种目的，事件循环的主要目的都是处理传入事件。因此，执行的任何工作都可以解释为由先前接收到的事件触发的工作</p>
+<p>现在我们已经在事件循环的核心和Node的实现细节之间划清了界限，现在可以继续了</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/7Emz4rCm9LBevL41t0UvJz/6ed272657397d645992ca4fcf5081214/event_loop_diagram2.png" alt></p>
+<p>该图形是接收和处理事件的时间线。（1）是事件处理程序（调用与事件关联的回调的部分），（2）是事件队列，该机制保留事件直到事件处理程序准备好接收它们为止（也称为 作为“任务队列”或“回调队列”）</p>
+<p>通过调用事件提供程序(例如epoll等待)从事件队列检索事件。暗线表示执行堆栈。由于这是简化的，所以它要么在处理事件，要么在空闲等待将事件放入事件队列。两个事件提供程序调用之间的时间是一个“循环迭代”(有时不正确地称为“tick”)。</p>
+<p>现在逐步查看上图中的时间线</p>
+<p>L1到L4是每个事件循环迭代。e1到e5表示接收和处理的单个事件</p>
+<p><strong>L1：</strong>输入事件提供程序。事件队列中没有等待的事件，因此事件循环成为空闲的。当e1被放置在事件队列上并立即被事件处理程序接收并处理时。在处理e1时，e2和e3被放置在事件队列中</p>
+<p><strong>L2：</strong>输入事件提供程序。事件e2和事件e3已经收到，正在等待处理。事件处理程序立即接收并处理它们。当e2和e3被处理时，e4被放置在事件队列上</p>
+<p><strong>L3：</strong>e4被事件处理器立即接收并处理</p>
+<p><strong>L4：</strong>事件队列中没有等待的事件，因此事件循环在事件e到达之前保持空闲状态</p>
+<p>需要注意的重要一点是，事件处理程序(或节点)不知道何时将事件放入事件队列。考虑到这一点，我们可以看到，当事件被放置在事件队列上，直到可以处理它时，处理事件实际上发生了延迟。如何计算从何时将事件放入事件队列到事件提供者接收到它的延迟也是我研究的一部分，我计划在以后的博客文章中分享</p>
+<p>另外，注意当事件已经在事件队列中时，事件提供程序调用没有累积空闲时间。空闲时间不累积的原因是事件提供程序实际上从不空闲。相反，事件提供程序中的持续时间忙于检索事件</p>
+<p><strong>快速回顾一下在单个循环迭代中发生的所有操作：</strong></p>
+<ol>
+<li>事件被放置在事件队列中(这与事件循环的执行状态无关)</li>
+<li>输入事件提供程序(例如，调用<code>epoll_wait()</code>)</li>
+<li>如果事件队列(例如系统内核)中有一个或多个事件(例如文件描述符)，那么它们将被事件提供程序接收</li>
+<li>如果事件队列(如系统内核)中没有事件(如文件描述符)，那么程序(如node.js)将暂停执行并等待空闲，直到接收到事件</li>
+<li>事件提供程序将接收到的事件传递给事件调度程序。(例如，文件描述符列表由<code>epoll_wait()</code>返回给libuv)<ul>
+<li>实现说明:libuv使用了“反应堆设计模式(reactor design pattern)”来同时处理多个事件的接收和同步调度</li>
+</ul>
+</li>
+<li>事件调度程序(如libuv)为每个事件调用事件处理程序(如libuv调用每个文件描述符的回调)<ul>
+<li>虽然这通常是通过调用关联的回调来完成的，但也可以执行其他操作，比如过滤掉不再需要的文件描述符</li>
+</ul>
+</li>
+<li>一旦分派了所有事件，事件循环就完成了单个循环迭代，并重新输入事件提供程序</li>
+</ol>
+<h4 id="ELU-vs-CPU"><a href="#ELU-vs-CPU" class="headerlink" title="ELU vs CPU"></a>ELU vs CPU</h4><p>CPU不再是衡量应用程序规模的足够指标。其他因素，如垃圾收集、加密和放置在libuv线程池中的其他任务，可能会增加CPU使用量，但这并不表明应用程序的总体健康状况。即使是不使用工作线程的应用程序也容易受到这个问题的影响</p>
+<p>此外，没有跨平台的方法可以测量每个线程的CPU使用情况，这并不意味着CPU是无用的。进一步，我们将看到，使用CPU和事件循环利用率(或ELU)对于查看应用程序是否达到硬件限制至关重要。但是，不能在每个线程的基础上收集指标，这极大地限制了我们判断应用程序何时达到其阈值的能力</p>
+<p>下面是一组关于几种场景的图表，其中ELU和CPU显示了不同的结果，这些结果影响了我们理解进程运行状况和何时应该进行扩展的能力。所有图都是通过运行模拟不同类型工作负载的HTTP服务器生成的</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/6XdrW8wclMB5Mr2DeIbTBp/5a5bebe1a688d347638e9b69048602c9/1.png?w=400" alt></p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/1rPcNeiq6XekTTor2mbAP9/57355b6c1591972d63a6f8463db922c0/2.png?w=400" alt></p>
+<p>让我们从快速解释每个图包含的内容开始。左边的纵轴和红黄线分别表示ELU和CPU使用率。右纵轴和蓝线是每个周期的请求数，这意味着在收集间隔期间收集的请求数(在本例中为几秒)。纠正数据的原因是考虑在事件循环过载时可能发生的时间差异</p>
+<p>上面的两张图代表了自然情况下最常见的情况。应用程序几乎所有的执行时间都在主线程上处理事件。完成的请求数的一般曲线实际上与ELU和CPU使用的增长曲线相同。在这些情况下，扩展应用程序相对简单</p>
+<p>至于为什么每个服务器的缩放曲线是不同的，这将是未来另一篇博文的主题</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/5sqAZRJuCeKgancUrMVmK/4f020b1c68e3be1a5a6548033cee64f6/3.png?w=400" alt></p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/2eW4LPfr5fMORnzC7Gnf5U/6bf19a4ea66948441e00491fce5e6cc5/6.png?w=400" alt></p>
+<p>这两个图都是使用Worker线程生成一些复杂模板来完成请求的示例。 这两个图是相同的过程，但是请注意第一个图中的CPU使用率。 虽然第一张图的缩放曲线与请求/期间的数量非常相似，但在250％CPU时达到了最大吞吐量</p>
+<p>第二张图显示主线程从来没有超过50%的ELU。在这个场景中，使用CPU利用率作为扩展因子是没有意义的，因为服务器将开始以实际最大容量的三分之一进行扩展。与此同时，不可能预测应用程序何时应该仅基于主线程的ELU进行扩展。有必要查看所有线程的ELU，并据此做出缩放预测</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/tAj2M5wKryJocAgkzxeu9/46450cb86d555d4770f07138bde8b0de/7.png?w=550" alt></p>
+<p>这张图显示了一个有趣而不寻常的场景。它与上面使用工作线程的应用程序是相同的，但它运行在一个具有有限CPU资源的容器中。使用从CPU和ELU收集的数据，我们可以确定这个进程的限制因素是分配的硬件数量。不过，要检测这个问题，有必要知道总CPU使用率何时达到了可用硬件资源的极限</p>
+<p><img src="https://images.ctfassets.net/hspc7zpa5cvq/2qfmcuGZoePXwkJTKP2sCr/dad62e3a731ae161b37e8ba7967fc64d/8.png?w=550" alt></p>
+<p>最后这张图展示了我们目前所看到的所有问题的反问题。注意，ELU远高于CPU。服务器正在对以同步模式(rs+)打开并进行读写的NFS挂载执行同步文件系统写操作。对以同步模式打开的文件进行写入，可以防止内核缓存数据，并且只有在文件被完全写入时才会返回。如果使用了同步fs模块API，并且由于文件位于网络上，进程将一直处于空闲状态，直到文件完全传输和写入</p>
+<h4 id="ELU示例"><a href="#ELU示例" class="headerlink" title="ELU示例"></a>ELU示例</h4><p>了解了这些之后，我们现在应该准备好看一些使用ELU的简单示例了</p>
+<p>ELU API有三种形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; eventLoopUtilization &#125; = <span class="built_in">require</span>(<span class="string">'perf_hooks'</span>).performance;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the ELU from the start of the thread.</span></span><br><span class="line"><span class="keyword">const</span> elu1 = eventLoopUtilization();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the ELU between now and a previous point in time.</span></span><br><span class="line">eventLoopUtilization(elu1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the ELU between two previous points in time.</span></span><br><span class="line"><span class="keyword">const</span> elu2 = eventLoopUtilization();</span><br><span class="line">eventLoopUtilization(elu2, elu1);</span><br></pre></td></tr></table></figure>
+<p>下面是一个示例，演示如何以设置的间隔向外部度量收集器报告循环利用率:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; eventLoopUtilization &#125; = <span class="built_in">require</span>(<span class="string">'perf_hooks'</span>).performance;</span><br><span class="line"><span class="keyword">let</span> lastELU = eventLoopUtilization();</span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Store the current ELU so it can be assigned later.</span></span><br><span class="line">  <span class="keyword">const</span> tmpELU = eventLoopUtilization();</span><br><span class="line">  <span class="comment">// Calculate the diff between the current and last before sending.</span></span><br><span class="line">  someExternalCollector(eventLoopUtilization(tmpELU, lastELU));</span><br><span class="line">  <span class="comment">// Assign over the last value to report the next interval.</span></span><br><span class="line">  lastELU = tmpELU;</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>请记住，报告的ELU是特定于工作线程的，因此从工作线程调用它将报告每个特定线程的ELU。下面是一个定期通过消息通道从工作器报告ELU的示例，这样我们就可以监视工作器的健康状况</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; isMainThread, Worker, MessageChannel, parentPort &#125; = <span class="built_in">require</span>(<span class="string">'worker_threads'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">eventLoopUtilization</span>: elu &#125; = <span class="built_in">require</span>(<span class="string">'perf_hooks'</span>).performance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!isMainThread) &#123;</span><br><span class="line">  parentPort.once(<span class="string">'message'</span>, (msg) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> lastMetrics = elu();</span><br><span class="line">    <span class="comment">// Setup the interval that will report ELU metrics to the parent thread.</span></span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> tmpMetrics = elu();</span><br><span class="line">      msg.metricsCh.postMessage(elu(tmpMetrics, lastMetrics));</span><br><span class="line">      lastMetrics = tmpMetrics;</span><br><span class="line">    <span class="comment">// Unref this so it doesn't accidentally keep the worker alive.</span></span><br><span class="line">    &#125;, <span class="number">100</span>).unref();</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// Other worker stuff here.</span></span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> Worker(__filename);</span><br><span class="line"><span class="keyword">const</span> metricsCh = <span class="keyword">new</span> MessageChannel();</span><br><span class="line"><span class="comment">// Send the channel to the worker thread to receive metrics.</span></span><br><span class="line">worker.postMessage(&#123; <span class="attr">metricsCh</span>: metricsCh.port1 &#125;, [ metricsCh.port1 ]);</span><br><span class="line"><span class="comment">// Listen for those metrics.</span></span><br><span class="line">metricsCh.port2.on(<span class="string">'message'</span>, (metrics) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'metrics'</span>, metrics);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在，上面所有的代码都有点麻烦。因此，我最近在Node中安装了一个新的API，它允许对派生工作线程中的ELU进行线程安全访问</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Worker &#125; = <span class="built_in">require</span>(<span class="string">'worker_threads'</span>);</span><br><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> Worker(<span class="string">'./some_worker.js'</span>);</span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Check the worker's usage directly and immediately. The call is thread-safe</span></span><br><span class="line">  <span class="comment">// so it doesn't need to wait for the worker's event loop to become free.</span></span><br><span class="line">  worker.performance.eventLoopUtilization();</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>使用它现在可以监视每个工作线程的状态，而不依赖于它的状态。这将使编写监视工作线程的代码变得更容易，这样它们就可以被自动维护</p>
+<p>这篇文章主要讲述了我添加ELU的原因，如何解释指标和一些简单的实现。期待以后关于如何在应用程序中使用ELU以及如何使用它来帮助扩展的更多深入信息的帖子</p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>这包括常用的术语，但为了保持一致性而被包括在内。本博文中未使用的术语也包括在内，因为它们将在以后的博文中使用</p>
+<ul>
+<li>事件循环（event loop）：一种编程构造，它暂停程序的执行，同时等待接收放置在事件队列上的事件。然后将事件分派给进一步处理</li>
+<li>事件（event）：封装异步任务并作为上下文变量由事件处理程序传递给回调程序以供程序处理的实体。事件也称为消息</li>
+<li>事件队列（event queue）：一种构造，在操作或任务完成后，在事件提供程序接收到事件之前保存对事件的引用</li>
+<li>事件分发程序（event dispatcher）：一种将事件提供程序接收到的事件分派给程序的机制。通常(但不总是)通过调用与事件关联的事件处理程序来实现。这是“处理事件（processing the event）”的同义词</li>
+<li>事件处理器（event handler）：处理与事件关联的回调调用的机制</li>
+<li>回调（callback）：作为参数传递给其他代码的任何可执行代码，预计将在指定的时间被调用或执行</li>
+<li>事件提供程序（event provider）：一种机制，用于暂停事件循环的执行并等待事件被放置到事件队列中。然后，接收到的事件由事件调度程序进行调度</li>
+<li>事件提供程序请求（event provider request）：事件循环向事件提供程序发出的请求。在执行时，可能会给事件提供程序请求一个超时。超时是事件提供程序在将执行控制权返回给程序之前保持空闲的最大持续时间</li>
+<li>事件循环迭代（event loop iteration）：事件循环的单个执行;从第一个事件提供程序请求开始;在后续事件提供程序请求结束</li>
+<li>事件循环阶段（event loop phase）：事件循环的单一阶段，涉及libuv的实现细节;如定时器、轮询、关闭回调等</li>
+<li>事件循环子阶段（event loop subphase）：是下一个tick队列和微任务队列的执行，它发生在所有事件循环阶段的末尾</li>
+<li>事件循环时长或循环时长（event loop duration or loop duration）：执行循环迭代所需的时间</li>
+<li>事件处理（events processed）：事件处理程序在返回单个循环迭代的事件提供程序请求时处理的事件数量</li>
+<li>事件循环的空闲时间（event loop idle time）：事件提供程序在单个循环迭代的事件提供程序请求期间空闲的时间</li>
+<li>事件循环处理时间（event loop processing time）：在循环迭代中处理所有事件所花费的总时间，等于循环持续时间减去循环空闲时间</li>
+<li>事件循环利用率（event loop utilization）：事件提供程序中事件循环未空闲的时间与事件循环运行的总时间的比率，等于循环处理时间除以循环持续时间</li>
+<li>事件提供程序延迟（event provider delay）：从事件放入事件队列时开始到事件提供程序接收到事件时结束的一段时间</li>
+<li>事件处理延迟（event processing delay）：事件提供程序接收到事件直到程序处理该事件之前的一段时间</li>
+<li>循环事件处理（loop events processed）：为循环迭代处理的事件数量，或为循环迭代分配给事件处理程序的事件数量</li>
+<li>事件循环等待（loop events waiting）：在事件提供程序请求时，事件提供程序可以立即接收的事件数量</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/blog/tags/Node/" rel="tag"># Node</a>
+          
+            <a href="/blog/tags/事件循环/" rel="tag"># 事件循环</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/12/16/深入minmax/" rel="next" title="<译> 深入minmax()">
+                <i class="fa fa-chevron-left"></i> <译> 深入minmax()
+              </译></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事件循环"><span class="nav-number">1.</span> <span class="nav-text">什么是事件循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ELU-vs-CPU"><span class="nav-number">2.</span> <span class="nav-text">ELU vs CPU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ELU示例"><span class="nav-number">3.</span> <span class="nav-text">ELU示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#术语"><span class="nav-number">4.</span> <span class="nav-text">术语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
