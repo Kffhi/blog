@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="翻译,前端,CSS,动画,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="翻译系列第八篇，An Interactive Guide to CSS Transitions，原文地址 建议看原文，里面的带类似CodeSandbox的可以编辑查看效果">
+<meta name="keywords" content="翻译,前端,CSS,动画">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;译&gt; An Interactive Guide to CSS Transitions">
+<meta property="og:url" content="https://www.kffhi.com/blog/2021/03/20/An-Interactive-Guide-to-CSS-Transitions/index.html">
+<meta property="og:site_name" content="Kffhi的博客">
+<meta property="og:description" content="翻译系列第八篇，An Interactive Guide to CSS Transitions，原文地址 建议看原文，里面的带类似CodeSandbox的可以编辑查看效果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/1a4649c7bee0d393f1915ef0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/9b1549888222933271daa456.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/c4b64c0096a212cc0c136e4a.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/eb194e5d863924cd545db721.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/0de941e795b841f2c33064c1.png">
+<meta property="og:image" content="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Ftexture-issue.gif&w=256&q=75">
+<meta property="og:image" content="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Fdropdown.gif&w=384&q=75">
+<meta property="og:image" content="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Fflicker.gif&w=256&q=75">
+<meta property="og:updated_time" content="2021-03-20T14:17:05.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;译&gt; An Interactive Guide to CSS Transitions">
+<meta name="twitter:description" content="翻译系列第八篇，An Interactive Guide to CSS Transitions，原文地址 建议看原文，里面的带类似CodeSandbox的可以编辑查看效果">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/1a4649c7bee0d393f1915ef0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.kffhi.com/blog/2021/03/20/An-Interactive-Guide-to-CSS-Transitions/">
+
+
+
+
+
+  <title><译> An Interactive Guide to CSS Transitions | Kffhi的博客</译></title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kffhi的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.kffhi.com/blog/blog/2021/03/20/An-Interactive-Guide-to-CSS-Transitions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kffhi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kffhi的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><译> An Interactive Guide to CSS Transitions</译></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T22:06:40+08:00">
+                2021-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/前端/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译系列第八篇，An Interactive Guide to CSS Transitions，<a href="https://www.joshwcomeau.com/animation/css-transitions/" target="_blank" rel="noopener">原文地址</a></p>
+<p>建议看原文，里面的带类似CodeSandbox的可以编辑查看效果</p>
+<a id="more"></a>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>我们创建动画所需要的主要元素是一些会变化的CSS，这是一个按钮在鼠标悬停时移动的例子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span></span><br><span class="line">  Hello World</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .btn &#123;</span></span><br><span class="line"><span class="undefined">    width: 100px;</span></span><br><span class="line"><span class="undefined">    height: 100px;</span></span><br><span class="line"><span class="undefined">    border-radius: 50%;</span></span><br><span class="line"><span class="undefined">    border: none;</span></span><br><span class="line"><span class="undefined">    background: slateblue;</span></span><br><span class="line"><span class="undefined">    color: white;</span></span><br><span class="line"><span class="undefined">    font-size: 20px;</span></span><br><span class="line"><span class="undefined">    font-weight: 500;</span></span><br><span class="line"><span class="undefined">    line-height: 1;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="undefined">  .btn:hover &#123;</span></span><br><span class="line"><span class="undefined">    transform: translateY(-10px);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这段代码使用<code>:hover</code>伪类来指定当用户的鼠标停留在按钮上时的附加CSS声明，类似于JavaScript中的<code>onMouseEnter</code>事件</p>
+<p>为了向上移动元素，我们使用<code>transform: translateY(-10px)</code>。虽然我们可以使用<code>margin-top</code>来完成这项工作，但<code>transform: translate</code>是一个更好的工具，我们稍后会看到原因</p>
+<p>这种情况下，CSS的变化是即时发生的。眨眼之间按钮已经传送到一个新的位置！这与自然世界是不协调的，在自然世界里，事情是逐渐发生的</p>
+<p>我们可以使用恰当命名的<code>transition</code>属性指示浏览器从一个状态插入到另一个状态</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span></span><br><span class="line">  Hello World</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .btn &#123;</span></span><br><span class="line"><span class="undefined">  	width: 100px;</span></span><br><span class="line"><span class="undefined">  	height: 100px;</span></span><br><span class="line"><span class="undefined">  	border-radius: 50%;</span></span><br><span class="line"><span class="undefined">  	border: none;</span></span><br><span class="line"><span class="undefined">  	background: slateblue;</span></span><br><span class="line"><span class="undefined">  	color: white;</span></span><br><span class="line"><span class="undefined">  	font-size: 20px;</span></span><br><span class="line"><span class="undefined">  	font-weight: 500;</span></span><br><span class="line"><span class="undefined">  	line-height: 1;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">    </span></span><br><span class="line"><span class="undefined">  .btn &#123;</span></span><br><span class="line"><span class="undefined">    transition: transform 250ms;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="undefined">  .btn:hover &#123;</span></span><br><span class="line"><span class="undefined">    transform: translateY(-10px);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>transition</code>有许多值，但是只有两个值是必须的：</p>
+<ul>
+<li>动画名称</li>
+<li>动画时间</li>
+</ul>
+<p>如果希望可以给多个属性增加动画，可以传递一个逗号分隔的列表</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">250ms</span>, opacity <span class="number">400ms</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.btn</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.2);</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Selecting all properties</strong></p>
+<p><code>transition-property</code>有一个特殊值<code>all</code>，使用这个时任何CSS的改变都会被增加过渡（be transitioned），看起来很棒但是<strong>非常不建议使用！</strong></p>
+<h3 id="计时函数"><a href="#计时函数" class="headerlink" title="计时函数"></a>计时函数</h3><p>当我们告诉一个元素从一个位置转换到另一个位置时，浏览器需要计算出每个“中间”帧应该是什么样子</p>
+<p>例如:假设我们将一个元素从左向右移动，持续时间为1秒。一个流畅的动画应该以60帧/秒的速度运行，这意味着我们需要在开始和结束之间设置60个独立的位置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/1a4649c7bee0d393f1915ef0.png" alt></p>
+<p>为了弄清楚这里发生了什么:每个褪色的圆圈代表一个时间的时刻。当圆圈从左向右移动时，这些就是显示给用户的帧。这就像一本手翻书(flipbook)</p>
+<p>在这个动画中，我们使用了一个线性计时函数。这意味着元素以恒定的速度移动;我们的圆圈每帧的移动量是相同的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/9b1549888222933271daa456.png" alt></p>
+<p>在CSS中有几个计时函数可供我们使用。我们可以通过<code>transition-timing-function</code>属性指定我们想要使用哪一个</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">250ms</span>;</span><br><span class="line">  <span class="attribute">transition-timing-function</span>: linear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者，我们可以直接将它传递给<code>transition</code>简写属性</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">250ms</span> linear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>线性模式并不是最佳选择，毕竟现实世界中几乎没有任何东西会以这种方式运行。好的动画是模仿自然世界的，所以我们应该选择一些更有机的东西</p>
+<h4 id="ease-out"><a href="#ease-out" class="headerlink" title="ease-out"></a>ease-out</h4><p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/c4b64c0096a212cc0c136e4a.png" alt></p>
+<p>如果我们要画出元素随时间的位移，它看起来像这样</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/eb194e5d863924cd545db721.png" alt></p>
+<p>它最常用于从屏幕外进入的东西（例如：出现弹窗)。它会产生一种效果，就好像有什么东西从很远的地方突然出现在用户面前</p>
+<h4 id="ease-in"><a href="#ease-in" class="headerlink" title="ease-in"></a>ease-in</h4><p><img src="https://cdn.jsdelivr.net/gh/Kffhi/image-host@main/img/0de941e795b841f2c33064c1.png" alt></p>
+<p>（后面扩展到了使用贝塞尔函数，略）</p>
+<h3 id="动画表演"><a href="#动画表演" class="headerlink" title="动画表演"></a>动画表演</h3><p>前面我们提到过动画应该以60帧每秒的速度运行。当我们进行计算时，我们意识到这意味着浏览器只有16.6毫秒的时间来绘制每一帧。然而大部分时候并不是这样的，作为参考，我们眨眼大约需要100ms-300ms</p>
+<p>如果我们的动画在计算上过于昂贵，它就会显得笨拙而断断续续。帧将会下降，因为设备无法跟上</p>
+<p>在实践中，糟糕的性能通常会以可变帧率的形式出现</p>
+<p>动画表现是一个令人惊讶的深度和有趣的领域，远远超出了这个入门教程的范围。但让我们来讨论一下绝对关键的、需要知道的部分</p>
+<ul>
+<li>一些CSS属性在动画上比其他属性要昂贵得多。例如，<code>height</code>是一个非常昂贵的属性，因为它影响布局。当一个元素的高度缩小时，它会引起连锁反应;它的所有兄弟元素也需要向上移动，以填充空间</li>
+<li>其他属性(如<code>background-color</code>)的动画成本比较高。它们不会影响布局，但确实需要在每一帧上重新涂上一层颜色，这并不便宜</li>
+<li><code>transform</code>和<code>opacity</code>这两个属性对动画来说非常便宜。如果一个动画当前调整了一个属性，如<code>width</code>或<code>left</code>，可以通过使用<code>transform</code>来大大改善性能(尽管它不总是可能达到完全相同的效果)</li>
+<li>确保在低性能设备上也能达到相同的效果，你开发的机器可能会很多！</li>
+</ul>
+<h3 id="硬件加速"><a href="#硬件加速" class="headerlink" title="硬件加速"></a>硬件加速</h3><p>根据你的浏览器和操作系统的不同，您可能会注意到前面的一些示例中有一个奇怪的小缺陷</p>
+<p><img src="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Ftexture-issue.gif&amp;w=256&amp;q=75" alt>*</p>
+<p>请密切注意这些字母。注意它们是如何在转换开始和结束时出现小故障的，就好像所有的东西都锁定在合适的位置上</p>
+<p>这是因为计算机的CPU和GPU之间的切换。让我解释一下</p>
+<p>当我们使用<code>transform</code>和<code>opacity</code>让一个元素动画时，浏览器有时会尝试优化这个动画。与栅格化每帧像素不同，它将所有内容作为纹理传输给GPU。GPU非常擅长做这些基于纹理的转换，因此，我们得到了一个非常流畅、非常性能的动画。这就是所谓的硬件加速。</p>
+<p>这里有个问题：GPU和CPU的渲染稍有不同。当CPU把它交给GPU时(反之亦然)，你会看到一些东西在轻微地移动</p>
+<p>我们可以通过添加以下CSS属性来解决这个问题</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">will-change</span>: transform;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>will-change</code>是一个属性，它允许我们提示浏览器我们将对所选元素进行动画化，并且它应该针对这种情况进行优化</p>
+<p>实际上，这意味着浏览器会让GPU一直处理这个元素。没有更多的CPU和GPU之间的移交，没有更多的<em>snapping into place</em></p>
+<p><code>will-change</code>让我们有意识地决定哪些元素应该被硬件加速。浏览器在这方面有自己不可思议的逻辑，我不想让它取决于运气</p>
+<p>硬件加速还有另一个好处:我们可以利用亚像素渲染(<em>sub-pixel rendering</em>)</p>
+<p>看看下面这两个动画。一个是使用<code>margin-top</code>完成的，所以它不能被硬件加速。请注意两者之间的区别</p>
+<p>(例子，看原文)</p>
+<p>像<code>margin-top</code>这样的属性不能进行亚像素渲染，这意味着它们需要四舍五入到最接近的像素，创建一个阶梯状的效果。同时，由于GPU的抗锯齿技巧，<code>transform</code>可以平滑地在像素之间切换。</p>
+<p><strong>注意：</strong> <strong>不要滥用GPU加速</strong>，因为这相当于把渲染的任务整个交给了GPU，在低端设备上可能会出问题（然后作者在下一段表示他在Xiaomi Redmi 7A上的测试看起来just fine）</p>
+<p><strong>可替代属性</strong></p>
+<p>事实上，硬件加速已经存在了很长一段时间，比<code>will-change</code>还要长</p>
+<p>很长一段时间，它是通过使用3D转换完成的，如<code>transform: translateZ(0px)</code>。即使有一个0px值，浏览器仍然把它交给GPU，因为移动到3D空间绝对是GPU的强项。还有<code>backface-visibility: hidden</code></p>
+<p>当<code>will-change</code>出现时，它的目的是给开发人员提供一种适当的、语义上有意义的方式来提示浏览器某个元素应该被优化。然而，在早期，<code>will-change</code>有一些问题</p>
+<p>令人高兴的是，似乎所有这些问题都已得到解决。我做了一些测试，发现使用<code>will-change</code>在现代浏览器中获得了最好的结果。但你应该始终自己进行测试，以确保这些技术能够在您的目标设备和浏览器上工作</p>
+<h3 id="UX相关"><a href="#UX相关" class="headerlink" title="UX相关"></a>UX相关</h3><p>这一部分内容比较多大概就翻译一下</p>
+<h4 id="行为驱动动态（Action-driven-motion）"><a href="#行为驱动动态（Action-driven-motion）" class="headerlink" title="行为驱动动态（Action-driven motion）"></a>行为驱动动态（Action-driven motion）</h4><p>（以快速进入和缓慢离开的模态框举例）</p>
+<p>我（作者）相信大多数开发人员是根据状态来思考的:例如，你可能会看到这种情况，并说我们有一个悬停状态和一个默认状态。相反，如果我们从行动的角度思考呢?我们根据用户正在做的事情来制作动画，根据事件而不是状态来思考。我们有一个鼠标进入动画和一个鼠标离开动画</p>
+<p>这篇博文<a href="https://tobiasahlin.com/blog/meaningful-motion-w-action-driven-animation/" target="_blank" rel="noopener">Meaningfun Motion with Action-Driven Animation</a>.中展示了这个想法如何创造出更高层次的语义意义动画</p>
+<h4 id="延时"><a href="#延时" class="headerlink" title="延时"></a>延时</h4><p><img src="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Fdropdown.gif&amp;w=384&amp;q=75" alt></p>
+<p>作者提供了一种使用CSS实现延时的方案</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.dropdown</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">400ms</span>;</span><br><span class="line">  <span class="attribute">transition-delay</span>: <span class="number">300ms</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.dropdown-wrapper</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.dropdown</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">100ms</span>;</span><br><span class="line">  <span class="attribute">transition-delay</span>: <span class="number">0ms</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个属性可以被简写成<code>transition: opacity 250ms 300ms;</code>，第一个是duration，第二个将delay，但是，作者表示这种模糊规范还不如用明确的声明写法（支持）</p>
+<h4 id="毁灭性闪烁"><a href="#毁灭性闪烁" class="headerlink" title="毁灭性闪烁"></a>毁灭性闪烁</h4><p><img src="https://www.joshwcomeau.com/_next/image?url=%2Fimages%2Fcss-transitions%2Fflicker.gif&amp;w=256&amp;q=75" alt></p>
+<p>当鼠标靠近元素边界时，就会出现问题。悬停效果将元素从鼠标下方取出，这将导致它回落到鼠标下方，这将导致悬停效果每秒再次触发多次</p>
+<p>我们怎么解这个呢?诀窍是把触发和效果分开。这里有一个简单的例子</p>
+<p>基础CSS</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border</span>: none;</span><br><span class="line">  <span class="attribute">background</span>: transparent;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.background</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">background</span>: slateblue;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">500</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"background"</span>&gt;</span></span><br><span class="line">    Hello World</span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.background</span> &#123;</span></span><br><span class="line"><span class="undefined">    will-change: transform;</span></span><br><span class="line"><span class="undefined">    transition: transform 450ms;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="css">  <span class="selector-class">.btn</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.background</span> &#123;</span></span><br><span class="line"><span class="undefined">    transition: transform 150ms;</span></span><br><span class="line"><span class="undefined">    transform: translateY(-10px);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  </span></span><br><span class="line"><span class="css">  <span class="comment">/* Toggle me on for a clue! */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.btn</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="comment">/* outline: auto; */</span></span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="尊重偏好"><a href="#尊重偏好" class="headerlink" title="尊重偏好"></a>尊重偏好</h3><p>作者提供了一种禁用动画的方式，因为可能有人不需要动画之类的，可以使用这种方式使得可以进行切换</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> (prefers-reduced-motion: reduce) &#123;</span><br><span class="line">  <span class="selector-class">.btn</span> &#123;</span><br><span class="line">    <span class="attribute">transition</span>: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/blog/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/blog/tags/动画/" rel="tag"># 动画</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/15/Introduction-to-Event-Loop-Utilization-in-Node/" rel="next" title="<译> Introduction to Event Loop Utilization in Node.js">
+                <i class="fa fa-chevron-left"></i> <译> Introduction to Event Loop Utilization in Node.js
+              </译></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kffhi</p>
+              <p class="site-description motion-element" itemprop="description">Kffhi的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计时函数"><span class="nav-number">2.</span> <span class="nav-text">计时函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ease-out"><span class="nav-number">2.1.</span> <span class="nav-text">ease-out</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ease-in"><span class="nav-number">2.2.</span> <span class="nav-text">ease-in</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画表演"><span class="nav-number">3.</span> <span class="nav-text">动画表演</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件加速"><span class="nav-number">4.</span> <span class="nav-text">硬件加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UX相关"><span class="nav-number">5.</span> <span class="nav-text">UX相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行为驱动动态（Action-driven-motion）"><span class="nav-number">5.1.</span> <span class="nav-text">行为驱动动态（Action-driven motion）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延时"><span class="nav-number">5.2.</span> <span class="nav-text">延时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#毁灭性闪烁"><span class="nav-number">5.3.</span> <span class="nav-text">毁灭性闪烁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尊重偏好"><span class="nav-number">6.</span> <span class="nav-text">尊重偏好</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kffhi</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
